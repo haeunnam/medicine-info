@@ -1,0 +1,6 @@
+### Hadoop ### 
+build/
+*.jar
+
+### Mac Os ###
+.DS_Store
