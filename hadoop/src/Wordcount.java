@@ -85,7 +85,8 @@ public class Wordcount {
 		job.setOutputValueClass(IntWritable.class);
 
 		// set number of reduces
-		job.setNumReduceTasks(2);
+		// Test - Number of clusters : 50
+		job.setNumReduceTasks(50);
 
 		// set input and output directories
 		FileInputFormat.addInputPath(job,new Path(otherArgs[0]));
