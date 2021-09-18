@@ -10,11 +10,13 @@ import com.medicine.service.JwtService;
 import com.medicine.service.UserService;
 import com.medicine.response.ResponseStatus;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
     private final UserService userService;
     private final JwtService jwtService;
@@ -27,7 +29,7 @@ public class UserController {
     // Body
     @PostMapping("/signup")
     public Response<SignUpOutput> signUp(@RequestBody SignUpInput signUpInput) {
-        System.out.println("[POST] /user/signup");
+        log.info("[POST] /users/signup");
         return userService.signUp(signUpInput);
     }
 
@@ -39,13 +41,13 @@ public class UserController {
     // Body
     @PostMapping("/signin")
     public Response<SignInOutput> signIn(@RequestBody SignInInput signInInput) {
-        System.out.println("[POST] /user/signin");
+        log.info("[POST] /users/signin");
         return userService.signIn(signInInput);
     }
 
     @PostMapping("/jwt")
     public Response<JwtOutput> jwt() {
-        System.out.println("[POST] /user/jwt");
+        log.info("[POST] /users/jwt");
         int userId = jwtService.getUserId();
         if (userId == -1) return new Response<>(ResponseStatus.UNAUTHORIZED_TOKEN);
         if (userId == -2) return new Response<>(ResponseStatus.BAD_ACCESS_TOKEN_VALUE);
