@@ -1,12 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+import AppRouter from "./AppRouter";
+import { Provider } from "react-redux";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
+import { createStore, applyMiddleware } from "redux";
+import ReduxThunk from "redux-thunk";
+import rootReducer from "./modules";
+
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+const persistor = persistStore(store);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <AppRouter />
+    </PersistGate>
+  </Provider>,
   document.getElementById("root")
 );
 
