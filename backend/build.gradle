@@ -35,6 +35,9 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
+    // validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
     // DB
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.3.0.RELEASE'
     compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.6.0'

@@ -1,6 +1,5 @@
 package com.medicine.serviceImpl;
 
-import com.medicine.configuration.ValidationCheck;
 import com.medicine.dto.user.signin.SignInInput;
 import com.medicine.dto.user.signup.SignUpInput;
 import com.medicine.entity.UserDB;
@@ -28,8 +27,6 @@ public class UserServiceImpl implements UserService {
     public Response<SignInOutput> signIn(SignInInput signInInput) {
         // 1. 값 형식 체크
         if (signInInput == null) return new Response<>(ResponseStatus.NO_VALUES);
-        if (!ValidationCheck.isValid(signInInput.getEmail()))    return new Response<>(ResponseStatus.BAD_EMAIL_VALUE);
-        if (!ValidationCheck.isValid(signInInput.getPassword())) return new Response<>(ResponseStatus.BAD_PASSWORD_VALUE);
 
         // 2. user 정보 가져오기
         UserDB userDB;
@@ -68,15 +65,11 @@ public class UserServiceImpl implements UserService {
     public Response<SignUpOutput> signUp(SignUpInput signUpInput) {
         // 1. 값 형식 체크
         if (signUpInput == null) return new Response<>(ResponseStatus.NO_VALUES);
-        if (!ValidationCheck.isValid(signUpInput.getEmail()))    return new Response<>(ResponseStatus.BAD_EMAIL_VALUE);
-        if (!ValidationCheck.isValid(signUpInput.getPassword())) return new Response<>(ResponseStatus.BAD_PASSWORD_VALUE);
-        if (!ValidationCheck.isValid(signUpInput.getNickname()))     return new Response<>(ResponseStatus.BAD_NAME_VALUE);
 
         // 2. 유저 생성
         UserDB userDB = UserDB.builder()
                 .email(signUpInput.getEmail())
                 .password(signUpInput.getPassword())
-                .nickname(signUpInput.getNickname())
                 .build();
 
         try {
