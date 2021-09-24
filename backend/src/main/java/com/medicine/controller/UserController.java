@@ -42,7 +42,7 @@ public class UserController {
      */
     // Body
     @PostMapping("/signin")
-    public Response<SignInOutput> signIn(@RequestBody SignInInput signInInput) {
+    public Response<SignInOutput> signIn(@RequestBody @Valid SignInInput signInInput) {
         log.info("[POST] /users/signin");
         return userService.signIn(signInInput);
     }

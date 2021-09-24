@@ -37,9 +37,6 @@ public enum  ResponseStatus {
     EXISTS_EMAIL(400, 404, "이미 존재하는 이메일입니다."),
     NO_VALUES(400, 410, "입력되지 않은 값이 존재합니다."),
     BAD_ACCESS_TOKEN_VALUE(400, 411, "accessToken을 입력해주세요."),
-    BAD_EMAIL_VALUE(400, 412, "올바른 이메일을 입력해주세요."),
-    BAD_PASSWORD_VALUE(400, 413, "올바른 비밀번호를 입력해주세요."),
-    BAD_NAME_VALUE(400, 414, "올바른 이름을 입력해주세요."),
 
     // 401 Unauthorized - 클라이언트가 권한이 없기 때문에 작업을 진행할 수 없는 경우
     UNAUTHORIZED(401, 400, "권한이 없습니다."),
