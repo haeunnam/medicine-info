@@ -21,13 +21,27 @@
 
 ### 3. Tech Stack
 
-- BE : SpringBoot/ Spring Data/ JPA
+- BE : SpringBoot / Spring Data JPA
 - FE: React.js
 - DB: MySQL
 
+<hr>
 
+### :rocket: Git convention
+- 기존의 git flow 방식에서 우리의 프로젝트에 맞게 변경하였다.
+- release를 삭제하고, fix라는 브랜치를 추가하였다.
+1. **main**: 배포되었거나 배포될 소스가 저장되는 브랜치
+2. **develop**: 다음 배포를 위해서 개발을 진행하는 브랜치, 개발 최신 상태를 항상 유지하도록 한다.
+3. **hotfix**: 배포버전(main)에 생긴 문제로 긴급한 troubleshooting이 필요할 때 개발이 진행되는 브랜치
+4. **feat**: 기능 단위 개발이 진행되는 브랜치
+5. **fix**: 기능 개발이 끝난 후, 일어나는 이슈에 대한 처리가 진행되는 브랜치
 
-### Git convention
+- feat와 fix는 기능별로 depth를 타고 내려간다.
+
+- 즉, feature와 fix branch를 만들 때는, <br> 1) **/** 뒤에 백엔드인지 프론트엔드 작업인지 정의한다. <br> 2) 그 다음 depth로 **/** 뒤에 처리하는 기능의 요약을 붙이도록 한다. <br>ex) feat/BE/signup , fix/FE/signup
+
+- feature 와 fix branch에서 개발이 완료되면 parent인 develop branch로 merge된다.
+
 - ***main branch에는 직접적으로 접근할 수 없다.***
 
 #### 1. Commit Message Format
