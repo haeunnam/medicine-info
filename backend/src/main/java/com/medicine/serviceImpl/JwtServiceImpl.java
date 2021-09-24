@@ -3,7 +3,6 @@ package com.medicine.serviceImpl;
 import com.medicine.configuration.ConstantConfig;
 import com.medicine.service.JwtService;
 import io.jsonwebtoken.*;
-import com.medicine.configuration.ValidationCheck;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -43,7 +42,7 @@ public class JwtServiceImpl implements JwtService {
             if (accessToken == null) return -1;
 
             int userId = claims.getBody().get("userId", Integer.class);
-            if (!ValidationCheck.isValidId(userId)) return -3;
+            if (userId <= 0) return -3;
 
             return userId;
         } catch (Exception exception) {
