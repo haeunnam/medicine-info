@@ -13,55 +13,58 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.mapreduce.lib.input.FileSplit;
+import org.apache.hadoop.fs.FileSystem;
 
-public class Wordcount {
+public class Overlap {
 	/* 
 	Object, Text : input key-value pair type (always same (to get a line of input file))
 	Text, IntWritable : output key-value pair type
 	*/
-	public static class TokenizerMapper
-			extends Mapper<Object,Text,Text,IntWritable> {
+	public static class OverlapMapper
+			extends Mapper<Object,Text,Text,Text> {
+		private Text efficay = new Text();
+		private Text medicine = new Text();
 
-		// variable declairations
-		private final static IntWritable one = new IntWritable(1);
-		private Text word = new Text();
-
-		// map function (Context -> fixed parameter)
+		
+		protected void setup(Context context) throws IOException, InterruptedException {
+			
+		}
 		public void map(Object key, Text value, Context context)
 				throws IOException, InterruptedException {
 
-			// value.toString() : get a line
-			StringTokenizer itr = new StringTokenizer(value.toString());
-			while ( itr.hasMoreTokens() ) {
-				word.set(itr.nextToken());
-
-				// emit a key-value pair
-				context.write(word,one);
-			}
+			String [] arr = value.toString().split(","); //col별로 분할하기 5번이 효능
+            efficay.set(arr[5]);
+            medicine.set(arr[1]);
+            context.write(efficay,medicine);
+            
 		}
 	}
 
-	/*
-	Text, IntWritable : input key type and the value type of input value list
-	Text, IntWritable : output key-value pair type
-	*/
-	public static class IntSumReducer
-			extends Reducer<Text,IntWritable,Text,IntWritable> {
+	public static class OverlapReducer
+			extends Reducer<Text,Text,Text,Text> {
 
 		// variables
-		private IntWritable result = new IntWritable();
+		private Text list = new Text();
 
-		// key : a disticnt word
-		// values :  Iterable type (data list)
-		public void reduce(Text key, Iterable<IntWritable> values, Context context) 
+		public void reduce(Text key, Iterable<Text> values, Context context) 
 				throws IOException, InterruptedException {
 
-			int sum = 0;
-			for ( IntWritable val : values ) {
-				sum += val.get();
+			String s = new String();
+
+			int comma = 0;
+			for (Text val : values) {
+				if (comma == 0){
+					s += val.toString();
+					comma = 1;
+				}
+				else{
+                	s += "," + val.toString();
+				}
 			}
-			result.set(sum);
-			context.write(key,result);
+			list.set(s);
+			context.write(key,list);
 		}
 	}
 
@@ -71,22 +74,25 @@ public class Wordcount {
 		Configuration conf = new Configuration();
 		String[] otherArgs = new GenericOptionsParser(conf,args).getRemainingArgs();
 		if ( otherArgs.length != 2 ) {
-			System.err.println("Usage: <in> <out>");
+			System.err.println("Usage: wordcount <in> <out>");
 			System.exit(2);
 		}
+		FileSystem hdfs = FileSystem.get(conf);
+		Path output = new Path(otherArgs[1]);
+		if (hdfs.exists(output))
+			hdfs.delete(output, true);
 		Job job = new Job(conf,"word count");
-		job.setJarByClass(Wordcount.class);
+		job.setJarByClass(Overlap.class);
 
 		// let hadoop know my map and reduce classes
-		job.setMapperClass(TokenizerMapper.class);
-		job.setReducerClass(IntSumReducer.class);
+		job.setMapperClass(OverlapMapper.class);
+		job.setReducerClass(OverlapReducer.class);
 
 		job.setOutputKeyClass(Text.class);
-		job.setOutputValueClass(IntWritable.class);
+		job.setOutputValueClass(Text.class);
 
 		// set number of reduces
-		// Test - Number of clusters : 50
-		job.setNumReduceTasks(50);
+		job.setNumReduceTasks(2);
 
 		// set input and output directories
 		FileInputFormat.addInputPath(job,new Path(otherArgs[0]));
