@@ -1,8 +1,8 @@
-import Header from "../components/molecules/Header";
-import FooterButton from "../components/molecules/FooterButton";
-import useInput from "../hooks/useInput";
-import SignupTemplate from "../components/templates/SignupTemplate";
-import { request } from "../api";
+import Header from "../../../components/molecules/Header";
+import FooterButton from "../../../components/molecules/FooterButton";
+import useInput from "../../../hooks/useInput";
+import SignupTemplate from "../../../components/templates/SignupTemplate";
+import { request } from "../../../api";
 import { useHistory } from "react-router-dom";
 
 function Signup() {
@@ -33,8 +33,8 @@ function Signup() {
   }
 
   function passwordValidator(value) {
-    if (value.length < 6 || value.length > 18) {
-      return { isValid: false, errorMessage: "6~18글자를 입력해주세요." };
+    if (value.length < 8 || value.length > 18) {
+      return { isValid: false, errorMessage: "8 ~ 18글자를 입력해주세요." };
     } else {
       return { isValid: true, errorMessage: "" };
     }
@@ -47,6 +47,7 @@ function Signup() {
       return { isValid: true, errorMessage: "" };
     }
   }
+
   //api 요청
   async function handleSignUp() {
     const data = {
@@ -56,14 +57,10 @@ function Signup() {
     const response = await request("POST", "/users/signup", data);
     if (response.isSuccess) {
       alert("회원가입이 완료되었습니다.");
-      //임시로 설정
-      history.replace({ pathname: "/" });
+      history.replace({ pathname: "/signin" });
     } else {
       if (response.code === 404) {
         alert("이미 사용중인 이메일입니다.");
-      }
-      if (response.code === 405) {
-        alert("이미 사용중인 닉네임입니다.");
       }
       return;
     }

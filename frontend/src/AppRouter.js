@@ -3,7 +3,7 @@ import { ThemeProvider } from "styled-components";
 import theme from "./styles/theme";
 import Home from "./pages/Home";
 import PageNotFound from "./pages/PageNotFound";
-import Signup from "./pages/Signup";
+import Signup from "./pages/user/Signup/Signup";
 
 function AppRouter() {
   return (
