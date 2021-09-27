@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -28,7 +30,7 @@ public class UserController {
      */
     // Body
     @PostMapping("/signup")
-    public Response<SignUpOutput> signUp(@RequestBody SignUpInput signUpInput) {
+    public Response<SignUpOutput> signUp(@RequestBody @Valid SignUpInput signUpInput) {
         log.info("[POST] /users/signup");
         return userService.signUp(signUpInput);
     }
@@ -40,7 +42,7 @@ public class UserController {
      */
     // Body
     @PostMapping("/signin")
-    public Response<SignInOutput> signIn(@RequestBody SignInInput signInInput) {
+    public Response<SignInOutput> signIn(@RequestBody @Valid SignInInput signInInput) {
         log.info("[POST] /users/signin");
         return userService.signIn(signInInput);
     }
