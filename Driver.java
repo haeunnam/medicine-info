@@ -10,7 +10,7 @@ public class Driver {
 
 			pgd.addClass("wordcount", Wordcount.class, "A map/reduce program that performs word counting.");
 			pgd.addClass("overlap", Overlap.class, "Medicine analysis which has same efficacy");
-
+			pgd.addClass("together", DurTogether.class, "Medicine analysis which doesn't eat together");
       			pgd.driver(args);
 			exitCode = 0;
 		}
