@@ -1,5 +1,5 @@
-const Home = () => {
-  return <div>홈페이지</div>;
-};
+function Home() {
+  return <div>default</div>;
+}
 
 export default Home;
