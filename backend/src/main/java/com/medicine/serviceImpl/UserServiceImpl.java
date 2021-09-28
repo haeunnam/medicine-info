@@ -14,8 +14,6 @@ import com.medicine.response.ResponseStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service("UserService")
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -33,13 +31,11 @@ public class UserServiceImpl implements UserService {
         try {
             String email = signInInput.getEmail();
             String password = signInInput.getPassword();
-            List<UserDB> userDBs = userRepository.findByEmail(email);
-            if (userDBs.size() == 0) {
+            userDB = userRepository.findByEmail(email);
+            if (userDB == null) {
                 return new Response<>(ResponseStatus.NOT_FOUND_USER);
-            } else if (!userDBs.get(0).getPassword().equals(password)) {
+            } else if (!userDB.getPassword().equals(password)) {
                 return new Response<>(ResponseStatus.FAILED_TO_SIGN_IN);
-            } else {
-                userDB = userDBs.get(0);
             }
         } catch (Exception e) {
             return new Response<>(ResponseStatus.DATABASE_ERROR);
@@ -47,7 +43,7 @@ public class UserServiceImpl implements UserService {
 
         // 3. access token 생성
         String accessToken;
-        try{
+        try {
             accessToken = jwtService.createAccessToken(userDB.getId());
             if (accessToken.isEmpty()) {
                 return new Response<>(ResponseStatus.FAILED_TO_CREATE_TOKEN);
@@ -67,17 +63,26 @@ public class UserServiceImpl implements UserService {
         if (signUpInput == null) return new Response<>(ResponseStatus.NO_VALUES);
 
         // 2. 유저 생성
-        UserDB userDB = UserDB.builder()
-                .email(signUpInput.getEmail())
-                .password(signUpInput.getPassword())
-                .build();
-
+        UserDB userDB;
         try {
             String email = signUpInput.getEmail();
-            List<UserDB> existUsers = userRepository.findByEmail(email);
-            if (existUsers.size() > 0) {
+            String nickname = signUpInput.getNickname();
+            UserDB existEmailUser = userRepository.findByEmail(email);
+            UserDB existNicknameUser = userRepository.findByNickname(nickname);
+            if (existEmailUser != null) {
                 return new Response<>(ResponseStatus.EXISTS_EMAIL);
-            } else {
+            }
+            else if(existNicknameUser != null) {
+                return new Response<>(ResponseStatus.EXISTS_NICKNAME);
+            }
+            else {
+                userDB = UserDB.builder()
+                        .email(signUpInput.getEmail())
+                        .password(signUpInput.getPassword())
+                        .nickname(signUpInput.getNickname())
+                        .birth(signUpInput.getBirth())
+                        .gender(signUpInput.getGender())
+                        .build();
                 userRepository.save(userDB);
             }
         } catch (Exception e) {
