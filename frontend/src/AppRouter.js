@@ -4,6 +4,7 @@ import theme from "./styles/theme";
 import Home from "./pages/Home";
 import PageNotFound from "./pages/PageNotFound";
 import Signup from "./pages/user/Signup/Signup";
+import SignIn from "./pages/user/SingIn";
 
 function AppRouter() {
   return (
@@ -12,6 +13,7 @@ function AppRouter() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/signup" component={Signup} />
+          <Route exact path="/signin" component={SignIn} />
           <Route path="*" component={PageNotFound} />
         </Switch>
       </BrowserRouter>
