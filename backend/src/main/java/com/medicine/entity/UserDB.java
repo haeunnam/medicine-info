@@ -27,13 +27,13 @@ public class UserDB {
     @Column(name = "password", nullable = false, length = 45)
     private String password;
 
-    @Column(name = "nickname", length = 45)
+    @Column(name = "nickname", nullable = false, length = 45)
     private String nickname;
 
-    @Column(name = "birth")
+    @Column(name = "birth", nullable = false)
     private Date birth;
 
-    @Column(name = "gender", length = 1)
+    @Column(name = "gender",nullable = false, length = 1)
     private String gender;
 
     @CreationTimestamp
@@ -45,8 +45,11 @@ public class UserDB {
     private Date updated_at;
 
     @Builder
-    public UserDB(String email, String password) {
+    public UserDB(String email, String password, String nickname, Date birth, String gender) {
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
+        this.birth = birth;
+        this.gender = gender;
     }
 }
