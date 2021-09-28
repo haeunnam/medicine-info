@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 const sizes = {
   large: {
-    width: "80%",
+    width: "100%",
     height: "50px",
     font: "18px",
   },
