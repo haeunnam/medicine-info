@@ -1,4 +1,4 @@
-package ssafy;
+package wtm;
 
 import java.io.IOException;
 import java.util.StringTokenizer;
@@ -14,6 +14,14 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
+import org.bson.BasicBSONObject;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.hadoop.MongoInputFormat;
+import com.mongodb.hadoop.MongoOutputFormat;
+import com.mongodb.hadoop.io.BSONWritable;
+import com.mongodb.hadoop.util.MongoConfigUtil;
+import com.mongodb.DBCollection;
 
 public class DurTogether {
 	/* 
@@ -57,7 +65,7 @@ public class DurTogether {
 	Text, IntWritable : output key-value pair type
 	*/
 	public static class TogetherReducer
-			extends Reducer<Text,Text,Text,Text> {
+			extends Reducer<Text,Text,Text,BSONWritable> {
 
 		// variables
 		private Text result = new Text();
@@ -67,13 +75,22 @@ public class DurTogether {
 		public void reduce(Text key, Iterable<Text> values, Context context) 
 				throws IOException, InterruptedException {
 
+			BasicBSONObject output = new BasicBSONObject();
+                        BSONWritable reduceResult = new BSONWritable();
+
 			String s="";
 			
 			for(Text val:values){
 				s=":"+val.toString();
 			}
+			/*
 			result.set(s);
 			context.write(key,result);
+			*/
+
+			output.put("value", s.toString());
+                        reduceResult.setDoc(output);
+                        context.write(key, reduceResult);
 		}
 	}
 
@@ -86,11 +103,19 @@ public class DurTogether {
 			System.err.println("Usage: <in> <out>");
 			System.exit(2);
 		}
+		
+		/*
 		FileSystem hdfs=FileSystem.get(conf);
 		Path output=new Path(otherArgs[1]);
 		if(hdfs.exists(output))
 			hdfs.delete(output, true);
-		Job job = new Job(conf,"Medicine Caution");
+		*/
+
+		MongoConfigUtil.setOutputURI(conf, "mongodb://j5b205.p.ssafy.io:27017/" + otherArgs[1]);
+		DBCollection collection = MongoConfigUtil.getOutputCollection(conf);
+                collection.drop();
+
+		Job job = new Job(conf,"DUR medicine Caution");
 		job.setJarByClass(DurTogether.class);
 
 		// let hadoop know my map and reduce classes
@@ -101,11 +126,13 @@ public class DurTogether {
 		job.setOutputValueClass(Text.class);
 
 		// set number of reduces
-		job.setNumReduceTasks(2);
+		job.setNumReduceTasks(50);
 
 		// set input and output directories
 		FileInputFormat.addInputPath(job,new Path(otherArgs[0]));
-		FileOutputFormat.setOutputPath(job,new Path(otherArgs[1]));
+		// FileOutputFormat.setOutputPath(job,new Path(otherArgs[1]));
+		job.setOutputFormatClass(MongoOutputFormat.class);
+
 		System.exit(job.waitForCompletion(true) ? 0 : 1 );
 	}
 }
