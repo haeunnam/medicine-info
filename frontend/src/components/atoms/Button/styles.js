@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import theme from "../../../styles/theme";
 
 const sizes = {
   large: {
@@ -31,7 +32,7 @@ export const StyledButton = styled.button`
   border: none;
   border-radius: 6px;
   background-color: ${(props) =>
-    props.theme.colors[props.bgColor] || props.theme.colors.green};
+    props.deactivate ? theme.colors.gray : theme.colors.green};
   color: ${(props) => props.theme.colors[props.color] || "#fff"};
   cursor: pointer;
   ${sizeStyles};

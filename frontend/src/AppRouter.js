@@ -3,8 +3,8 @@ import { ThemeProvider } from "styled-components";
 import theme from "./styles/theme";
 import Home from "./pages/Home";
 import PageNotFound from "./pages/PageNotFound";
-import Signup from "./pages/user/Signup/Signup";
-import SignIn from "./pages/user/SingIn";
+import Signup from "./pages/user/Signup";
+import SignIn from "./pages/user/SignIn";
 
 function AppRouter() {
   return (

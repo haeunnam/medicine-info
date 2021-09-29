@@ -2,6 +2,7 @@ import styled from "styled-components";
 import theme from "../../../styles/theme";
 
 export const Button = styled.button`
+  display: block;
   position: fixed;
   bottom: 0;
   width: 100%;
