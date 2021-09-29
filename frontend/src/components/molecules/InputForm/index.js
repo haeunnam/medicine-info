@@ -6,7 +6,7 @@ function InputForm({
   labelName,
   labelId,
   onChange,
-  isValid,
+  isValid = false,
   errorMessage,
   type,
 }) {

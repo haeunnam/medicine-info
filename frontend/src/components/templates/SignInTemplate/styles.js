@@ -3,9 +3,6 @@ import theme from "../../../styles/theme";
 
 export const FormContainer = styled.div`
   width: 100%;
-  .input-box {
-    margin-bottom: 30px;
-  }
 `;
 
 export const Wrapper = styled.div`

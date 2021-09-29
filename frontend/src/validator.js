@@ -15,3 +15,11 @@ export function passwordValidator(value) {
     return { isValid: true, errorMessage: "" };
   }
 }
+
+export function nicknameValidator(value) {
+  if (value.length < 2 || value.length > 10) {
+    return { isValid: false, errorMessage: "2~16글자를 입력해주세요." };
+  } else {
+    return { isValid: true, errorMessage: "" };
+  }
+}
