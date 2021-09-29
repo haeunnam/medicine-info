@@ -1,4 +1,4 @@
-package ssafy;
+package wtm;
 
 import java.io.*;
 import java.util.*;

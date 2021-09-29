@@ -30,6 +30,9 @@
     <fileset dir="${lib.dir}">
       <include name="**/*.jar" />
     </fileset>
+    <fileset dir="/home/j5b205/S05P21B205/hadoop/dependencies/">
+      <include name="**/*.jar" />
+    </fileset>
   </path>
 
   <!-- ====================================================== -->
@@ -62,10 +65,10 @@
   <!-- ================================================================== -->
   <!--                                                                    -->
   <!-- ================================================================== -->
-  <target name="ssafy-works" depends="compile-works">
-    <jar jarfile="${build.dir}/ssafy.jar" basedir="${build.works}">
+  <target name="medicine-works" depends="compile-works">
+    <jar jarfile="${build.dir}/medicine-hadoop.jar" basedir="${build.works}">
       <manifest>
-        <attribute name="Main-Class" value="ssafy/Driver"/>
+        <attribute name="Main-Class" value="wtm/Driver"/>
       </manifest>
     </jar>
   </target>
@@ -75,8 +78,8 @@
   <!-- ================================================================== -->
   <!--                                                                    -->
   <!-- ================================================================== -->
-  <target name="package" depends="ssafy-works">
-    <copy file="${build.dir}/ssafy.jar" todir="${basedir}"/>
+  <target name="package" depends="medicine-works">
+    <copy file="${build.dir}/medicine-hadoop.jar" todir="${basedir}"/>
   </target>
 
 </project>
