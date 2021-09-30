@@ -1,4 +1,4 @@
-package com.medicine.entity;
+package com.medicine.entity.mysql;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

@@ -2,11 +2,11 @@ package com.medicine.serviceImpl;
 
 import com.medicine.dto.user.signin.SignInInput;
 import com.medicine.dto.user.signup.SignUpInput;
-import com.medicine.entity.UserDB;
+import com.medicine.entity.mysql.UserDB;
 import com.medicine.response.Response;
 import com.medicine.service.JwtService;
 import com.medicine.service.UserService;
-import com.medicine.dao.UserRepository;
+import com.medicine.dao.mysql.UserRepository;
 import com.medicine.dto.user.signin.SignInOutput;
 import com.medicine.dto.user.signup.SignUpOutput;
 
