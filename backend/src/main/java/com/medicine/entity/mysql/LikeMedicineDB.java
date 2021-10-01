@@ -14,31 +14,32 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name="like_medicine")
+@Table(name = "like_medicine")
 public class LikeMedicineDB {
     @Id
+    @Column(name = "id", nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="user_id",nullable = false,updatable=false)
+    @Column(name = "user_id", nullable = false, updatable = false)
     private int userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="medicine_id",updatable = false)
+    @JoinColumn(name = "medicine_id", nullable = false, updatable = false)
     private MedicineDB medicine;
 
     @CreationTimestamp
-    @Column(name="created_at",nullable = false,updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Date created_at;
 
     @UpdateTimestamp
-    @Column(name="updated_at",nullable = false)
+    @Column(name = "updated_at")
     private Date updated_at;
 
     @Builder
-    public LikeMedicineDB(int user_id,MedicineDB medicineId){
-        this.userId=user_id;
-        this.medicine=medicineId;
+    public LikeMedicineDB(int userId, MedicineDB medicineId) {
+        this.userId = userId;
+        this.medicine = medicineId;
     }
 
 

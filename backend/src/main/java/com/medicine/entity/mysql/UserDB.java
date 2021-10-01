@@ -41,7 +41,7 @@ public class UserDB {
     private Date created_at;
 
     @UpdateTimestamp
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at")
     private Date updated_at;
 
     @Builder

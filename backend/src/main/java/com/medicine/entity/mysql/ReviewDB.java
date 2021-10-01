@@ -23,12 +23,12 @@ public class ReviewDB {
     @GeneratedValue(strategy = IDENTITY)
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private UserDB user;
 
-    @ManyToOne
-    @JoinColumn(name = "medicine_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "medicine_id", nullable = false, updatable = false)
     private MedicineDB medicine;
 
     @Column(name = "score", nullable = false)
@@ -42,6 +42,6 @@ public class ReviewDB {
     private Date created_at;
 
     @UpdateTimestamp
-    @Column(name = "updated_at",nullable=false)
+    @Column(name = "updated_at")
     private Date updated_at;
 }
