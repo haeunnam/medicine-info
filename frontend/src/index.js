@@ -7,9 +7,9 @@ import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import { createStore, applyMiddleware } from "redux";
 import ReduxThunk from "redux-thunk";
-import rootReducer from "./modules";
+import persistedReducer from "./modules";
 
-const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+const store = createStore(persistedReducer, applyMiddleware(ReduxThunk));
 const persistor = persistStore(store);
 
 ReactDOM.render(

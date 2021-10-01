@@ -3,9 +3,12 @@ import { emailValidator, passwordValidator } from "../../../validator";
 import useInput from "../../../hooks/useInput";
 import SignInTemplate from "../../../components/templates/SignInTemplate";
 import { request } from "../../../api";
+import { useDispatch } from "react-redux";
+import { setUserId } from "../../../modules/user";
 
 function SignIn() {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const email = useInput("", emailValidator);
   const password = useInput("", passwordValidator);
@@ -26,6 +29,7 @@ function SignIn() {
         accessToken: response.result.accessToken,
       };
       localStorage.setItem("loginUser", JSON.stringify(loginUser));
+      dispatch(setUserId(loginUser.id));
       history.push({ pathname: "/" });
     } else {
       alert("가입하지 않은 이메일이거나, 잘못된 비밀번호입니다.");
