@@ -1,6 +1,6 @@
-package com.medicine.dao;
+package com.medicine.dao.mysql;
 
-import com.medicine.entity.UserDB;
+import com.medicine.entity.mysql.UserDB;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
