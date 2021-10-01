@@ -1,39 +1,20 @@
 import useInput from "../../../hooks/useInput";
 import UserEditTemplate from "../../../components/templates/UserEditTemplate";
 import { request } from "../../../api";
-// import { useHistory } from "reaㅈㅁct-router-dom";
+// import { useHistory } from "react-router-dom";
+import { useSelector } from 'react-redux'
 import {
   nicknameValidator,
 } from "../../../validator";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function UserEdit() {
   // const history = useHistory();
+  const userObj =  useSelector(state => state.userReducer.userInfo);
+  const nickname = useInput(userObj.nickname, nicknameValidator);
+  const [birthDate, setBirthDate] = useState(userObj.birth);
+  const [gender, setGender] = useState(userObj.gender);
 
-  const nickname = useInput("", nicknameValidator);
-  //local storage에서 가져와야 하나,,?
-  const [birthDate, setBirthDate] = useState();
-  const [gender, setGender] = useState();
-
-  useEffect(() => {
-    async function bringUserInfo() {
-      const response = await request("GET", "/users/profile");
-      if (response.isSuccess) {
-        nickname.value = response.result.nickname;
-        setGender(response.result.gender);
-        setBirthDate(response.result.birthDate);
-        console.log('회원정보가져오기 성공');
-      } 
-      else {
-        //정보 불러올수 없는 경우는 해당 유저가 아닌 경우뿐?
-        // 이렇게 nickname바꿔줘도 보이지가 않는다,, html에 전달되는거같은데?
-        // setBirthDate("0");
-        nickname.value="hi";
-        setGender("M");
-      }
-    }; 
-    bringUserInfo();
-  },[])
   //api 요청
   async function handleUserEdit() {
     if (

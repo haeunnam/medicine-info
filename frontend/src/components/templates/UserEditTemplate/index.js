@@ -27,7 +27,6 @@ function UserEditTemplate({
             onChange={nickname.onChange}
             errorMessage={nickname.errorMessage}
           />
-          <h1>{ nickname.value} 닉네임</h1>
         </div>
         <div className="input-box">
           <Label labelId="birth-date" children="생년월일" />
