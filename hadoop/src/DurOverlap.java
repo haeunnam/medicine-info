@@ -58,16 +58,16 @@ public class DurOverlap {
 			for (Text val : values) {
 				BasicBSONObject obj = new BasicBSONObject();
 				String[] arr = val.toString().split(","); // col별로 분할하기
-				obj.put("id", arr[0].toString()); // 품목일련번호
+				obj.put("number", arr[0].toString()); // 품목일련번호
 				obj.put("name", arr[1].toString()); // 약 이름
 				obj.put("company", arr[2].toString()); // 약 제조사
 				list.add(obj);
 			}
 
 			/*
-	                 * list.set(s); 
-			 * context.write(key,list);
-                         */
+	        * list.set(s); 
+			* context.write(key,list);
+            */
 
 			output.put("value", list);
 			reduceResult.setDoc(output);
