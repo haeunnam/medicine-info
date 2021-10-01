@@ -10,6 +10,7 @@ export const setUserId = (userId) => {
   };
 };
 
+
 export const setUserInfo = (userInfo) => {
   return {
     type: SET_USER_INFO,
@@ -21,7 +22,7 @@ export const setUserInfo = (userInfo) => {
 const initialState = {
   userId: "",
   userInfo:null,
-};
+}
 
 // 리듀서
 export const userReducer = (state = initialState, action) => {
@@ -29,10 +30,10 @@ export const userReducer = (state = initialState, action) => {
     case SET_USER_ID:
       return {
         ...state,
-        userId: action.userId,
+        id: action.userId,
       };
 
-      case SET_USER_INFO:
+    case SET_USER_INFO:
       return {
         ...state,
         userInfo:{

@@ -53,6 +53,10 @@ dependencies {
 
     compile group : 'com.squareup.okhttp3', name : 'mockwebserver', version: '4.7.2'
     compile group: 'commons-codec', name: 'commons-codec', version: '1.14'
+    
+    // Swagger
+	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 }
 
 test {
