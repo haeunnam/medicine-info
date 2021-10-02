@@ -15,9 +15,8 @@ import java.util.Date;
 @Table(name = "ingredient_medicine")
 public class IngredientMedicineDB {
     @Id
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "medicine_id", nullable = false, insertable = false, updatable = false)
-    private MedicineDB medicine;
+    @Column(name = "medicine_id", nullable = false, insertable = false, updatable = false)
+    private String medicine_id;
 
     @Column(name = "ingredient", nullable = false, insertable = false, updatable = false, columnDefinition = "TEXT")
     private String ingredient;
