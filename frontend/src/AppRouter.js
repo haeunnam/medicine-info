@@ -17,7 +17,7 @@ function AppRouter() {
           <Route exact path="/" component={Home} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/signin" component={SignIn} />
-          <Route exact path="/medicines" component={MedicineInfo} />
+          <Route exact path="/medicines/:id" component={MedicineInfo} />
           <Route exact path="/mypage" component={MyPage} />
           <Route exact path="/mypage/edit" component={UserEdit} />
           <Route path="*" component={PageNotFound} />

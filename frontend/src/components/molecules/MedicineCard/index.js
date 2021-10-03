@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react";
 import { CardDescription, Wrapper } from "./styles";
 import CalendarModal from "../CalendarModal";
 
-function MedicineCard({ imgSrc, onCalendarClick, onHeartClick }) {
+function MedicineCard({ medicineInfo, onCalendarClick, onHeartClick }) {
   return (
     <Wrapper>
       <img
@@ -12,10 +12,10 @@ function MedicineCard({ imgSrc, onCalendarClick, onHeartClick }) {
       />
       <CardDescription>
         <div className="medicine-title">
-          <h1 className="medicine-name">타이레놀</h1>
+          <h1 className="medicine-name">{medicineInfo.name}</h1>
           <div className="medicine-kind">
-            <span>해열, 진통, 소염제</span>
-            <span>일동제약</span>
+            <span>{medicineInfo.category}</span>
+            <span>{medicineInfo.company}</span>
           </div>
         </div>
         <div className="icons">

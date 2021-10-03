@@ -37,3 +37,19 @@ export const ReviewsContainer = styled.div`
 export const MedicinesContainer = styled.div`
   padding: 12px 18px 24px;
 `;
+
+export const MedDetailContainer = styled.div`
+  padding: 12px 18px 24px;
+  font-size: ${theme.fontSizes.md};
+  .med-detail {
+    margin-bottom: 20px;
+    .med-detail-title {
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    .med-detail-content {
+      font-size: ${theme.fontSizes.sm};
+      padding: 0 0 0 4px;
+    }
+  }
+`;

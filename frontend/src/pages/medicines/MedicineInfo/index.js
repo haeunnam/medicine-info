@@ -1,10 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MedicineInfoTemplate from "../../../components/templates/MedicineInfoTemplate";
+import { useDispatch, useSelector } from "react-redux";
+import { getMedicineInfo } from "../../../modules/medicine";
 
-function MedicineInfo() {
+function MedicineInfo({ match }) {
   const [activeTab, setActiveTab] = useState(0);
   const [isModalActive, setIsModalActive] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const medicineId = match.params.id;
+  const dispatch = useDispatch();
+  const medicineInfo = useSelector(
+    (state) => state.medicineReducer.medicineObj
+  );
+
+  useEffect(() => {
+    dispatch(getMedicineInfo(medicineId));
+  }, []);
 
   function onTabClick(key) {
     setActiveTab(key);
@@ -49,6 +60,7 @@ function MedicineInfo() {
       setSelectedDate={setSelectedDate}
       onSetStartDateClick={onSetStartDateClick}
       onHeartClick={onHeartClick}
+      medicineInfo={medicineInfo}
     />
   );
 }
