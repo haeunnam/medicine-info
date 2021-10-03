@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import PageNotFound from "./pages/PageNotFound";
 import Signup from "./pages/user/Signup";
 import SignIn from "./pages/user/SignIn";
+import MedicineInfo from "./pages/medicines/MedicineInfo";
 
 function AppRouter() {
   return (
@@ -14,6 +15,7 @@ function AppRouter() {
           <Route exact path="/" component={Home} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/signin" component={SignIn} />
+          <Route exact path="/medicines" component={MedicineInfo} />
           <Route path="*" component={PageNotFound} />
         </Switch>
       </BrowserRouter>
