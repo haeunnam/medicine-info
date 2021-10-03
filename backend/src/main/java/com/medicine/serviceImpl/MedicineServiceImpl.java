@@ -1,13 +1,16 @@
 package com.medicine.serviceImpl;
 
+import com.medicine.dao.mysql.DetailMedicineRepository;
 import com.medicine.dao.mysql.ReviewRepository;
 import com.medicine.dao.mysql.SimilarMedicineRepository;
+import com.medicine.dto.medicine.DetailOutput;
 import com.medicine.dto.medicine.SimilarInput;
 import com.medicine.dto.medicine.SimilarOutput;
 import com.medicine.entity.mysql.MedicineDB;
 import com.medicine.entity.mysql.ReviewDB;
 import com.medicine.entity.mysql.SimilarMedicineDB;
 import com.medicine.response.PageResponse;
+import com.medicine.response.Response;
 import com.medicine.service.JwtService;
 import com.medicine.service.MedicineService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +21,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.xml.soap.Detail;
+
 import static com.medicine.response.ResponseStatus.*;
 
 @Service("MedicineService")
@@ -27,6 +32,7 @@ public class MedicineServiceImpl implements MedicineService {
 
     private final SimilarMedicineRepository similarMedicineRepository;
     private final ReviewRepository reviewRepository;
+    private final DetailMedicineRepository detailMedicineRepository;
     private final JwtService jwtService;
 
     @Override
@@ -68,5 +74,40 @@ public class MedicineServiceImpl implements MedicineService {
         }
         // 4. 결과 return
         return new PageResponse<>(similarOutput, SUCCESS_GET_SIMILAR_MEDICINE_LIST);
+    }
+
+    @Override
+    public Response<DetailOutput> getDetailMedicineInfo(String id) {
+        // 1. 값 형식 체크
+        if(id==null || id.equals(" ")) return new Response<>(NO_VALUES);
+
+        // 2. 약 상세정보 가져오기
+        DetailOutput detailOutput;
+        try {
+            int loginUserId = jwtService.getUserId();
+            if (loginUserId < 0) {
+                log.error("[medicines/similar/get] NOT FOUND LOGIN USER error");
+                return new Response<>(NOT_FOUND_USER);
+            }
+
+            MedicineDB medicineDB=detailMedicineRepository.findById(id);
+            detailOutput = DetailOutput.builder()
+                            .id(medicineDB.getId())
+                            .name(medicineDB.getName())
+                            .image(medicineDB.getImage())
+                            .company(medicineDB.getCompany())
+                            .category(medicineDB.getCategory())
+                            .efficacy(medicineDB.getEfficacy())
+                            .usage(medicineDB.getUsage())
+                            .reaction(medicineDB.getReaction())
+                            .storage((medicineDB.getStorage()))
+                            .build();
+        } catch (Exception e){
+            log.error("[medicines/get] database error",e);
+            return new Response<>(DATABASE_ERROR);
+        }
+
+        return new Response<>(detailOutput,SUCCESS_GET_DETAIL_MEDICINE);
+
     }
 }
