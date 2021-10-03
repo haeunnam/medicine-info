@@ -20,9 +20,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import javax.xml.soap.Detail;
-
 import static com.medicine.response.ResponseStatus.*;
 
 @Service("MedicineService")
