@@ -45,7 +45,7 @@ public class ReviewController {
     }
 
     /**
-     * 리뷰 수정 API
+     * 리뷰 삭제 API
      * [DELETE] /reviews/{id}
      * @return Response<Object>
      */
@@ -55,5 +55,17 @@ public class ReviewController {
     public Response<Object> deleteReview(@PathVariable("id") int id) {
         log.info("[DELETE] /reviews/" + id);
         return reviewService.deleteReview(id);
+    }
+
+    /**
+     * 전체 리뷰 삭제 API
+     * [DELETE] /reviews/all
+     * @return Response<Object>
+     */
+    @DeleteMapping("/all")
+    @ApiOperation(value = "사용자 리뷰 전체 삭제", notes = "사용자가 작성한 리뷰를 모두 삭제한다.")
+    public Response<Object> deleteAllReview() {
+        log.info("[DELETE] /reviews/all");
+        return reviewService.deleteAllReview();
     }
 }

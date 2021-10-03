@@ -59,7 +59,7 @@ public class ReviewServiceImpl implements ReviewService {
             reviewRepository.save(reviewDB);
 
         } catch (Exception e) {
-            log.error("[comments/post] database error", e);
+            log.error("[reviews/post] database error", e);
             return new Response<>(DATABASE_ERROR);
         }
         // 3. 결과 return
@@ -104,7 +104,7 @@ public class ReviewServiceImpl implements ReviewService {
         // 2. 리뷰 정보 삭제
         try {
             int loginUserId = jwtService.getUserId();
-            if (loginUserId < 0) {
+            if (loginUserId <= 0) {
                 log.error("[reviews/delete] NOT FOUND LOGIN USER error");
                 return new Response<>(NOT_FOUND_USER);
             }
@@ -116,10 +116,30 @@ public class ReviewServiceImpl implements ReviewService {
 
             reviewRepository.deleteById(id);
         } catch (Exception e) {
-            log.error("[comments/delete] database error", e);
+            log.error("[reviews/delete] database error", e);
             return new Response<>(DATABASE_ERROR);
         }
         // 3. 결과 return
+        return new Response<>(null, SUCCESS_DELETE_REVIEW);
+    }
+
+    @Override
+    @Transactional
+    public Response<Object> deleteAllReview() {
+        // 1. 리뷰 정보 전체 삭제
+        try {
+            int loginUserId = jwtService.getUserId();
+            if (loginUserId <= 0) {
+                log.error("[reviews/all/delete] NOT FOUND LOGIN USER error");
+                return new Response<>(NOT_FOUND_USER);
+            }
+
+            reviewRepository.deleteByUserId(loginUserId);
+        } catch (Exception e) {
+            log.error("[reviews/all/delete] database error", e);
+            return new Response<>(DATABASE_ERROR);
+        }
+        // 2. 결과 return
         return new Response<>(null, SUCCESS_DELETE_REVIEW);
     }
 }

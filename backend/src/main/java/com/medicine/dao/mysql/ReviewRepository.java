@@ -10,4 +10,5 @@ import java.util.List;
 public interface ReviewRepository extends JpaRepository<ReviewDB, Integer> {
     List<ReviewDB> findByMedicineId(String id);
     boolean existsByMedicineIdAndUserId(String medicineId, int userId);
+    void deleteByUserId(int userId);
 }
