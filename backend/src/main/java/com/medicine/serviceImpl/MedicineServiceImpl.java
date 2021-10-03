@@ -83,7 +83,7 @@ public class MedicineServiceImpl implements MedicineService {
         try {
             int loginUserId = jwtService.getUserId();
             if (loginUserId < 0) {
-                log.error("[medicines/similar/get] NOT FOUND LOGIN USER error");
+                log.error("[medicines/get] NOT FOUND LOGIN USER error");
                 return new Response<>(NOT_FOUND_USER);
             }
 

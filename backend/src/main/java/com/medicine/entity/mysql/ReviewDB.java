@@ -1,5 +1,6 @@
 package com.medicine.entity.mysql;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -44,4 +45,12 @@ public class ReviewDB {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private Date updated_at;
+
+    @Builder
+    public ReviewDB(UserDB user, MedicineDB medicine, int score, String content) {
+        this.user = user;
+        this.medicine = medicine;
+        this.score = score;
+        this.content = content;
+    }
 }

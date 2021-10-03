@@ -22,6 +22,7 @@ public enum  ResponseStatus {
     // 201 Created - 클라이언트의 요청을 서버가 정상적으로 처리했고 새로운 리소스가 생겼다.,
     CREATED(201, 200, "리소스 생성에 성공하였습니다."),
     CREATED_USER(201, 201, "회원가입에 성공하였습니다."),
+    CREATED_REVIEW(201, 205, "리뷰 등록에 성공하였습니다."),
 
     // 202 Accepted - 클라이언트의 요청은 정상적이나, 서버가 아직 요청을 완료하지 못했다. 비동기
     ACCEPTED(202, 200, "요청에 성공하였습니다."),
@@ -39,6 +40,7 @@ public enum  ResponseStatus {
     FAILED_TO_SIGN_IN(400, 403, "로그인에 실패하였습니다."),
     EXISTS_EMAIL(400, 404, "이미 존재하는 이메일입니다."),
     EXISTS_NICKNAME(400, 405, "이미 존재하는 닉네임입니다."),
+    EXISTS_INFO(400, 420, "이미 존재하는 정보입니다."),
     NO_VALUES(400, 410, "입력되지 않은 값이 존재합니다."),
     BAD_ACCESS_TOKEN_VALUE(400, 411, "accessToken을 입력해주세요."),
 
@@ -53,6 +55,7 @@ public enum  ResponseStatus {
     // 404 Not Found - 클라이언트가 요청한 자원이 존재하지 않다.
     NOT_FOUND(404, 400, "NOT FOUND"),
     NOT_FOUND_USER(404, 405, "사용자 정보가 존재하지 않습니다."),
+    NOT_FOUND_MEDICINE(404, 410, "약 정보가 존재하지 않습니다."),
 
     // 405 Method Not Allowed - 클라이언트의 요청이 허용되지 않는 메소드인 경우
     METHOD_NOT_ALLOWED(405, 400, "허용되지 않는 HTTP Method 입니다."),

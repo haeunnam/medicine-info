@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface ReviewRepository extends JpaRepository<ReviewDB, Integer> {
     List<ReviewDB> findByMedicineId(String id);
+    boolean existsByMedicineIdAndUserId(String medicineId, int userId);
 }
