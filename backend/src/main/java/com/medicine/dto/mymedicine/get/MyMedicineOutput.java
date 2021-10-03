@@ -12,8 +12,8 @@ import lombok.Setter;
 @Builder
 public class MyMedicineOutput {
 	private int id;
-    private String medicineid;
+    private String medicineId;
     private String name;
     private String efficacy;
-    private Date datetime;
+    private Date dateTime;
 }
