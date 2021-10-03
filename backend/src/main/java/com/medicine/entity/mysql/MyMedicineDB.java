@@ -1,5 +1,6 @@
 package com.medicine.entity.mysql;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -38,5 +39,10 @@ public class MyMedicineDB {
     @Column(name = "updated_at")
     private Date updated_at;
 
-
+    @Builder
+    public MyMedicineDB(int userId, MedicineDB medicine, Date datetime) {
+        this.userId = userId;
+        this.medicine = medicine;
+        this.datetime = datetime;
+    }
 }
