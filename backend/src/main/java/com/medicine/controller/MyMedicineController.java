@@ -2,6 +2,7 @@ package com.medicine.controller;
 
 import javax.validation.Valid;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,16 +26,18 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class MyMedicineController {
+
 	private final MyMedicineService myMedicineService;
 	
 	/**
-     * 복용약 생성 API
-     * [GET] /my-medicines?page=&size=
+     * 복용약 조회 API
+     * [GET] /my-medicines
      * @return Response<MyMedicineOutput>
      */
-	@GetMapping("")
-	public PageResponse<MyMedicineOutput> getMymedicines(@Valid MyMedicineInput myMedicineInput) {
-		log.info("[GET] /my-medicines/");
+	@GetMapping
+	@ApiOperation(value = "복용약 조회", notes = "유저가 복용하고 있는 약 정보를 조회한다.")
+	public PageResponse<MyMedicineOutput> getMyMedicines(@Valid MyMedicineInput myMedicineInput) {
+		log.info("[GET] /my-medicines");
 		return myMedicineService.getMyMedicineList(myMedicineInput);
 	}
 	
@@ -43,10 +46,11 @@ public class MyMedicineController {
      * [POST] /my-medicines
      * @return Response<CreateOutput>
      */
-	@PostMapping("")
-	public Response<Long> createMymedicines(@RequestBody MyMedicineCreateInput createInput) {
-		log.info("[POST] /my-medicines/");
-		return myMedicineService.createMymedicine(createInput);
+	@PostMapping
+	@ApiOperation(value = "복용약 생성", notes = "유저가 복용하고 있는 약 정보를 생성한다.")
+	public Response<Object> createMyMedicines(@RequestBody MyMedicineCreateInput createInput) {
+		log.info("[POST] /my-medicines");
+		return myMedicineService.createMyMedicine(createInput);
 	}
 	
 	/**
@@ -55,8 +59,9 @@ public class MyMedicineController {
      * @return Response<Integer>
      */
 	@DeleteMapping("/{id}")
-	public Response<Long> deleteMymedicines(@PathVariable("id") String id) {
+	@ApiOperation(value = "복용약 삭제", notes = "유저가 복용하고 있는 약 정보를 삭제한다.")
+	public Response<Object> deleteMyMedicines(@PathVariable("id") String id) {
 		log.info("[DELETE] /my-medicines/" + id);
-		return myMedicineService.deleteMymedicine(id);
+		return myMedicineService.deleteMyMedicine(id);
 	}
 }

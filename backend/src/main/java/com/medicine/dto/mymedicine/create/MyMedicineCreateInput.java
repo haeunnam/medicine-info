@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @Getter
 public class MyMedicineCreateInput {
 	@NotNull
-	private String medicine_id;
+	private String medicineId;
 	
 	@NotNull
     @Past
-	private Date dateime;
+	private Date dateTime;
 }
