@@ -9,7 +9,7 @@ require("react-datepicker/dist/react-datepicker.css");
 registerLocale("ko", ko);
 
 function inputDate({ selectedDate, setSelectedDate }) {
-  const years = range(1990, getYear(new Date()) + 1, 1);
+  const years = range(1950, getYear(new Date()) + 1, 1);
   const months = [
     "1월",
     "2월",

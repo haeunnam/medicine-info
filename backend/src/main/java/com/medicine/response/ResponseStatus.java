@@ -15,7 +15,10 @@ public enum  ResponseStatus {
     // 200 OK - 클라이언트의 요청을 서버가 정상적으로 처리했다.
     SUCCESS(200, 200, "요청에 성공하였습니다."),
     SUCCESS_SIGN_IN(200, 201, "로그인에 성공하였습니다."),
-
+    SUCCESS_GET_SIMILAR_MEDICINE_LIST(200, 210, "유사약 정보를 가져오는데 성공하였습니다."),
+    SUCCESS_GET_DETAIL_MEDICINE(200,211,"약 상세 정보를 가져오는데 성공하였습니다."),
+    SUCCESS_GET_MY_MEDICINE_LIST(200, 212, "복용약 정보를 가져오는데 성공하였습니다."),
+    
     // 201 Created - 클라이언트의 요청을 서버가 정상적으로 처리했고 새로운 리소스가 생겼다.,
     CREATED(201, 200, "리소스 생성에 성공하였습니다."),
     CREATED_USER(201, 201, "회원가입에 성공하였습니다."),
