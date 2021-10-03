@@ -9,11 +9,12 @@ function InputForm({
   isValid = false,
   errorMessage,
   type,
+  value,
 }) {
   return (
     <>
       <Label htmlFor={labelId}>{labelName}</Label>
-      <Input type={type} id={labelId} onChange={onChange} lineInput />
+      <Input type={type} id={labelId} onChange={onChange} value={value} lineInput />
       <ErrorMessage>{isValid ? "" : errorMessage}</ErrorMessage>
     </>
   );

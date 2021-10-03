@@ -22,11 +22,11 @@ import java.util.Map;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = "com.medicine.dao",
+        basePackages = "com.medicine.dao.mysql",
         transactionManagerRef = "mysqlDB_transactionManager",
         entityManagerFactoryRef = "mysqlDB_entityManagerFactory"
 )
-public class DBConfig {
+public class MySQLConfig {
     @Primary
     @Bean(name = "mysql_dataSource")
     @ConfigurationProperties(prefix = "spring.datasource.hikari")
@@ -45,7 +45,7 @@ public class DBConfig {
         map.put("hibernate.ejb.naming_strategy", "org.hibernate.cfg.ImprovedNamingStrategy");
         map.put("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
         return builder.dataSource(dataSource)
-                .packages("com.medicine.entity")
+                .packages("com.medicine.entity.mysql")
                 .properties(map)
                 .build();
     }
