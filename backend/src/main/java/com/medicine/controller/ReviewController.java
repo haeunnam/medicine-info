@@ -33,14 +33,27 @@ public class ReviewController {
 
     /**
      * 리뷰 수정 API
-     * [PATCH] /reviews
+     * [PATCH] /reviews/{id}
      * @return Response<Object>
      */
-    // Body
+    // Path-Variable, Body
     @PatchMapping("/{id}")
     @ApiOperation(value = "리뷰 수정", notes = "약에 대한 사용자 리뷰를 수정한다.")
     public Response<Object> updateReview(@PathVariable("id") int id, @RequestBody @Valid ReviewUpdateInput reviewUpdateInput) {
         log.info("[PATCH] /reviews/" + id);
         return reviewService.updateReview(id, reviewUpdateInput);
+    }
+
+    /**
+     * 리뷰 수정 API
+     * [DELETE] /reviews/{id}
+     * @return Response<Object>
+     */
+    // Path-Variable
+    @DeleteMapping("/{id}")
+    @ApiOperation(value = "리뷰 삭제", notes = "약에 대한 사용자 리뷰를 삭제한다.")
+    public Response<Object> deleteReview(@PathVariable("id") int id) {
+        log.info("[DELETE] /reviews/" + id);
+        return reviewService.deleteReview(id);
     }
 }

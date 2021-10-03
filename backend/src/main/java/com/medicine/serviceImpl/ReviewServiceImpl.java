@@ -31,7 +31,6 @@ public class ReviewServiceImpl implements ReviewService {
     public Response<Object> createReview(ReviewCreateInput reviewCreateInput) {
         // 1. 값 형식 체크
         if (reviewCreateInput == null) return new Response<>(NO_VALUES);
-
         // 2. 리뷰 정보 생성
         ReviewDB reviewDB;
         try {
@@ -40,7 +39,7 @@ public class ReviewServiceImpl implements ReviewService {
                 log.error("[reviews/post] NOT FOUND LOGIN USER error");
                 return new Response<>(NOT_FOUND_USER);
             }
-            MedicineDB medicineDB = medicineRepository.findById(reviewCreateInput.getId());
+            MedicineDB medicineDB = medicineRepository.findById(reviewCreateInput.getMedicineId());
             if (medicineDB == null) {
                 log.error("[reviews/post] NOT FOUND MEDICINE error");
                 return new Response<>(NOT_FOUND_MEDICINE);
@@ -72,7 +71,6 @@ public class ReviewServiceImpl implements ReviewService {
     public Response<Object> updateReview(int id, ReviewUpdateInput reviewUpdateInput) {
         // 1. 값 형식 체크
         if (reviewUpdateInput == null) return new Response<>(NO_VALUES);
-
         // 2. 리뷰 정보 수정
         ReviewDB reviewDB;
         try {
@@ -96,5 +94,32 @@ public class ReviewServiceImpl implements ReviewService {
         }
         // 3. 결과 return
         return new Response<>(null, SUCCESS_UPDATE_REVIEW);
+    }
+
+    @Override
+    @Transactional
+    public Response<Object> deleteReview(int id) {
+        // 1. 값 형식 체크
+        if (id <= 0) return new Response<>(BAD_REQUEST);
+        // 2. 리뷰 정보 삭제
+        try {
+            int loginUserId = jwtService.getUserId();
+            if (loginUserId < 0) {
+                log.error("[reviews/delete] NOT FOUND LOGIN USER error");
+                return new Response<>(NOT_FOUND_USER);
+            }
+            ReviewDB reviewDB = reviewRepository.findById(id).orElse(null);
+            if (reviewDB == null || reviewDB.getUser().getId() != loginUserId) {
+                log.error("[reviews/delete] NOT FOUND COMMENT error");
+                return new Response<>(NOT_FOUND_REVIEW);
+            }
+
+            reviewRepository.deleteById(id);
+        } catch (Exception e) {
+            log.error("[comments/delete] database error", e);
+            return new Response<>(DATABASE_ERROR);
+        }
+        // 3. 결과 return
+        return new Response<>(null, SUCCESS_DELETE_REVIEW);
     }
 }

@@ -7,4 +7,5 @@ import com.medicine.response.Response;
 public interface ReviewService {
     Response<Object> createReview(ReviewCreateInput reviewCreateInput);
     Response<Object> updateReview(int id, ReviewUpdateInput reviewUpdateInput);
+    Response<Object> deleteReview(int id);
 }

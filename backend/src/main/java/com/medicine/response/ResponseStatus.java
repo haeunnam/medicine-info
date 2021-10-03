@@ -32,6 +32,7 @@ public enum  ResponseStatus {
     NO_CONTENT(204, 200, "요청에 성공하였습니다."),
     SUCCESS_DELETE_MY_MEDICINE(204, 205, "복용중인 약 삭제에 성공하였습니다."),
     SUCCESS_UPDATE_REVIEW(204, 210, "리뷰 수정에 성공하였습니다."),
+    SUCCESS_DELETE_REVIEW(204, 215, "리뷰 삭제에 성공하였습니다."),
 
     /*
      4XX Client errors

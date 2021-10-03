@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 public class ReviewCreateInput {
     @NotBlank
-    String id;
+    String medicineId;
 
     @Min(value = 1)
     @Max(value = 5)
