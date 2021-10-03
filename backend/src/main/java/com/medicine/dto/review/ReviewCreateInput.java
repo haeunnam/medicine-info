@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 
 @NoArgsConstructor
 @Getter
-public class ReviewInput {
+public class ReviewCreateInput {
     @NotBlank
     String id;
 

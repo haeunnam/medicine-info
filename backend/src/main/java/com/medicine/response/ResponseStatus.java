@@ -31,6 +31,7 @@ public enum  ResponseStatus {
     // 204 No Content - 클라이언트의 요청은 정상적이다. 하지만 컨텐츠를 제공하지 않는다.
     NO_CONTENT(204, 200, "요청에 성공하였습니다."),
     SUCCESS_DELETE_MY_MEDICINE(204, 205, "복용중인 약 삭제에 성공하였습니다."),
+    SUCCESS_UPDATE_REVIEW(204, 210, "리뷰 수정에 성공하였습니다."),
 
     /*
      4XX Client errors
@@ -58,6 +59,7 @@ public enum  ResponseStatus {
     NOT_FOUND(404, 400, "NOT FOUND"),
     NOT_FOUND_USER(404, 405, "사용자 정보가 존재하지 않습니다."),
     NOT_FOUND_MEDICINE(404, 410, "약 정보가 존재하지 않습니다."),
+    NOT_FOUND_REVIEW(404, 415, "리뷰 정보가 존재하지 않습니다."),
 
     // 405 Method Not Allowed - 클라이언트의 요청이 허용되지 않는 메소드인 경우
     METHOD_NOT_ALLOWED(405, 400, "허용되지 않는 HTTP Method 입니다."),

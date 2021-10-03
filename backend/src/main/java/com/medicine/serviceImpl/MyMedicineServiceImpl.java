@@ -20,6 +20,8 @@ import com.medicine.service.MyMedicineService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
+
 import static com.medicine.response.ResponseStatus.*;
 
 import java.util.List;
@@ -68,6 +70,7 @@ public class MyMedicineServiceImpl implements MyMedicineService{
 	}
 
 	@Override
+    @Transactional
 	public Response<Object> createMyMedicine(MyMedicineCreateInput myMedicineCreateInput) {
 		MyMedicineDB myMedicineDB;
 		try {
@@ -102,6 +105,7 @@ public class MyMedicineServiceImpl implements MyMedicineService{
 	}
 
 	@Override
+    @Transactional
 	public Response<Object> deleteMyMedicine(String id) {
 		try {
             int loginUserId = jwtService.getUserId();
