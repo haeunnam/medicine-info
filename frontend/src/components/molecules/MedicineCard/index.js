@@ -1,12 +1,17 @@
 import { Icon } from "@iconify/react";
 import { CardDescription, Wrapper } from "./styles";
-import CalendarModal from "../CalendarModal";
 
 function MedicineCard({ medicineInfo, onCalendarClick, onHeartClick }) {
   return (
+    // src={require("../../../assets/images/no-image.jpg").default}
+
     <Wrapper>
       <img
-        src={require("../../../assets/images/no-image.jpg").default}
+        src={
+          medicineInfo.image
+            ? medicineInfo.image
+            : "https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif"
+        }
         alt=""
         className="medicine-img"
       />
