@@ -13,6 +13,6 @@ import com.medicine.entity.mysql.MyMedicineDB;
 public interface MyMedicineRepository extends JpaRepository<MyMedicineDB, Integer> {
 	Page<MyMedicineDB> findByUserId(int userid, Pageable paging);
 
-	List<MyMedicineDB> findByMedicineId(String medicine_id);
+	List<MyMedicineDB> findByMedicineId(String medicineId);
 
 }

@@ -25,8 +25,9 @@ public class MedicineController {
      * [GET] /medicines/similar/{id}
      * @return Response<SimilarOutput>
      */
-    // Body
+    // Params
     @GetMapping("/similar/{id}")
+    @ApiOperation(value = "유사약 조회", notes = "해당 약과 유사한 약 정보를 조회한다.")
     public PageResponse<SimilarOutput> signUp(@PathVariable("id") String id, @Valid SimilarInput similarInput) {
         log.info("[GET] /medicines/similar/" + id);
         return medicineService.getSimilarMedicineInfo(id, similarInput);
@@ -37,7 +38,7 @@ public class MedicineController {
      * [GET] /medicines/{id}
      * @return Response<DetailOutput>
      */
-
+    // Params
     @GetMapping("/{id}")
     @ApiOperation(value = "약 상세정보 조회", notes = "약의 상세정보를 조회한다.")
     public Response<DetailOutput> getDetailMedicineInfo(@PathVariable("id") String id){

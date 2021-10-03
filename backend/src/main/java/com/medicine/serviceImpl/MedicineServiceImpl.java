@@ -99,6 +99,7 @@ public class MedicineServiceImpl implements MedicineService {
                             .reaction(medicineDB.getReaction())
                             .storage((medicineDB.getStorage()))
                             .build();
+
         } catch (Exception e){
             log.error("[medicines/get] database error",e);
             return new Response<>(DATABASE_ERROR);
