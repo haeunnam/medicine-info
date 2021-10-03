@@ -10,7 +10,8 @@ import lombok.Setter;
 @Setter
 @Builder
 public class GetLikeMedicineOutput {
-    String id;
+    int id;
+    String medicineId;
     String name;
     String company;
     String category;

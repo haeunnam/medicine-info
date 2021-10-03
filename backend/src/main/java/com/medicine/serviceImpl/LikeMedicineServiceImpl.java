@@ -6,7 +6,6 @@ import com.medicine.dao.mysql.ReviewRepository;
 import com.medicine.dto.likemedicine.create.CreateLikeMedicineInput;
 import com.medicine.dto.likemedicine.get.GetLikeMedicineInput;
 import com.medicine.dto.likemedicine.get.GetLikeMedicineOutput;
-import com.medicine.dto.medicine.SimilarOutput;
 import com.medicine.entity.mysql.*;
 import com.medicine.response.PageResponse;
 import com.medicine.response.Response;
@@ -24,7 +23,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static com.medicine.response.ResponseStatus.*;
-import static com.medicine.response.ResponseStatus.SUCCESS_GET_SIMILAR_MEDICINE_LIST;
 
 @Service("LikeMedicineService")
 @RequiredArgsConstructor
@@ -111,7 +109,8 @@ public class LikeMedicineServiceImpl implements LikeMedicineService {
                 reviewAvgScore = Math.round(reviewAvgScore * 10) / 10.0; // 소수점 1자리까지 보내도록 가공
 
                 return  GetLikeMedicineOutput.builder()
-                        .id(detailInfoDB.getId())
+                        .id(likeMedicineDB.getId())
+                        .medicineId(detailInfoDB.getId())
                         .name(detailInfoDB.getName())
                         .company(detailInfoDB.getCompany())
                         .category(detailInfoDB.getCategory())
