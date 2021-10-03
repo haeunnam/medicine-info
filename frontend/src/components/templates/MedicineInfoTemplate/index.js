@@ -4,7 +4,8 @@ import CalenderModal from "../../molecules/CalendarModal";
 import TabMenu from "../../molecules/TabMenu";
 import ReviewItem from "../../molecules/ReviewItem";
 import { Icon } from "@iconify/react";
-import { ReviewsContainer } from "./styles";
+import { ReviewsContainer, MedicinesContainer } from "./styles";
+import MedicineItem from "../../molecules/MedicineItem";
 
 function MedicineInfoTemplate({
   onTabClick,
@@ -35,7 +36,11 @@ function MedicineInfoTemplate({
       </ReviewsContainer>
     );
   } else {
-    tabContent = <div>유사약</div>;
+    tabContent = (
+      <MedicinesContainer>
+        <MedicineItem />
+      </MedicinesContainer>
+    );
   }
   return (
     <>

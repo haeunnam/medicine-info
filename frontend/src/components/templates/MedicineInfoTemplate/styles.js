@@ -33,3 +33,7 @@ export const ReviewsContainer = styled.div`
     }
   }
 `;
+
+export const MedicinesContainer = styled.div`
+  padding: 12px 18px 24px;
+`;
