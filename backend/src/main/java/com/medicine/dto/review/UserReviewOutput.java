@@ -1,19 +1,24 @@
-package com.medicine.dto.medicine;
+package com.medicine.dto.review;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Builder
-public class SimilarOutput {
-    private String id;
+public class UserReviewOutput {
+    private int reviewId;
+    private String medicineId;
     private String name;
-    private String image;
     private String company;
     private String category;
-    private double score;
+    private int score;
+    private String content;
+    private Date createdAt;
+    private Date updatedAt;
 }

@@ -41,7 +41,7 @@ public class MedicineServiceImpl implements MedicineService {
         Page<SimilarOutput> similarOutput;
         try {
             int loginUserId = jwtService.getUserId();
-            if(loginUserId < 0) {
+            if(loginUserId <= 0) {
                 log.error("[medicines/similar/get] NOT FOUND LOGIN USER error");
                 return new PageResponse<>(NOT_FOUND_USER);
             }
@@ -52,6 +52,7 @@ public class MedicineServiceImpl implements MedicineService {
             // 3. 유사약 리스트에 필요한 최종 결과 가공
             similarOutput = similarMedicineDBList.map(similarMedicineDB -> {
                 MedicineDB detailInfoDB = similarMedicineDB.getSimilarMedicine();
+
                 double reviewAvgScore = reviewRepository.findByMedicineId(detailInfoDB.getId()).stream()
                         .mapToDouble(ReviewDB::getScore).average().orElse(Double.NaN);
                 reviewAvgScore = Math.round(reviewAvgScore * 10) / 10.0; // 소수점 1자리까지 보내도록 가공
@@ -82,10 +83,14 @@ public class MedicineServiceImpl implements MedicineService {
         DetailOutput detailOutput;
         try {
             int loginUserId = jwtService.getUserId();
-            if (loginUserId < 0) {
-                log.error("[medicines/similar/get] NOT FOUND LOGIN USER error");
+            if (loginUserId <= 0) {
+                log.error("[medicines/get] NOT FOUND LOGIN USER error");
                 return new Response<>(NOT_FOUND_USER);
             }
+
+            double reviewAvgScore = reviewRepository.findByMedicineId(id).stream()
+                    .mapToDouble(ReviewDB::getScore).average().orElse(Double.NaN);
+            reviewAvgScore = Math.round(reviewAvgScore * 10) / 10.0; // 소수점 1자리까지 보내도록 가공
 
             MedicineDB medicineDB=detailMedicineRepository.findById(id);
             detailOutput = DetailOutput.builder()
@@ -98,7 +103,9 @@ public class MedicineServiceImpl implements MedicineService {
                             .usage(medicineDB.getUsage())
                             .reaction(medicineDB.getReaction())
                             .storage((medicineDB.getStorage()))
+                            .avgScore(reviewAvgScore)
                             .build();
+
         } catch (Exception e){
             log.error("[medicines/get] database error",e);
             return new Response<>(DATABASE_ERROR);

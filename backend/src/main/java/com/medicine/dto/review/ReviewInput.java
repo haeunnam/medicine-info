@@ -1,4 +1,4 @@
-package com.medicine.dto.medicine;
+package com.medicine.dto.review;
 
 import lombok.Data;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import javax.validation.constraints.PositiveOrZero;
 @Data
 @NoArgsConstructor
 @Getter
-public class SimilarInput {
+public class ReviewInput {
     @PositiveOrZero
     private int page;
 
