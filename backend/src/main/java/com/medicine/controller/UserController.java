@@ -2,6 +2,7 @@ package com.medicine.controller;
 
 import com.medicine.dto.user.jwt.JwtOutput;
 import com.medicine.dto.user.profile.ProfileOutput;
+import com.medicine.dto.user.profile.update.ProfileUpdate;
 import com.medicine.dto.user.signin.SignInInput;
 import com.medicine.dto.user.signin.SignInOutput;
 import com.medicine.dto.user.signup.SignUpOutput;
@@ -74,5 +75,18 @@ public class UserController {
     public Response<ProfileOutput> getProfile() {
         log.info("[POST] /users/signin");
         return userService.getProfile();
+    }
+    
+    /**
+     * profile 조회 API
+     * [POST] /users/profile
+     * @return Response<ProfileOutput>
+     */
+    // Body
+    @PatchMapping("/")
+    @ApiOperation(value = "회원정보 수정", notes = "로그인된 회원 정보를 수정한다.")
+    public Response<Object> updateProfile(ProfileUpdate profileUpdate) {
+        log.info("[PATCH] /users/");
+        return userService.updateProfile(profileUpdate);
     }
 }
