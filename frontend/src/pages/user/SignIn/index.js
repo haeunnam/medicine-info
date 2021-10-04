@@ -5,6 +5,7 @@ import SignInTemplate from "../../../components/templates/SignInTemplate";
 import { request } from "../../../api";
 import { useDispatch } from "react-redux";
 import { setUserId } from "../../../modules/user";
+import { useEffect } from "react";
 
 function SignIn() {
   const history = useHistory();
