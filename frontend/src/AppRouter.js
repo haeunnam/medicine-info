@@ -8,6 +8,7 @@ import SignIn from "./pages/user/SignIn";
 import UserEdit from "./pages/user/UserEdit";
 import MyPage from "./pages/user/MyPage";
 import DurPage from './pages/DurPage';
+import MyMedi from "./pages/user/MyMedi";
 function AppRouter() {
   return (
     <ThemeProvider theme={theme}>
@@ -19,6 +20,7 @@ function AppRouter() {
           <Route exact path="/mypage" component={MyPage} />
           <Route exact path="/mypage/edit" component={UserEdit} />
           <Route exact path="/dur" component={DurPage} />
+          <Route exact path="/mymedi" component={MyMedi} />
           <Route path="*" component={PageNotFound} />
         </Switch>
       </BrowserRouter>

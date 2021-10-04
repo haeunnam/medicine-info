@@ -24,7 +24,7 @@ function FooterNav({ isActive = 0 }) {
             <span>복용주의</span>
           </IconBox>
         </Link>
-        <Link to="/">
+        <Link to="/mymedi">
           <IconBox>
             <Icon
               icon="healthicons:health-data-security"

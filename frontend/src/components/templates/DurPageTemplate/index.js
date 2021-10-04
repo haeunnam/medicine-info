@@ -33,7 +33,7 @@ function DurPageTemplate({
           <SelectedList medicines={medicines} onDelete={onDelete} cols={cols} />
         </div>
         <Button children="확인하기" size="medium" onClick={requestDur} className="check-button" />
-        <div>
+        <div className="result-box">
           <MenuLabel children="결과조회" />
           <ResultList Durs={Durs.durs} Durtype="범용금기" onShow={onShow} />
           <ResultList Durs={Durs.preg} Durtype="임부금기"/>

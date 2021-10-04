@@ -8,6 +8,7 @@ export const DurContainer = styled.div`
   padding: 0 45px;
 
 
+
   .search-box{
     margin:10px 0;
   }
@@ -21,6 +22,11 @@ export const DurContainer = styled.div`
 
   .check-button{
     margin:20px auto;
+  }
+
+  .result-box{
+    margin:0 0 60px 0;
+    padding: 0 0 30px 0;
   }
 `;
 
