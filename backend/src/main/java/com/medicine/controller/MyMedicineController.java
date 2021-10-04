@@ -34,6 +34,7 @@ public class MyMedicineController {
      * [GET] /my-medicines
      * @return Response<MyMedicineOutput>
      */
+	// Params
 	@GetMapping
 	@ApiOperation(value = "복용약 조회", notes = "유저가 복용하고 있는 약 정보를 조회한다.")
 	public PageResponse<MyMedicineOutput> getMyMedicines(@Valid MyMedicineInput myMedicineInput) {
@@ -44,8 +45,9 @@ public class MyMedicineController {
 	/**
      * 복용약 생성 API
      * [POST] /my-medicines
-     * @return Response<CreateOutput>
+     * @return Response<Object>
      */
+	// Body
 	@PostMapping
 	@ApiOperation(value = "복용약 생성", notes = "유저가 복용하고 있는 약 정보를 생성한다.")
 	public Response<Object> createMyMedicines(@RequestBody MyMedicineCreateInput createInput) {
@@ -54,13 +56,14 @@ public class MyMedicineController {
 	}
 	
 	/**
-     * 복용약 생성 API
+     * 복용약 삭제 API
      * [DELETE] /my-medicines
-     * @return Response<Integer>
+     * @return Response<Object>
      */
+	// Path-Variable
 	@DeleteMapping("/{id}")
 	@ApiOperation(value = "복용약 삭제", notes = "유저가 복용하고 있는 약 정보를 삭제한다.")
-	public Response<Object> deleteMyMedicines(@PathVariable("id") String id) {
+	public Response<Object> deleteMyMedicines(@PathVariable("id") int id) {
 		log.info("[DELETE] /my-medicines/" + id);
 		return myMedicineService.deleteMyMedicine(id);
 	}

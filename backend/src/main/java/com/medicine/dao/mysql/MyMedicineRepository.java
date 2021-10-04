@@ -1,7 +1,5 @@
 package com.medicine.dao.mysql;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +10,5 @@ import com.medicine.entity.mysql.MyMedicineDB;
 @Repository
 public interface MyMedicineRepository extends JpaRepository<MyMedicineDB, Integer> {
 	Page<MyMedicineDB> findByUserId(int userid, Pageable paging);
-
-	List<MyMedicineDB> findByMedicineId(String medicineId);
-
+    boolean existsByMedicineIdAndUserId(String medicineId, int userId);
 }

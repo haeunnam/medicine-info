@@ -19,11 +19,15 @@ public enum  ResponseStatus {
     SUCCESS_GET_DETAIL_MEDICINE(200,211,"약 상세 정보를 가져오는데 성공하였습니다."),
     SUCCESS_GET_MY_MEDICINE_LIST(200, 212, "복용약 정보를 가져오는데 성공하였습니다."),
     SUCCESS_GET_LIKE_MEDICINE_LIST(200,213,"약바구니 정보를 가져오는데 성공하였습니다."),
+    SUCCESS_GET_MEDICINE_REVIEW_LIST(200, 220, "약 리뷰 정보를 가져오는데 성공하였습니다."),
+    SUCCESS_GET_USER_REVIEW_LIST(200, 225, "사용자 리뷰 정보를 가져오는데 성공하였습니다."),
 
     // 201 Created - 클라이언트의 요청을 서버가 정상적으로 처리했고 새로운 리소스가 생겼다.,
     CREATED(201, 200, "리소스 생성에 성공하였습니다."),
     CREATED_USER(201, 201, "회원가입에 성공하였습니다."),
+    CREATED_REVIEW(201, 205, "리뷰 등록에 성공하였습니다."),
     CREATED_MY_MEDICINE(201, 210, "복용중인 약 등록에 성공하였습니다."),
+    CREATED_LIKE_MEDICINE(201, 215, "관심 있는 약 등록에 성공하였습니다."),
 
     // 202 Accepted - 클라이언트의 요청은 정상적이나, 서버가 아직 요청을 완료하지 못했다. 비동기
     ACCEPTED(202, 200, "요청에 성공하였습니다."),
@@ -31,6 +35,9 @@ public enum  ResponseStatus {
     // 204 No Content - 클라이언트의 요청은 정상적이다. 하지만 컨텐츠를 제공하지 않는다.
     NO_CONTENT(204, 200, "요청에 성공하였습니다."),
     SUCCESS_DELETE_MY_MEDICINE(204, 205, "복용중인 약 삭제에 성공하였습니다."),
+    SUCCESS_UPDATE_REVIEW(204, 210, "리뷰 수정에 성공하였습니다."),
+    SUCCESS_DELETE_REVIEW(204, 215, "리뷰 삭제에 성공하였습니다."),
+    SUCCESS_DELETE_LIKE_MEDICINE(204, 220, "관심 있는 약 삭제에 성공하였습니다."),
 
     /*
      4XX Client errors
@@ -58,6 +65,7 @@ public enum  ResponseStatus {
     NOT_FOUND(404, 400, "NOT FOUND"),
     NOT_FOUND_USER(404, 405, "사용자 정보가 존재하지 않습니다."),
     NOT_FOUND_MEDICINE(404, 410, "약 정보가 존재하지 않습니다."),
+    NOT_FOUND_REVIEW(404, 415, "리뷰 정보가 존재하지 않습니다."),
 
     // 405 Method Not Allowed - 클라이언트의 요청이 허용되지 않는 메소드인 경우
     METHOD_NOT_ALLOWED(405, 400, "허용되지 않는 HTTP Method 입니다."),

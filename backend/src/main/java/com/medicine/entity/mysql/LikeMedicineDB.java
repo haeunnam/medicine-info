@@ -37,9 +37,9 @@ public class LikeMedicineDB {
     private Date updated_at;
 
     @Builder
-    public LikeMedicineDB(int userId, MedicineDB medicineId) {
+    public LikeMedicineDB(int userId, MedicineDB medicine) {
         this.userId = userId;
-        this.medicine = medicineId;
+        this.medicine = medicine;
     }
 
 

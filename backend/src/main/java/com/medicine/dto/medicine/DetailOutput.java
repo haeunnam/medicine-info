@@ -10,13 +10,14 @@ import lombok.NoArgsConstructor;
 @Getter
 @Builder
 public class DetailOutput {
-    String id;
-    String name;
-    String image;
-    String company;
-    String category;
-    String efficacy;
-    String usage;
-    String reaction;
-    String storage;
+    private String id;
+    private String name;
+    private String image;
+    private String company;
+    private String category;
+    private String efficacy;
+    private String usage;
+    private String reaction;
+    private String storage;
+    private double avgScore;
 }

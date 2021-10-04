@@ -1,7 +1,9 @@
 package com.medicine.entity.mysql;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -14,7 +16,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @DynamicInsert
 @NoArgsConstructor
-@Getter
+@Getter @Setter
 @Entity
 @Table(name = "review")
 public class ReviewDB {
@@ -44,4 +46,12 @@ public class ReviewDB {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private Date updated_at;
+
+    @Builder
+    public ReviewDB(UserDB user, MedicineDB medicine, int score, String content) {
+        this.user = user;
+        this.medicine = medicine;
+        this.score = score;
+        this.content = content;
+    }
 }

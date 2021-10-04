@@ -18,6 +18,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @Slf4j
 public class LikeMedicineController {
+
     private final LikeMedicineService likeMedicineService;
 
     /**
@@ -25,7 +26,8 @@ public class LikeMedicineController {
      * [POST] /like-medicines
      * @return Response<Object>
      */
-    @PostMapping()
+    // Body
+    @PostMapping
     @ApiOperation(value="약바구니 생성",notes="유저가 관심있는 약을 약바구니에 추가한다.")
     public Response<Object> createLikeMedicine(@RequestBody @Valid CreateLikeMedicineInput createLikeMedicineInput){
         log.info("[POST] /like-medicines");
@@ -37,6 +39,7 @@ public class LikeMedicineController {
      * [DELETE] /like-medicines/{id}
      * @return Response<Object>
      */
+    // Path-Variable
     @DeleteMapping("/{id}")
     @ApiOperation(value="약바구니 삭제",notes="유저가 약바구니에서 선택한 약을 삭제한다.")
     public Response<Object> deleteLikeMedicine(@PathVariable("id") int id){
@@ -46,10 +49,11 @@ public class LikeMedicineController {
 
     /**
      * 약바구니 조회 API
-     * [GET] /like-medicines?page=&size=
+     * [GET] /like-medicines
      * @return PageResponse<GetLikeMedicineOutput>
      */
-    @GetMapping()
+    // Params
+    @GetMapping
     @ApiOperation(value="약바구니 조회",notes="유저의 약바구니 정보를 조회한다.")
     public PageResponse<GetLikeMedicineOutput> getLikeMedicine(@Valid GetLikeMedicineInput getLikeMedicineInput){
         log.info("[GET] /like-medicines");

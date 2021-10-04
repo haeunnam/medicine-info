@@ -9,5 +9,5 @@ import com.medicine.response.Response;
 public interface MyMedicineService {
 	PageResponse<MyMedicineOutput> getMyMedicineList(MyMedicineInput myMedicineInput);
 	Response<Object> createMyMedicine(MyMedicineCreateInput createInput);
-	Response<Object> deleteMyMedicine(String id);
+	Response<Object> deleteMyMedicine(int id);
 }

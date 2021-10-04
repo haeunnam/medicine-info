@@ -9,7 +9,6 @@ import com.medicine.dto.likemedicine.get.GetLikeMedicineOutput;
 import com.medicine.entity.mysql.*;
 import com.medicine.response.PageResponse;
 import com.medicine.response.Response;
-import com.medicine.response.ResponseStatus;
 import com.medicine.service.JwtService;
 import com.medicine.service.LikeMedicineService;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.medicine.response.ResponseStatus.*;
 
@@ -35,65 +33,71 @@ public class LikeMedicineServiceImpl implements LikeMedicineService {
     private final JwtService jwtService;
 
     @Override
+    @Transactional
     public Response<Object> createLikeMedicine(CreateLikeMedicineInput createLikeMedicineInput) {
         // 1. 값 형식 체크
-        if(createLikeMedicineInput==null) return new Response<>(NO_VALUES);
-
+        if (createLikeMedicineInput == null) return new Response<>(NO_VALUES);
         // 2. 약바구니에 약 추가
         LikeMedicineDB likeMedicineDB;
         try {
             int loginUserId = jwtService.getUserId();
-            if(loginUserId < 0) {
+            if (loginUserId <= 0) {
                 log.error("[like-medicines/post] NOT FOUND LOGIN USER error");
                 return new Response<>(NOT_FOUND_USER);
             }
-            List<LikeMedicineDB> likeMedicineDBList = likeMedicineRepository.findByMedicineId(createLikeMedicineInput.getMedicineId());
-            if(likeMedicineDBList.size() > 0) {
-                return new Response<>(ResponseStatus.BAD_REQUEST);
+            MedicineDB medicineDB = medicineRepository.findById(createLikeMedicineInput.getMedicineId());
+            if(medicineDB == null) {
+                log.error("[like-medicines/post] NOT FOUND MEDICINE INFO error");
+                return new Response<>(NOT_FOUND_MEDICINE);
             }
+            if (likeMedicineRepository.existsByMedicineIdAndUserId(createLikeMedicineInput.getMedicineId(), loginUserId)) {
+                log.error("[like-medicines/post] DUPLICATE LIKE MEDICINE INFO error");
+                return new Response<>(EXISTS_INFO);
+            }
+
             likeMedicineDB = LikeMedicineDB.builder()
                     .userId(loginUserId)
-                    .medicineId(medicineRepository.findById(createLikeMedicineInput.getMedicineId()))
+                    .medicine(medicineDB)
                     .build();
             likeMedicineRepository.save(likeMedicineDB);
-            return new Response<>(null, ResponseStatus.SUCCESS);
         } catch (Exception e) {
             log.error("[like-medicines/post] database error", e);
             return new Response<>(DATABASE_ERROR);
         }
+        // 3. 결과 return
+        return new Response<>(null, CREATED_LIKE_MEDICINE);
     }
 
     @Override
+    @Transactional
     public Response<Object> deleteLikeMedicine(int id) {
         // 1. 값 형식 체크
-        if(id<=0) return new Response<>(BAD_REQUEST);
-
+        if (id <= 0) return new Response<>(BAD_REQUEST);
         // 2. 약바구니에서 선택한 약 삭제
         try {
             int loginUserId = jwtService.getUserId();
-            if(loginUserId < 0) {
+            if (loginUserId <= 0) {
                 log.error("[like-medicines/delete] NOT FOUND LOGIN USER error");
                 return new Response<>(NOT_FOUND_USER);
             }
             likeMedicineRepository.deleteById(id);
-            return new Response<>(null,ResponseStatus.SUCCESS);
-
         } catch (Exception e) {
             log.error("[like-medicines/delete] database error", e);
             return new Response<>(DATABASE_ERROR);
         }
+        // 3. 결과 return
+        return new Response<>(null, SUCCESS_DELETE_LIKE_MEDICINE);
     }
 
     @Override
     public PageResponse<GetLikeMedicineOutput> getLikeMedicine(GetLikeMedicineInput getLikeMedicineInput) {
         // 1. 값 형식 체크
-        if(getLikeMedicineInput == null)  return new PageResponse<>(NO_VALUES);
-
+        if (getLikeMedicineInput == null) return new PageResponse<>(NO_VALUES);
         // 2. 약바구니 정보 가져오기
         Page<GetLikeMedicineOutput> likeMedicineOutput;
         try {
             int loginUserId = jwtService.getUserId();
-            if(loginUserId < 0) {
+            if (loginUserId <= 0) {
                 log.error("[like-medicines/get] NOT FOUND LOGIN USER error");
                 return new PageResponse<>(NOT_FOUND_USER);
             }
@@ -108,7 +112,7 @@ public class LikeMedicineServiceImpl implements LikeMedicineService {
                         .mapToDouble(ReviewDB::getScore).average().orElse(Double.NaN);
                 reviewAvgScore = Math.round(reviewAvgScore * 10) / 10.0; // 소수점 1자리까지 보내도록 가공
 
-                return  GetLikeMedicineOutput.builder()
+                return GetLikeMedicineOutput.builder()
                         .id(likeMedicineDB.getId())
                         .medicineId(detailInfoDB.getId())
                         .name(detailInfoDB.getName())

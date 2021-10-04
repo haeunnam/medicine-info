@@ -6,10 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface LikeMedicineRepository extends JpaRepository<LikeMedicineDB,Integer> {
-    List<LikeMedicineDB> findByMedicineId(String id);
     Page<LikeMedicineDB> findByUserId(int userid,Pageable pageable);
+    boolean existsByMedicineIdAndUserId(String medicineId, int userId);
 }
