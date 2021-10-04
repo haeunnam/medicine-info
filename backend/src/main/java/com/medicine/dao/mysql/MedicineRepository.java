@@ -9,4 +9,5 @@ import com.medicine.entity.mysql.MedicineDB;
 public interface MedicineRepository extends JpaRepository<MedicineDB,Integer> {
 	MedicineDB findById(String id);
 	Page<MedicineDB> findByNameContaining(String name, Pageable paging);
+	Page<MedicineDB> findByCategory(String category, Pageable paging);
 }

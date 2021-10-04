@@ -10,7 +10,7 @@ import javax.validation.constraints.PositiveOrZero;
 @Data
 @NoArgsConstructor
 @Getter
-public class MedicineSearchByNameInput {
+public class MedicineSearchByCategoryInput {
     @PositiveOrZero
     private int page;
 

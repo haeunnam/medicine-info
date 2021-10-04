@@ -5,6 +5,7 @@ import com.medicine.response.PageResponse;
 import com.medicine.response.Response;
 import com.medicine.service.MedicineService;
 import io.swagger.annotations.ApiOperation;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -46,13 +47,25 @@ public class MedicineController {
 
     /**
      * 약 이름별 조회 API
-     * [GET} /medicines?name
+     * [GET] /medicines/names?name
      * @return Response<MedicineOutput>
      */
-    @GetMapping
+    @GetMapping("/names")
     @ApiOperation(value="약 이름별 조회", notes = "약 이름에 검색한 내용이 포함될 경우 약 정보를 조회한다.")
-    public PageResponse<MedicineOutput> getMedicineInfoByName(@RequestParam String name, @Valid MedicineSearchByNameInput medicineSearchByNameInput){
-        log.info("[GET] /medicines?"+name);
+    public PageResponse<MedicineOutput> getMedicineInfoByName(@RequestParam("name") String name, @Valid MedicineSearchByNameInput medicineSearchByNameInput){
+        log.info("[GET] /medicines/names?"+name);
         return medicineService.getMedicineInfoByName(name,medicineSearchByNameInput);
+    }
+
+    /**
+     * 약 카테고리별 조회 API
+     * [GET] /medicines/categorys?category
+     * @return Response<MedicineOutput>
+     */
+    @GetMapping("/category")
+    @ApiOperation(value="약 카테고리별 조회",notes="카테고리별로 약 정보를 조회한다.")
+    public PageResponse<MedicineOutput> getMedicineInfoByCategory(@RequestParam String category, @Valid MedicineSearchByCategoryInput medicineSearchByCategoryInput){
+        log.info("[GET] /medicines/categorys?"+category);
+        return medicineService.getMedicineInfoByCategory(category,medicineSearchByCategoryInput);
     }
 }
