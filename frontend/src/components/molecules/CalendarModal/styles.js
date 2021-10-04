@@ -35,7 +35,7 @@ export const Wrapper = styled.div`
         .title {
           font-size: ${theme.fontSizes.xl};
           font-weight: 500;
-          margin-bottom: 12px;
+          margin-bottom: 20px;
         }
         .calendar {
           margin-bottom: 15px;

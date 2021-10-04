@@ -3,32 +3,39 @@ import InputDate from "../../atoms/InputDate";
 import { Wrapper } from "./styles";
 
 const CalenderModal = ({
-  isModalActive,
   onModalOutsideClick,
   selectedDate,
   setSelectedDate,
-  onSetStartDateClick,
+  handleMyMedicine,
+  isMyMedicine,
 }) => {
   return (
     <Wrapper>
-      {isModalActive ? (
-        <div className="modal-overlay" onClick={onModalOutsideClick}>
-          <div className="modal-window">
-            <header>
-              <h1 className="title">복용 시작일 설정</h1>
-            </header>
-            <div className="calendar">
-              <InputDate
-                selectedDate={selectedDate}
-                setSelectedDate={setSelectedDate}
-              />
-            </div>
-            <footer className="footer-btn">
-              <Button children="설정 완료" onClick={onSetStartDateClick} />
-            </footer>
-          </div>
+      <div className="modal-overlay" onClick={onModalOutsideClick}>
+        <div className="modal-window">
+          {!isMyMedicine ? (
+            <>
+              <header>
+                <h1 className="title">복용 시작일 설정</h1>
+              </header>
+              <div className="calendar">
+                <InputDate
+                  selectedDate={selectedDate}
+                  setSelectedDate={setSelectedDate}
+                />
+              </div>
+              <footer className="footer-btn">
+                <Button children="설정 완료" onClick={handleMyMedicine} />
+              </footer>
+            </>
+          ) : (
+            <>
+              <h1 className="title">복용을 그만두시겠습니까?</h1>
+              <Button children="확인" size="small" onClick={handleMyMedicine} />
+            </>
+          )}
         </div>
-      ) : null}
+      </div>
     </Wrapper>
   );
 };

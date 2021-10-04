@@ -24,13 +24,32 @@ function MedicineCard({ medicineInfo, onCalendarClick, onHeartClick }) {
           </div>
         </div>
         <div className="icons">
-          {/* 상태에 따라 표시 다르게 하기 + 삭제 function 추가 */}
-          <Icon
-            icon="bi:calendar-plus"
-            className="icon"
-            onClick={onCalendarClick}
-          />
-          <Icon icon="bi:suit-heart" className="icon" onClick={onHeartClick} />
+          {medicineInfo.myMedicine ? (
+            <Icon
+              icon="bi:calendar-minus"
+              className="icon"
+              onClick={onCalendarClick}
+            />
+          ) : (
+            <Icon
+              icon="bi:calendar-plus"
+              className="icon"
+              onClick={onCalendarClick}
+            />
+          )}
+          {medicineInfo.likeMedicine ? (
+            <Icon
+              icon="bi:suit-heart-fill"
+              className="icon"
+              onClick={onHeartClick}
+            />
+          ) : (
+            <Icon
+              icon="bi:suit-heart"
+              className="icon"
+              onClick={onHeartClick}
+            />
+          )}
         </div>
       </CardDescription>
     </Wrapper>

@@ -24,7 +24,7 @@ function MedicineInfoTemplate({
   onModalOutsideClick,
   setSelectedDate,
   selectedDate,
-  onSetStartDateClick,
+  handleMyMedicine,
   onHeartClick,
   handleInfiniteScroll,
   reviewDelete,
@@ -115,13 +115,15 @@ function MedicineInfoTemplate({
           onTabClick={onTabClick}
           activeTab={activeTab}
         />
-        <CalenderModal
-          isModalActive={isModalActive}
-          onModalOutsideClick={onModalOutsideClick}
-          setSelectedDate={setSelectedDate}
-          selectedDate={selectedDate}
-          onSetStartDateClick={onSetStartDateClick}
-        />
+        {isModalActive && (
+          <CalenderModal
+            onModalOutsideClick={onModalOutsideClick}
+            setSelectedDate={setSelectedDate}
+            selectedDate={selectedDate}
+            handleMyMedicine={handleMyMedicine}
+            isMyMedicine={medicineInfo.myMedicine}
+          />
+        )}
         {tabContent}
       </Wrapper>
     </>
