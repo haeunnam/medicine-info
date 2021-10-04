@@ -11,12 +11,12 @@ import javax.validation.constraints.NotBlank;
 @Getter
 public class ReviewCreateInput {
     @NotBlank
-    String medicineId;
+    private String medicineId;
 
     @Min(value = 1)
     @Max(value = 5)
-    int score;
+    private int score;
 
     @NotBlank
-    String content;
+    private String content;
 }

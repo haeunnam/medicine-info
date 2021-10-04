@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 @Getter
 @Builder
 public class SimilarOutput {
-    String id;
-    String name;
-    String image;
-    String company;
-    String category;
-    double score;
+    private String id;
+    private String name;
+    private String image;
+    private String company;
+    private String category;
+    private double score;
 }

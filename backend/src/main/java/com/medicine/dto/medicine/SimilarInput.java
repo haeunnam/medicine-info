@@ -12,8 +12,8 @@ import javax.validation.constraints.PositiveOrZero;
 @Getter
 public class SimilarInput {
     @PositiveOrZero
-    int page;
+    private int page;
 
     @Positive
-    int size;
+    private int size;
 }

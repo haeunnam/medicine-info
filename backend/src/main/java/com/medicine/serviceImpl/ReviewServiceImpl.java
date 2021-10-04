@@ -2,16 +2,23 @@ package com.medicine.serviceImpl;
 
 import com.medicine.dao.mysql.MedicineRepository;
 import com.medicine.dao.mysql.ReviewRepository;
+import com.medicine.dto.review.MedicineReviewOutput;
 import com.medicine.dto.review.ReviewCreateInput;
+import com.medicine.dto.review.ReviewInput;
 import com.medicine.dto.review.ReviewUpdateInput;
 import com.medicine.entity.mysql.MedicineDB;
 import com.medicine.entity.mysql.ReviewDB;
 import com.medicine.entity.mysql.UserDB;
+import com.medicine.response.PageResponse;
 import com.medicine.response.Response;
 import com.medicine.service.JwtService;
 import com.medicine.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,7 +51,7 @@ public class ReviewServiceImpl implements ReviewService {
                 log.error("[reviews/post] NOT FOUND MEDICINE error");
                 return new Response<>(NOT_FOUND_MEDICINE);
             }
-            if(reviewRepository.existsByMedicineIdAndUserId(medicineDB.getId(), loginUserDB.getId())) {
+            if (reviewRepository.existsByMedicineIdAndUserId(medicineDB.getId(), loginUserDB.getId())) {
                 log.error("[reviews/post] DUPLICATE REVIEW error");
                 return new Response<>(EXISTS_INFO);
             }
@@ -141,5 +148,40 @@ public class ReviewServiceImpl implements ReviewService {
         }
         // 2. 결과 return
         return new Response<>(null, SUCCESS_DELETE_REVIEW);
+    }
+
+    @Override
+    public PageResponse<MedicineReviewOutput> getMedicineReview(String id, ReviewInput reviewInput) {
+        // 1. 값 형식 체크
+        if (reviewInput == null) return new PageResponse<>(NO_VALUES);
+
+        // 2. 리뷰 정보 가져오기
+        Page<MedicineReviewOutput> medicineReviewOutput;
+        try {
+            int loginUserId = jwtService.getUserId();
+            if (loginUserId <= 0) {
+                log.error("[reviews/medicines/get] NOT FOUND LOGIN USER error");
+                return new PageResponse<>(NOT_FOUND_USER);
+            }
+
+            Pageable paging = PageRequest.of(reviewInput.getPage(), reviewInput.getSize(), Sort.Direction.DESC, "id");
+            Page<ReviewDB> reviewDBList = reviewRepository.findByMedicineId(id, paging);
+
+            // 3. 약 리뷰 리스트에 필요한 최종 결과 가공
+            medicineReviewOutput = reviewDBList.map(reviewDB ->
+                    MedicineReviewOutput.builder()
+                            .reviewId(reviewDB.getId())
+                            .userId(reviewDB.getUser().getId())
+                            .nickname(reviewDB.getUser().getNickname())
+                            .score(reviewDB.getScore())
+                            .content(reviewDB.getContent())
+                            .createdAt(reviewDB.getCreated_at())
+                            .updatedAt(reviewDB.getUpdated_at()).build());
+        } catch (Exception e) {
+            log.error("[reviews/medicines/get] database error", e);
+            return new PageResponse<>(DATABASE_ERROR);
+        }
+        // 4. 결과 return
+        return new PageResponse<>(medicineReviewOutput, SUCCESS_GET_MEDICINE_REVIEW_LIST);
     }
 }

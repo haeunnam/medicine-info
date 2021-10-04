@@ -12,8 +12,8 @@ import javax.validation.constraints.NotBlank;
 public class ReviewUpdateInput {
     @Min(value = 1)
     @Max(value = 5)
-    int score;
+    private int score;
 
     @NotBlank
-    String content;
+    private String content;
 }
