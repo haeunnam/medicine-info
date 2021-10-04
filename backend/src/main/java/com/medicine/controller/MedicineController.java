@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import static com.medicine.response.ResponseStatus.BAD_REQUEST;
+
 @RestController
 @RequestMapping("/medicines")
 @RequiredArgsConstructor
@@ -47,27 +49,25 @@ public class MedicineController {
     }
 
     /**
-     * 약 이름별 조회 API
-     * [GET] /medicines/names?name
+     * 약 조회 API
+     * [GET] /medicines?name=
+     * [GET] /medicines?category=
      * @return Response<MedicineOutput>
      */
-    @GetMapping("/names")
-    @ApiOperation(value="약 이름별 조회", notes = "약 이름에 검색한 내용이 포함될 경우 약 정보를 조회한다.")
-    public PageResponse<MedicineOutput> getMedicineInfoByName(@RequestParam("name") String name, @Valid MedicineSearchByNameInput medicineSearchByNameInput){
-        log.info("[GET] /medicines/names?"+name);
-        return medicineService.getMedicineInfoByName(name,medicineSearchByNameInput);
-    }
-
-    /**
-     * 약 카테고리별 조회 API
-     * [GET] /medicines/category?category="하이"
-     * @return Response<MedicineOutput>
-     */
-    @GetMapping("/category")
-    @ApiOperation(value="약 카테고리별 조회",notes="카테고리별로 약 정보를 조회한다.")
-    public PageResponse<MedicineOutput> getMedicineInfoByCategory(@RequestParam String category, @Valid MedicineSearchByCategoryInput medicineSearchByCategoryInput){
-        log.info("[GET] /medicines/category?"+category);
-        return medicineService.getMedicineInfoByCategory(category,medicineSearchByCategoryInput);
+    @GetMapping
+    @ApiOperation(value="약 조회", notes = "'카테고리' 또는 '이름' 으로 약 정보를 조회한다.")
+    public PageResponse<MedicineOutput> getMedicineInfoByName(@Valid MedicineSearchInput medicineSearchInput){
+        if(medicineSearchInput.getName() == null && medicineSearchInput.getCategory() == null) {
+            log.info("[GET] /medicines?NO_VALID_STATUS");
+            return new PageResponse<>(BAD_REQUEST);
+        }
+        if(medicineSearchInput.getName() != null) {
+            log.info("[GET] /medicines?name="+medicineSearchInput.getName());
+            return medicineService.getMedicine(medicineSearchInput, true);
+        } else {
+            log.info("[GET] /medicines?category="+medicineSearchInput.getCategory());
+            return medicineService.getMedicine(medicineSearchInput, false);
+        }
     }
 
     /**

@@ -9,7 +9,6 @@ import com.medicine.response.Response;
 public interface MedicineService {
     PageResponse<SimilarOutput> getSimilarMedicineInfo(String id, SimilarInput similarInput);
     Response<DetailOutput> getDetailMedicineInfo(String id);
-    PageResponse<MedicineOutput> getMedicineInfoByName(String name, MedicineSearchByNameInput medicineSearchByNameInput);
-    PageResponse<MedicineOutput> getMedicineInfoByCategory(String category, MedicineSearchByCategoryInput medicineSearchByCategoryInput);
+    PageResponse<MedicineOutput> getMedicine(MedicineSearchInput medicineSearchInput, boolean isSearchByName);
     Response<DurOutput> getDurMedicineInfo(DurInput durInput);
 }
