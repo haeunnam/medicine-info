@@ -24,8 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static com.medicine.response.ResponseStatus.*;
 
-import java.util.List;
-
 @Service("MyMedicineService")
 @RequiredArgsConstructor
 @Slf4j
@@ -84,8 +82,7 @@ public class MyMedicineServiceImpl implements MyMedicineService{
                 log.error("[my-medicines/post] NOT FOUND MEDICINE INFO error");
                 return new Response<>(NOT_FOUND_MEDICINE);
             }
-            List<MyMedicineDB> MyMedicineDBList = myMedicineRepository.findByMedicineId(myMedicineCreateInput.getMedicineId());
-            if(MyMedicineDBList.size() > 0) {
+            if(myMedicineRepository.existsByMedicineIdAndUserId(myMedicineCreateInput.getMedicineId(), loginUserId)) {
                 log.error("[my-medicines/post] DUPLICATE MY MEDICINE INFO error");
                 return new Response<>(EXISTS_INFO);
             }
@@ -106,21 +103,19 @@ public class MyMedicineServiceImpl implements MyMedicineService{
 
 	@Override
     @Transactional
-	public Response<Object> deleteMyMedicine(String id) {
+	public Response<Object> deleteMyMedicine(int id) {
+        if (id <= 0) return new Response<>(BAD_REQUEST);
 		try {
             int loginUserId = jwtService.getUserId();
             if(loginUserId <= 0) {
                 log.error("[my-medicines/delete] NOT FOUND LOGIN USER error");
                 return new Response<>(NOT_FOUND_USER);
             }
-
-            List<MyMedicineDB> MyMedicineDBList = myMedicineRepository.findByMedicineId(id);
-            myMedicineRepository.deleteById(MyMedicineDBList.get(0).getId());
-
-            return new Response<>(null, SUCCESS_DELETE_MY_MEDICINE);
+            myMedicineRepository.deleteById(id);
 		} catch (Exception e) {
             log.error("[my-medicines/delete] database error", e);
             return new Response<>(DATABASE_ERROR);
         }
-	}
+        return new Response<>(null, SUCCESS_DELETE_MY_MEDICINE);
+    }
 }

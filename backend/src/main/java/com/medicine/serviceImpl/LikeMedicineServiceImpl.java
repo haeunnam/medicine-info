@@ -9,7 +9,6 @@ import com.medicine.dto.likemedicine.get.GetLikeMedicineOutput;
 import com.medicine.entity.mysql.*;
 import com.medicine.response.PageResponse;
 import com.medicine.response.Response;
-import com.medicine.response.ResponseStatus;
 import com.medicine.service.JwtService;
 import com.medicine.service.LikeMedicineService;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.medicine.response.ResponseStatus.*;
 
@@ -35,6 +33,7 @@ public class LikeMedicineServiceImpl implements LikeMedicineService {
     private final JwtService jwtService;
 
     @Override
+    @Transactional
     public Response<Object> createLikeMedicine(CreateLikeMedicineInput createLikeMedicineInput) {
         // 1. 값 형식 체크
         if (createLikeMedicineInput == null) return new Response<>(NO_VALUES);
@@ -46,13 +45,19 @@ public class LikeMedicineServiceImpl implements LikeMedicineService {
                 log.error("[like-medicines/post] NOT FOUND LOGIN USER error");
                 return new Response<>(NOT_FOUND_USER);
             }
-            List<LikeMedicineDB> likeMedicineDBList = likeMedicineRepository.findByMedicineId(createLikeMedicineInput.getMedicineId());
-            if (likeMedicineDBList.size() > 0) {
-                return new Response<>(ResponseStatus.BAD_REQUEST);
+            MedicineDB medicineDB = medicineRepository.findById(createLikeMedicineInput.getMedicineId());
+            if(medicineDB == null) {
+                log.error("[like-medicines/post] NOT FOUND MEDICINE INFO error");
+                return new Response<>(NOT_FOUND_MEDICINE);
             }
+            if (likeMedicineRepository.existsByMedicineIdAndUserId(createLikeMedicineInput.getMedicineId(), loginUserId)) {
+                log.error("[like-medicines/post] DUPLICATE LIKE MEDICINE INFO error");
+                return new Response<>(EXISTS_INFO);
+            }
+
             likeMedicineDB = LikeMedicineDB.builder()
                     .userId(loginUserId)
-                    .medicineId(medicineRepository.findById(createLikeMedicineInput.getMedicineId()))
+                    .medicine(medicineDB)
                     .build();
             likeMedicineRepository.save(likeMedicineDB);
         } catch (Exception e) {
@@ -64,6 +69,7 @@ public class LikeMedicineServiceImpl implements LikeMedicineService {
     }
 
     @Override
+    @Transactional
     public Response<Object> deleteLikeMedicine(int id) {
         // 1. 값 형식 체크
         if (id <= 0) return new Response<>(BAD_REQUEST);

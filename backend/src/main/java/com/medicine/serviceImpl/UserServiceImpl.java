@@ -13,6 +13,7 @@ import com.medicine.dto.user.signup.SignUpOutput;
 import com.medicine.response.ResponseStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("UserService")
 @RequiredArgsConstructor
@@ -58,6 +59,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public Response<SignUpOutput> signUp(SignUpInput signUpInput) {
         // 1. 값 형식 체크
         if (signUpInput == null) return new Response<>(ResponseStatus.NO_VALUES);
