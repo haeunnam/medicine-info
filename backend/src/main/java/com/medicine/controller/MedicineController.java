@@ -1,8 +1,8 @@
 package com.medicine.controller;
 
-import com.medicine.dto.medicine.DetailOutput;
-import com.medicine.dto.medicine.SimilarInput;
-import com.medicine.dto.medicine.SimilarOutput;
+import com.medicine.dto.medicine.*;
+import com.medicine.dto.medicine.DurInput;
+import com.medicine.dto.medicine.DurOutput;
 import com.medicine.response.PageResponse;
 import com.medicine.response.Response;
 import com.medicine.service.MedicineService;
@@ -44,5 +44,18 @@ public class MedicineController {
     public Response<DetailOutput> getDetailMedicineInfo(@PathVariable("id") String id){
         log.info("[GET] /medicines/" + id);
         return medicineService.getDetailMedicineInfo(id);
+    }
+
+    /**
+     * DUR 조회 API
+     * [GET] /medicines/dur
+     * @return Response<DurOutput>
+     */
+    // Params
+    @GetMapping("/dur")
+    @ApiOperation(value = "DUR 조회", notes = "범용 금기 정보를 조회한다.")
+    public Response<DurOutput> getDurInfo(@Valid DurInput durInput){
+        log.info("[GET] /medicines/dur");
+        return medicineService.getDurMedicineInfo(durInput);
     }
 }
