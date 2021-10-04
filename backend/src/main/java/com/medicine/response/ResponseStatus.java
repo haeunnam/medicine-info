@@ -15,6 +15,7 @@ public enum  ResponseStatus {
     // 200 OK - 클라이언트의 요청을 서버가 정상적으로 처리했다.
     SUCCESS(200, 200, "요청에 성공하였습니다."),
     SUCCESS_SIGN_IN(200, 201, "로그인에 성공하였습니다."),
+    SUCCESS_GET_PROFILE(200, 2012, "프로필 조회에 성공하였습니다."),
     SUCCESS_GET_SIMILAR_MEDICINE_LIST(200, 210, "유사약 정보를 가져오는데 성공하였습니다."),
     SUCCESS_GET_DETAIL_MEDICINE(200,211,"약 상세 정보를 가져오는데 성공하였습니다."),
     SUCCESS_GET_MY_MEDICINE_LIST(200, 212, "복용약 정보를 가져오는데 성공하였습니다."),
