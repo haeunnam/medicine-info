@@ -36,11 +36,11 @@ public enum  ResponseStatus {
 
     // 204 No Content - 클라이언트의 요청은 정상적이다. 하지만 컨텐츠를 제공하지 않는다.
     NO_CONTENT(204, 200, "요청에 성공하였습니다."),
+    SUCCESS_UPDATE_PROFILE(204, 201, "회원 정보 수정에 성공하였습니다."),
     SUCCESS_DELETE_MY_MEDICINE(204, 205, "복용중인 약 삭제에 성공하였습니다."),
     SUCCESS_UPDATE_REVIEW(204, 210, "리뷰 수정에 성공하였습니다."),
     SUCCESS_DELETE_REVIEW(204, 215, "리뷰 삭제에 성공하였습니다."),
     SUCCESS_DELETE_LIKE_MEDICINE(204, 220, "관심 있는 약 삭제에 성공하였습니다."),
-
     /*
      4XX Client errors
      */
