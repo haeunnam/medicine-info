@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@PropertySource("classpath:application.yml")
 @EnableTransactionManagement
 @EnableJpaRepositories(
         basePackages = "com.medicine.dao.mongo",

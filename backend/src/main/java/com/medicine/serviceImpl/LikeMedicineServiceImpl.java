@@ -45,7 +45,7 @@ public class LikeMedicineServiceImpl implements LikeMedicineService {
                 log.error("[like-medicines/post] NOT FOUND LOGIN USER error");
                 return new Response<>(NOT_FOUND_USER);
             }
-            MedicineDB medicineDB = medicineRepository.findById(createLikeMedicineInput.getMedicineId());
+            MedicineDB medicineDB = medicineRepository.findById(createLikeMedicineInput.getMedicineId()).orElse(null);
             if(medicineDB == null) {
                 log.error("[like-medicines/post] NOT FOUND MEDICINE INFO error");
                 return new Response<>(NOT_FOUND_MEDICINE);

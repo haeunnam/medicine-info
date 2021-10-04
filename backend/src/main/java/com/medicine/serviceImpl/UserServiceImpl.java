@@ -1,19 +1,13 @@
 package com.medicine.serviceImpl;
 
-import com.medicine.dto.medicine.DetailOutput;
 import com.medicine.dto.user.profile.ProfileOutput;
 import com.medicine.dto.user.profile.update.ProfileUpdate;
 import com.medicine.dto.user.signin.SignInInput;
 import com.medicine.dto.user.signup.SignUpInput;
-import com.medicine.entity.mysql.MedicineDB;
-import com.medicine.entity.mysql.ReviewDB;
 import com.medicine.entity.mysql.UserDB;
 import com.medicine.response.Response;
 import com.medicine.service.JwtService;
 import com.medicine.service.UserService;
-import com.medicine.dao.mysql.DetailMedicineRepository;
-import com.medicine.dao.mysql.ReviewRepository;
-import com.medicine.dao.mysql.SimilarMedicineRepository;
 import com.medicine.dao.mysql.UserRepository;
 import com.medicine.dto.user.signin.SignInOutput;
 import com.medicine.dto.user.signup.SignUpOutput;
@@ -24,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import static com.medicine.response.ResponseStatus.DATABASE_ERROR;
 import static com.medicine.response.ResponseStatus.NOT_FOUND_USER;
-import static com.medicine.response.ResponseStatus.SUCCESS_GET_DETAIL_MEDICINE;
 
 import java.util.Date;
 
