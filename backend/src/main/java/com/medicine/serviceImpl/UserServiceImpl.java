@@ -2,6 +2,7 @@ package com.medicine.serviceImpl;
 
 import com.medicine.dto.medicine.DetailOutput;
 import com.medicine.dto.user.profile.ProfileOutput;
+import com.medicine.dto.user.profile.update.ProfileUpdate;
 import com.medicine.dto.user.signin.SignInInput;
 import com.medicine.dto.user.signup.SignUpInput;
 import com.medicine.entity.mysql.MedicineDB;
@@ -24,6 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 import static com.medicine.response.ResponseStatus.DATABASE_ERROR;
 import static com.medicine.response.ResponseStatus.NOT_FOUND_USER;
 import static com.medicine.response.ResponseStatus.SUCCESS_GET_DETAIL_MEDICINE;
+
+import java.util.Date;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -148,5 +151,36 @@ public class UserServiceImpl implements UserService {
         }
 
         return new Response<>(profileOutput, SUCCESS_GET_PROFILE);
+	}
+
+	@Override
+	public Response<Object> updateProfile(ProfileUpdate profileUpdate) {
+		try {
+            int loginUserId = jwtService.getUserId();
+            if (loginUserId <= 0) {
+                log.error("[medicines/get] NOT FOUND LOGIN USER error");
+                return new Response<>(NOT_FOUND_USER);
+            }
+            UserDB user = userRepository.findById(loginUserId).get();
+            
+            String email = user.getEmail();
+            String password = profileUpdate.getPassword() == null ? user.getPassword() : profileUpdate.getPassword();
+            String nickname = profileUpdate.getNickname() == null ? user.getNickname() : profileUpdate.getNickname();
+            String gender = profileUpdate.getGender() == null ? user.getGender() : profileUpdate.getGender();
+            Date birth = profileUpdate.getBirth() == null ? user.getBirth() : profileUpdate.getBirth();
+           
+            user.setNickname(nickname);
+            user.setEmail(email);
+            user.setPassword(password);
+            user.setGender(gender);
+            user.setBirth(birth);
+            userRepository.save(user);
+            
+        } catch (Exception e){
+            log.error("[user/profile] database error",e);
+            return new Response<>(DATABASE_ERROR);
+        }
+		
+        return new Response<>(null, SUCCESS_UPDATE_PROFILE);
 	}
 }
