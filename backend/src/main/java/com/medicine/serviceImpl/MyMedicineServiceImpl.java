@@ -77,7 +77,7 @@ public class MyMedicineServiceImpl implements MyMedicineService{
                 log.error("[my-medicines/post] NOT FOUND LOGIN USER error");
                 return new Response<>(NOT_FOUND_USER);
             }
-            MedicineDB medicineDB = medicineRepository.findById(myMedicineCreateInput.getMedicineId());
+            MedicineDB medicineDB = medicineRepository.findById(myMedicineCreateInput.getMedicineId()).orElse(null);
             if(medicineDB == null) {
                 log.error("[my-medicines/post] NOT FOUND MEDICINE INFO error");
                 return new Response<>(NOT_FOUND_MEDICINE);

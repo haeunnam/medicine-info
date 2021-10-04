@@ -17,7 +17,7 @@ import java.util.Date;
 @Table(name = "DUR")
 public class DurDB implements Serializable {
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medicine_id", nullable = false, insertable = false, updatable = false)
     private MedicineDB medicine;
 
@@ -29,7 +29,7 @@ public class DurDB implements Serializable {
     private String content;
 
     @Column(name = "age", insertable = false, updatable = false)
-    private int age;
+    private Integer age;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

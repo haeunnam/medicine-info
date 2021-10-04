@@ -1,10 +1,12 @@
 package com.medicine.dto.dur;
 
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class Medicine {
-    private String number;
-    private String name;
-    private String company;
+    private final String number;
+    private final String name;
+    private final String company;
 }
