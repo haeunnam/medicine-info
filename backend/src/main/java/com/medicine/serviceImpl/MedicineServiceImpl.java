@@ -1,11 +1,10 @@
 package com.medicine.serviceImpl;
 
 import com.medicine.dao.mysql.DetailMedicineRepository;
+import com.medicine.dao.mysql.MedicineRepository;
 import com.medicine.dao.mysql.ReviewRepository;
 import com.medicine.dao.mysql.SimilarMedicineRepository;
-import com.medicine.dto.medicine.DetailOutput;
-import com.medicine.dto.medicine.SimilarInput;
-import com.medicine.dto.medicine.SimilarOutput;
+import com.medicine.dto.medicine.*;
 import com.medicine.entity.mysql.MedicineDB;
 import com.medicine.entity.mysql.ReviewDB;
 import com.medicine.entity.mysql.SimilarMedicineDB;
@@ -30,6 +29,7 @@ public class MedicineServiceImpl implements MedicineService {
     private final SimilarMedicineRepository similarMedicineRepository;
     private final ReviewRepository reviewRepository;
     private final DetailMedicineRepository detailMedicineRepository;
+    private final MedicineRepository medicineRepository;
     private final JwtService jwtService;
 
     @Override
@@ -113,5 +113,87 @@ public class MedicineServiceImpl implements MedicineService {
 
         return new Response<>(detailOutput,SUCCESS_GET_DETAIL_MEDICINE);
 
+    }
+
+    @Override
+    public PageResponse<MedicineOutput> getMedicineInfoByName(String name, MedicineSearchByNameInput medicineSearchByNameInput) {
+        // 1. 값 형식 체크
+        if(name == null || name.equals(" "))  return new PageResponse<>(NO_VALUES);
+
+        // 2. 약 정보 가져오기
+        Page<MedicineOutput> medicineOutput;
+        try {
+            int loginUserId = jwtService.getUserId();
+            if(loginUserId <= 0) {
+                log.error("[medicines/get] NOT FOUND LOGIN USER error");
+                return new PageResponse<>(NOT_FOUND_USER);
+            }
+
+            Pageable paging = PageRequest.of(medicineSearchByNameInput.getPage(), medicineSearchByNameInput.getSize(), Sort.Direction.DESC, "name");
+            Page<MedicineDB> medicineDBList=medicineRepository.findByNameContaining(name,paging);
+
+            // 3. 이름으로 검색한 약 리스트에 필요한 최종 결과 가공
+            medicineOutput = medicineDBList.map(medicineDB -> {
+
+                double reviewAvgScore = reviewRepository.findByMedicineId(medicineDB.getId()).stream()
+                        .mapToDouble(ReviewDB::getScore).average().orElse(Double.NaN);
+                reviewAvgScore = Math.round(reviewAvgScore * 10) / 10.0; // 소수점 1자리까지 보내도록 가공
+
+                return MedicineOutput.builder()
+                        .medicineId(medicineDB.getId())
+                        .name(medicineDB.getName())
+                        .image(medicineDB.getImage())
+                        .company(medicineDB.getCompany())
+                        .category(medicineDB.getCategory())
+                        .score(reviewAvgScore)
+                        .build();
+            });
+        } catch (Exception e) {
+            log.error("[medicines/get] database error", e);
+            return new PageResponse<>(DATABASE_ERROR);
+        }
+        // 4. 결과 return
+        return new PageResponse<>(medicineOutput, SUCCESS_GET_MEDICINE_LIST_BY_NAME);
+    }
+
+    @Override
+    public PageResponse<MedicineOutput> getMedicineInfoByCategory(String category, MedicineSearchByCategoryInput medicineSearchByCategoryInput) {
+        // 1. 값 형식 체크
+        if(category == null || category.equals(" "))  return new PageResponse<>(NO_VALUES);
+
+        // 2. 약 정보 가져오기
+        Page<MedicineOutput> medicineOutput;
+        try {
+            int loginUserId = jwtService.getUserId();
+            if(loginUserId <= 0) {
+                log.error("[medicines/get] NOT FOUND LOGIN USER error");
+                return new PageResponse<>(NOT_FOUND_USER);
+            }
+
+            Pageable paging = PageRequest.of(medicineSearchByCategoryInput.getPage(), medicineSearchByCategoryInput.getSize(), Sort.Direction.DESC, "category");
+            Page<MedicineDB> medicineDBList=medicineRepository.findByCategory(category,paging);
+
+            // 3. 카테고리별 약 리스트에 필요한 최종 결과 가공
+            medicineOutput = medicineDBList.map(medicineDB -> {
+
+                double reviewAvgScore = reviewRepository.findByMedicineId(medicineDB.getId()).stream()
+                        .mapToDouble(ReviewDB::getScore).average().orElse(Double.NaN);
+                reviewAvgScore = Math.round(reviewAvgScore * 10) / 10.0; // 소수점 1자리까지 보내도록 가공
+
+                return MedicineOutput.builder()
+                        .medicineId(medicineDB.getId())
+                        .name(medicineDB.getName())
+                        .image(medicineDB.getImage())
+                        .company(medicineDB.getCompany())
+                        .category(medicineDB.getCategory())
+                        .score(reviewAvgScore)
+                        .build();
+            });
+        } catch (Exception e) {
+            log.error("[medicines/get] database error", e);
+            return new PageResponse<>(DATABASE_ERROR);
+        }
+        // 4. 결과 return
+        return new PageResponse<>(medicineOutput, SUCCESS_GET_MEDICINE_LIST_BY_NAME);
     }
 }
