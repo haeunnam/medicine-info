@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface LikeMedicineRepository extends JpaRepository<LikeMedicineDB,Integer> {
     Page<LikeMedicineDB> findByUserId(int userid,Pageable pageable);
     boolean existsByMedicineIdAndUserId(String medicineId, int userId);
+    LikeMedicineDB findByMedicineIdAndUserId(String medicineId, int userId);
 }

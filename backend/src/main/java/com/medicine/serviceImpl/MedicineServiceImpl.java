@@ -12,10 +12,7 @@ import com.medicine.dto.medicine.DurInput;
 import com.medicine.dto.medicine.DurOutput;
 import com.medicine.entity.mongo.DurOverlapDoc;
 import com.medicine.entity.mongo.DurTogetherDoc;
-import com.medicine.entity.mysql.DurDB;
-import com.medicine.entity.mysql.MedicineDB;
-import com.medicine.entity.mysql.ReviewDB;
-import com.medicine.entity.mysql.SimilarMedicineDB;
+import com.medicine.entity.mysql.*;
 import com.medicine.response.PageResponse;
 import com.medicine.response.Response;
 import com.medicine.service.DurService;
@@ -115,6 +112,8 @@ public class MedicineServiceImpl implements MedicineService, DurService {
                     .mapToDouble(ReviewDB::getScore).average().orElse(Double.NaN);
             reviewAvgScore = Math.round(reviewAvgScore * 10) / 10.0; // 소수점 1자리까지 보내도록 가공
 
+            LikeMedicineDB likeMedicineDB = likeMedicineRepository.findByMedicineIdAndUserId(medicineDB.getId(), loginUserId);
+            MyMedicineDB myMedicineDB = myMedicineRepository.findByMedicineIdAndUserId(medicineDB.getId(), loginUserId);
             detailOutput = DetailOutput.builder()
                     .id(medicineDB.getId())
                     .name(medicineDB.getName())
@@ -126,8 +125,8 @@ public class MedicineServiceImpl implements MedicineService, DurService {
                     .reaction(medicineDB.getReaction())
                     .storage((medicineDB.getStorage()))
                     .avgScore(reviewAvgScore)
-                    .likeMedicine(likeMedicineRepository.existsByMedicineIdAndUserId(medicineDB.getId(), loginUserId))
-                    .myMedicine(myMedicineRepository.existsByMedicineIdAndUserId(medicineDB.getId(), loginUserId))
+                    .likeMedicine(likeMedicineDB == null ? 0 : likeMedicineDB.getId())
+                    .myMedicine(myMedicineDB == null ? 0 : myMedicineDB.getId())
                     .build();
 
         } catch (Exception e) {
