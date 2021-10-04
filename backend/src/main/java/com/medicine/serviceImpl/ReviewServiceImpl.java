@@ -2,10 +2,7 @@ package com.medicine.serviceImpl;
 
 import com.medicine.dao.mysql.MedicineRepository;
 import com.medicine.dao.mysql.ReviewRepository;
-import com.medicine.dto.review.MedicineReviewOutput;
-import com.medicine.dto.review.ReviewCreateInput;
-import com.medicine.dto.review.ReviewInput;
-import com.medicine.dto.review.ReviewUpdateInput;
+import com.medicine.dto.review.*;
 import com.medicine.entity.mysql.MedicineDB;
 import com.medicine.entity.mysql.ReviewDB;
 import com.medicine.entity.mysql.UserDB;
@@ -154,7 +151,6 @@ public class ReviewServiceImpl implements ReviewService {
     public PageResponse<MedicineReviewOutput> getMedicineReview(String id, ReviewInput reviewInput) {
         // 1. 값 형식 체크
         if (reviewInput == null) return new PageResponse<>(NO_VALUES);
-
         // 2. 리뷰 정보 가져오기
         Page<MedicineReviewOutput> medicineReviewOutput;
         try {
@@ -183,5 +179,41 @@ public class ReviewServiceImpl implements ReviewService {
         }
         // 4. 결과 return
         return new PageResponse<>(medicineReviewOutput, SUCCESS_GET_MEDICINE_REVIEW_LIST);
+    }
+
+    @Override
+    public PageResponse<UserReviewOutput> getUserReview(ReviewInput reviewInput) {
+        // 1. 값 형식 체크
+        if (reviewInput == null) return new PageResponse<>(NO_VALUES);
+        // 2. 리뷰 정보 가져오기
+        Page<UserReviewOutput> userReviewOutput;
+        try {
+            int loginUserId = jwtService.getUserId();
+            if (loginUserId <= 0) {
+                log.error("[reviews/users/get] NOT FOUND LOGIN USER error");
+                return new PageResponse<>(NOT_FOUND_USER);
+            }
+
+            Pageable paging = PageRequest.of(reviewInput.getPage(), reviewInput.getSize(), Sort.Direction.DESC, "id");
+            Page<ReviewDB> reviewDBList = reviewRepository.findByUserId(loginUserId, paging);
+
+            // 3. 사용자 리뷰 리스트에 필요한 최종 결과 가공
+            userReviewOutput = reviewDBList.map(reviewDB ->
+                    UserReviewOutput.builder()
+                            .reviewId(reviewDB.getId())
+                            .medicineId(reviewDB.getMedicine().getId())
+                            .name(reviewDB.getMedicine().getName())
+                            .company(reviewDB.getMedicine().getCompany())
+                            .category(reviewDB.getMedicine().getCategory())
+                            .score(reviewDB.getScore())
+                            .content(reviewDB.getContent())
+                            .createdAt(reviewDB.getCreated_at())
+                            .updatedAt(reviewDB.getUpdated_at()).build());
+        } catch (Exception e) {
+            log.error("[reviews/users/get] database error", e);
+            return new PageResponse<>(DATABASE_ERROR);
+        }
+        // 4. 결과 return
+        return new PageResponse<>(userReviewOutput, SUCCESS_GET_USER_REVIEW_LIST);
     }
 }

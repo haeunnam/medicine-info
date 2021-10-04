@@ -1,8 +1,5 @@
 package com.medicine.controller;
-import com.medicine.dto.review.ReviewCreateInput;
-import com.medicine.dto.review.ReviewInput;
-import com.medicine.dto.review.MedicineReviewOutput;
-import com.medicine.dto.review.ReviewUpdateInput;
+import com.medicine.dto.review.*;
 import com.medicine.response.PageResponse;
 import com.medicine.response.Response;
 import com.medicine.service.ReviewService;
@@ -20,6 +17,19 @@ import javax.validation.Valid;
 public class ReviewController {
 
     private final ReviewService reviewService;
+
+    /**
+     * 사용자 리뷰 조회 API
+     * [GET] /reviews/users
+     * @return PageResponse<UserReviewOutput>
+     */
+    // Params
+    @GetMapping("/users")
+    @ApiOperation(value = "사용자 리뷰 조회", notes = "사용자가 작성한 리뷰를 조회한다.")
+    public PageResponse<UserReviewOutput> getMedicineReview(@Valid ReviewInput reviewInput) {
+        log.info("[GET] /reviews/users");
+        return reviewService.getUserReview(reviewInput);
+    }
 
     /**
      * 약 리뷰 조회 API
