@@ -20,4 +20,6 @@ public class DetailOutput {
     private String reaction;
     private String storage;
     private double avgScore;
+    private boolean likeMedicine;
+    private boolean myMedicine;
 }

@@ -13,6 +13,7 @@ import static javax.persistence.GenerationType.*;
 @DynamicInsert
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 @Table(name = "user")
 public class UserDB {

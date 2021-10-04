@@ -1,5 +1,7 @@
 package com.medicine.serviceImpl;
 
+import com.medicine.dto.user.profile.ProfileOutput;
+import com.medicine.dto.user.profile.update.ProfileUpdate;
 import com.medicine.dto.user.signin.SignInInput;
 import com.medicine.dto.user.signup.SignUpInput;
 import com.medicine.entity.mysql.UserDB;
@@ -12,11 +14,20 @@ import com.medicine.dto.user.signup.SignUpOutput;
 
 import com.medicine.response.ResponseStatus;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+import static com.medicine.response.ResponseStatus.DATABASE_ERROR;
+import static com.medicine.response.ResponseStatus.NOT_FOUND_USER;
+
+import java.util.Date;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import static com.medicine.response.ResponseStatus.*;
 
 @Service("UserService")
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -106,4 +117,63 @@ public class UserServiceImpl implements UserService {
         SignUpOutput signUpOutput = new SignUpOutput(userDB.getId(), accessToken);
         return new Response<>(signUpOutput, ResponseStatus.CREATED_USER);
     }
+
+	@Override
+	public Response<ProfileOutput> getProfile() {
+		// 2. 약 상세정보 가져오기
+		ProfileOutput profileOutput;
+        try {
+            int loginUserId = jwtService.getUserId();
+            if (loginUserId <= 0) {
+                log.error("[medicines/get] NOT FOUND LOGIN USER error");
+                return new Response<>(NOT_FOUND_USER);
+            }
+
+            UserDB userDB = userRepository.findById(loginUserId).get();
+            		
+            profileOutput = ProfileOutput.builder()
+            				.email(userDB.getEmail())
+            				.nickname(userDB.getNickname())
+            				.gender(userDB.getGender())
+            				.birth(userDB.getBirth())
+            				.build();
+
+        } catch (Exception e){
+            log.error("[user/profile] database error",e);
+            return new Response<>(DATABASE_ERROR);
+        }
+
+        return new Response<>(profileOutput, SUCCESS_GET_PROFILE);
+	}
+
+	@Override
+	public Response<Object> updateProfile(ProfileUpdate profileUpdate) {
+		try {
+            int loginUserId = jwtService.getUserId();
+            if (loginUserId <= 0) {
+                log.error("[medicines/get] NOT FOUND LOGIN USER error");
+                return new Response<>(NOT_FOUND_USER);
+            }
+            UserDB user = userRepository.findById(loginUserId).get();
+            
+            String email = user.getEmail();
+            String password = profileUpdate.getPassword() == null ? user.getPassword() : profileUpdate.getPassword();
+            String nickname = profileUpdate.getNickname() == null ? user.getNickname() : profileUpdate.getNickname();
+            String gender = profileUpdate.getGender() == null ? user.getGender() : profileUpdate.getGender();
+            Date birth = profileUpdate.getBirth() == null ? user.getBirth() : profileUpdate.getBirth();
+           
+            user.setNickname(nickname);
+            user.setEmail(email);
+            user.setPassword(password);
+            user.setGender(gender);
+            user.setBirth(birth);
+            userRepository.save(user);
+            
+        } catch (Exception e){
+            log.error("[user/profile] database error",e);
+            return new Response<>(DATABASE_ERROR);
+        }
+		
+        return new Response<>(null, SUCCESS_UPDATE_PROFILE);
+	}
 }

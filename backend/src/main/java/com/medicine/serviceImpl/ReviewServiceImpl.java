@@ -43,7 +43,7 @@ public class ReviewServiceImpl implements ReviewService {
                 log.error("[reviews/post] NOT FOUND LOGIN USER error");
                 return new Response<>(NOT_FOUND_USER);
             }
-            MedicineDB medicineDB = medicineRepository.findById(reviewCreateInput.getMedicineId());
+            MedicineDB medicineDB = medicineRepository.findById(reviewCreateInput.getMedicineId()).orElse(null);
             if (medicineDB == null) {
                 log.error("[reviews/post] NOT FOUND MEDICINE error");
                 return new Response<>(NOT_FOUND_MEDICINE);
