@@ -7,7 +7,7 @@ import Signup from "./pages/user/Signup";
 import SignIn from "./pages/user/SignIn";
 import UserEdit from "./pages/user/UserEdit";
 import MyPage from "./pages/user/MyPage";
-
+import DurPage from './pages/DurPage';
 function AppRouter() {
   return (
     <ThemeProvider theme={theme}>
@@ -18,6 +18,7 @@ function AppRouter() {
           <Route exact path="/signin" component={SignIn} />
           <Route exact path="/mypage" component={MyPage} />
           <Route exact path="/mypage/edit" component={UserEdit} />
+          <Route exact path="/dur" component={DurPage} />
           <Route path="*" component={PageNotFound} />
         </Switch>
       </BrowserRouter>

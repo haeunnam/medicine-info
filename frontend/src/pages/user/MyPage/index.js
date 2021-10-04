@@ -10,6 +10,7 @@ function MyPage(){
   const dispatch = useDispatch();
   const history = useHistory();
   const userObj =  useSelector(state => state.userReducer.userInfo);
+  const isActive = 3;
   useEffect(() => {
     async function bringUserInfo() {
       const response = await request("GET", "/users/profile");
@@ -58,6 +59,7 @@ function MyPage(){
         moveReview={moveReview}
         handleLogout={handleLogout}
         DeleteUser={DeleteUser}
+        isActive={isActive}
       />
     </>
   );

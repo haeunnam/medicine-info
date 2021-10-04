@@ -3,12 +3,14 @@ import { InfoContainer, StyledImg } from "./styles";
 import Header from "../../molecules/Header";
 import { AiOutlineSetting } from 'react-icons/ai'
 import MenuButton from "../../atoms/MenuButton";
+import FooterNav from "../../molecules/FooterNav";
 function MyPageTemplate({ 
   nickname, 
   email,
   moveReview,
   handleLogout,
   DeleteUser,
+  isActive,
 }) {
   return (
   <>
@@ -33,6 +35,7 @@ function MyPageTemplate({
       <MenuButton children="로그아웃" onClick={handleLogout}/>
       <MenuButton children="회원탈퇴" onClick={DeleteUser}/>
     </InfoContainer>
+    <FooterNav isActive={isActive}/>
   </>
   );
 }

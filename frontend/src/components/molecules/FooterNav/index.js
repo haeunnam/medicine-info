@@ -15,7 +15,7 @@ function FooterNav({ isActive = 0 }) {
             <span>의약품</span>
           </IconBox>
         </Link>
-        <Link to="/">
+        <Link to="/dur">
           <IconBox>
             <Icon
               icon="carbon:pills-subtract"
