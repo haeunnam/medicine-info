@@ -2,7 +2,7 @@ package com.medicine.serviceImpl;
 
 import com.medicine.dao.mongo.DurOverlapRepository;
 import com.medicine.dao.mongo.DurTogetherRepository;
-import com.medicine.dao.mysql.DetailMedicineRepository;
+import com.medicine.dao.mysql.MedicineRepository;
 import com.medicine.dao.mysql.DurRepository;
 import com.medicine.dao.mysql.ReviewRepository;
 import com.medicine.dao.mysql.SimilarMedicineRepository;
@@ -44,7 +44,7 @@ import static com.medicine.response.ResponseStatus.*;
 public class MedicineServiceImpl implements MedicineService, DurService {
 
     private final SimilarMedicineRepository similarMedicineRepository;
-    private final DetailMedicineRepository detailMedicineRepository;
+    private final MedicineRepository medicineRepository;
     private final ReviewRepository reviewRepository;
     private final DurRepository durRepository;
     private final DurTogetherRepository durTogetherRepository;
@@ -106,7 +106,7 @@ public class MedicineServiceImpl implements MedicineService, DurService {
                 log.error("[medicines/get] NOT FOUND LOGIN USER error");
                 return new Response<>(NOT_FOUND_USER);
             }
-            MedicineDB medicineDB = detailMedicineRepository.findById(id).orElse(null);
+            MedicineDB medicineDB = medicineRepository.findById(id).orElse(null);
             if (medicineDB == null) {
                 log.error("[medicines/get] NOT FOUND MEDICINE error");
                 return new Response<>(NOT_FOUND_MEDICINE);
@@ -136,6 +136,88 @@ public class MedicineServiceImpl implements MedicineService, DurService {
 
         return new Response<>(detailOutput, SUCCESS_GET_DETAIL_MEDICINE);
 
+    }
+
+    @Override
+    public PageResponse<MedicineOutput> getMedicineInfoByName(String name, MedicineSearchByNameInput medicineSearchByNameInput) {
+        // 1. 값 형식 체크
+        if(name == null || name.equals(" "))  return new PageResponse<>(NO_VALUES);
+
+        // 2. 약 정보 가져오기
+        Page<MedicineOutput> medicineOutput;
+        try {
+            int loginUserId = jwtService.getUserId();
+            if(loginUserId <= 0) {
+                log.error("[medicines/get] NOT FOUND LOGIN USER error");
+                return new PageResponse<>(NOT_FOUND_USER);
+            }
+
+            Pageable paging = PageRequest.of(medicineSearchByNameInput.getPage(), medicineSearchByNameInput.getSize(), Sort.Direction.DESC, "name");
+            Page<MedicineDB> medicineDBList=medicineRepository.findByNameContaining(name,paging);
+
+            // 3. 이름으로 검색한 약 리스트에 필요한 최종 결과 가공
+            medicineOutput = medicineDBList.map(medicineDB -> {
+
+                double reviewAvgScore = reviewRepository.findByMedicineId(medicineDB.getId()).stream()
+                        .mapToDouble(ReviewDB::getScore).average().orElse(Double.NaN);
+                reviewAvgScore = Math.round(reviewAvgScore * 10) / 10.0; // 소수점 1자리까지 보내도록 가공
+
+                return MedicineOutput.builder()
+                        .medicineId(medicineDB.getId())
+                        .name(medicineDB.getName())
+                        .image(medicineDB.getImage())
+                        .company(medicineDB.getCompany())
+                        .category(medicineDB.getCategory())
+                        .score(reviewAvgScore)
+                        .build();
+            });
+        } catch (Exception e) {
+            log.error("[medicines/get] database error", e);
+            return new PageResponse<>(DATABASE_ERROR);
+        }
+        // 4. 결과 return
+        return new PageResponse<>(medicineOutput, SUCCESS_GET_MEDICINE_LIST_BY_NAME);
+    }
+
+    @Override
+    public PageResponse<MedicineOutput> getMedicineInfoByCategory(String category, MedicineSearchByCategoryInput medicineSearchByCategoryInput) {
+        // 1. 값 형식 체크
+        if(category == null || category.equals(" "))  return new PageResponse<>(NO_VALUES);
+
+        // 2. 약 정보 가져오기
+        Page<MedicineOutput> medicineOutput;
+        try {
+            int loginUserId = jwtService.getUserId();
+            if(loginUserId <= 0) {
+                log.error("[medicines/get] NOT FOUND LOGIN USER error");
+                return new PageResponse<>(NOT_FOUND_USER);
+            }
+
+            Pageable paging = PageRequest.of(medicineSearchByCategoryInput.getPage(), medicineSearchByCategoryInput.getSize(), Sort.Direction.DESC, "category");
+            Page<MedicineDB> medicineDBList=medicineRepository.findByCategory(category,paging);
+
+            // 3. 카테고리별 약 리스트에 필요한 최종 결과 가공
+            medicineOutput = medicineDBList.map(medicineDB -> {
+
+                double reviewAvgScore = reviewRepository.findByMedicineId(medicineDB.getId()).stream()
+                        .mapToDouble(ReviewDB::getScore).average().orElse(Double.NaN);
+                reviewAvgScore = Math.round(reviewAvgScore * 10) / 10.0; // 소수점 1자리까지 보내도록 가공
+
+                return MedicineOutput.builder()
+                        .medicineId(medicineDB.getId())
+                        .name(medicineDB.getName())
+                        .image(medicineDB.getImage())
+                        .company(medicineDB.getCompany())
+                        .category(medicineDB.getCategory())
+                        .score(reviewAvgScore)
+                        .build();
+            });
+        } catch (Exception e) {
+            log.error("[medicines/get] database error", e);
+            return new PageResponse<>(DATABASE_ERROR);
+        }
+        // 4. 결과 return
+        return new PageResponse<>(medicineOutput, SUCCESS_GET_MEDICINE_LIST_BY_NAME);
     }
 
     @Override
@@ -212,8 +294,8 @@ public class MedicineServiceImpl implements MedicineService, DurService {
             for (int j = i + 1; j < idList.size(); j++) {
                 DurTogetherDoc durTogetherDoc = durTogetherRepository.findById(idList.get(i) + "," + idList.get(j)).orElse(null);
                 if (durTogetherDoc != null) {
-                    MedicineDB medicineDB1 = detailMedicineRepository.findById(idList.get(i)).orElse(null);
-                    MedicineDB medicineDB2 = detailMedicineRepository.findById(idList.get(j)).orElse(null);
+                    MedicineDB medicineDB1 = medicineRepository.findById(idList.get(i)).orElse(null);
+                    MedicineDB medicineDB2 = medicineRepository.findById(idList.get(j)).orElse(null);
                     if (medicineDB1 != null && medicineDB2 != null)
                         result.add(DurTogether.builder()
                                 .medicine1(Medicine.builder()
