@@ -9,6 +9,7 @@ import com.medicine.response.Response;
 import com.medicine.service.JwtService;
 import com.medicine.service.UserService;
 import com.medicine.response.ResponseStatus;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,7 @@ public class UserController {
      */
     // Body
     @PostMapping("/signup")
+    @ApiOperation(value = "회원가입", notes = "신규 유저의 정보를 등록한다.")
     public Response<SignUpOutput> signUp(@RequestBody @Valid SignUpInput signUpInput) {
         log.info("[POST] /users/signup");
         return userService.signUp(signUpInput);
@@ -42,12 +44,14 @@ public class UserController {
      */
     // Body
     @PostMapping("/signin")
+    @ApiOperation(value = "로그인", notes = "입력된 아이디, 비밀번호를 확인한다.")
     public Response<SignInOutput> signIn(@RequestBody @Valid SignInInput signInInput) {
         log.info("[POST] /users/signin");
         return userService.signIn(signInInput);
     }
 
     @PostMapping("/jwt")
+    @ApiOperation(value = "유효 jwt 확인", notes = "유효한 jwt 인지 확인한다.")
     public Response<JwtOutput> jwt() {
         log.info("[POST] /users/jwt");
         int userId = jwtService.getUserId();

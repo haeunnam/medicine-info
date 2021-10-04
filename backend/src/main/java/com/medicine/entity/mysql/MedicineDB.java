@@ -66,4 +66,5 @@ public class MedicineDB {
         this.company = company;
         this.efficacy = efficacy;
     }
+
 }
