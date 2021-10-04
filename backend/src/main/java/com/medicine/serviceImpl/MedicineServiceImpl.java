@@ -2,10 +2,7 @@ package com.medicine.serviceImpl;
 
 import com.medicine.dao.mongo.DurOverlapRepository;
 import com.medicine.dao.mongo.DurTogetherRepository;
-import com.medicine.dao.mysql.MedicineRepository;
-import com.medicine.dao.mysql.DurRepository;
-import com.medicine.dao.mysql.ReviewRepository;
-import com.medicine.dao.mysql.SimilarMedicineRepository;
+import com.medicine.dao.mysql.*;
 import com.medicine.dto.dur.DUR;
 import com.medicine.dto.dur.DurOverlap;
 import com.medicine.dto.dur.DurTogether;
@@ -45,6 +42,8 @@ public class MedicineServiceImpl implements MedicineService, DurService {
 
     private final SimilarMedicineRepository similarMedicineRepository;
     private final MedicineRepository medicineRepository;
+    private final LikeMedicineRepository likeMedicineRepository;
+    private final MyMedicineRepository myMedicineRepository;
     private final ReviewRepository reviewRepository;
     private final DurRepository durRepository;
     private final DurTogetherRepository durTogetherRepository;
@@ -127,6 +126,8 @@ public class MedicineServiceImpl implements MedicineService, DurService {
                     .reaction(medicineDB.getReaction())
                     .storage((medicineDB.getStorage()))
                     .avgScore(reviewAvgScore)
+                    .likeMedicine(likeMedicineRepository.existsByMedicineIdAndUserId(medicineDB.getId(), loginUserId))
+                    .myMedicine(myMedicineRepository.existsByMedicineIdAndUserId(medicineDB.getId(), loginUserId))
                     .build();
 
         } catch (Exception e) {
@@ -145,7 +146,7 @@ public class MedicineServiceImpl implements MedicineService, DurService {
         try {
             int loginUserId = jwtService.getUserId();
             if(loginUserId <= 0) {
-                log.error("[medicines/get] NOT FOUND LOGIN USER error");
+                log.error("[medicines?search/get] NOT FOUND LOGIN USER error");
                 return new PageResponse<>(NOT_FOUND_USER);
             }
 
@@ -174,7 +175,7 @@ public class MedicineServiceImpl implements MedicineService, DurService {
                         .build();
             });
         } catch (Exception e) {
-            log.error("[medicines/get] database error", e);
+            log.error("[medicines?search/get] database error", e);
             return new PageResponse<>(DATABASE_ERROR);
         }
         // 3. 결과 return
