@@ -1,8 +1,6 @@
 package com.medicine.controller;
 
-import com.medicine.dto.medicine.DetailOutput;
-import com.medicine.dto.medicine.SimilarInput;
-import com.medicine.dto.medicine.SimilarOutput;
+import com.medicine.dto.medicine.*;
 import com.medicine.response.PageResponse;
 import com.medicine.response.Response;
 import com.medicine.service.MedicineService;
@@ -41,8 +39,20 @@ public class MedicineController {
     // Params
     @GetMapping("/{id}")
     @ApiOperation(value = "약 상세정보 조회", notes = "약의 상세정보를 조회한다.")
-    public Response<DetailOutput> getDetailMedicineInfo(@PathVariable("id") String id){
+    public Response<DetailOutput> getDetailMedicineInfo(@PathVariable(name="id") String id){
         log.info("[GET] /medicines/" + id);
         return medicineService.getDetailMedicineInfo(id);
+    }
+
+    /**
+     * 약 이름별 조회 API
+     * [GET} /medicines?name
+     * @return Response<MedicineOutput>
+     */
+    @GetMapping
+    @ApiOperation(value="약 이름별 조회", notes = "약 이름에 검색한 내용이 포함될 경우 약 정보를 조회한다.")
+    public PageResponse<MedicineOutput> getMedicineInfoByName(@RequestParam String name, @Valid MedicineSearchByNameInput medicineSearchByNameInput){
+        log.info("[GET] /medicines?"+name);
+        return medicineService.getMedicineInfoByName(name,medicineSearchByNameInput);
     }
 }
