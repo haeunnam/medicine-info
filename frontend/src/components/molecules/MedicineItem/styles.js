@@ -3,9 +3,10 @@ import theme from "../../../styles/theme";
 
 export const Wrapper = styled.div`
   display: flex;
+  align-items: center;
   .medicine-img {
-    width: 100px;
-    object-fit: cover;
+    width: 110px;
+    height: auto;
     margin-right: 15px;
   }
   .content {
@@ -32,6 +33,6 @@ export const Wrapper = styled.div`
     }
   }
   & + & {
-    margin-top: 15px;
+    margin-top: 28px;
   }
 `;

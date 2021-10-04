@@ -35,7 +35,9 @@ export const ReviewsContainer = styled.div`
 `;
 
 export const MedicinesContainer = styled.div`
-  padding: 12px 18px 24px;
+  padding: 16px 24px 42px;
+  height: ${(props) => props.height}px;
+  overflow: scroll;
 `;
 
 export const MedDetailContainer = styled.div`
@@ -53,3 +55,5 @@ export const MedDetailContainer = styled.div`
     }
   }
 `;
+
+export const Wrapper = styled.div``;

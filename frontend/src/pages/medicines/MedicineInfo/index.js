@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import MedicineInfoTemplate from "../../../components/templates/MedicineInfoTemplate";
 import { useDispatch, useSelector } from "react-redux";
-import { getMedicineInfo } from "../../../modules/medicine";
+import MedicineInfoTemplate from "../../../components/templates/MedicineInfoTemplate";
+import {
+  getMedicineInfo,
+  getSimliarMedicines,
+} from "../../../modules/medicine";
 
 function MedicineInfo({ match }) {
   const [activeTab, setActiveTab] = useState(0);
@@ -12,10 +15,14 @@ function MedicineInfo({ match }) {
   const medicineInfo = useSelector(
     (state) => state.medicineReducer.medicineObj
   );
+  const similarMedicines = useSelector(
+    (state) => state.medicineReducer.similarMedicinesObj
+  );
 
   useEffect(() => {
     dispatch(getMedicineInfo(medicineId));
-  }, []);
+    dispatch(getSimliarMedicines(medicineId));
+  }, [match.params.id]);
 
   function onTabClick(key) {
     setActiveTab(key);
@@ -49,19 +56,39 @@ function MedicineInfo({ match }) {
     // 디스패치로 요청
   }
 
+  async function handleInfiniteScroll(e) {
+    const { scrollTop, clientHeight, scrollHeight } = e.target;
+    if (parseInt(scrollTop) + parseInt(clientHeight) !== parseInt(scrollHeight))
+      return;
+
+    if (activeTab === 2) {
+      if (similarMedicines && similarMedicines.length % 5 !== 0) return;
+      const page = parseInt(similarMedicines.length / 5);
+      await dispatch(getSimliarMedicines(medicineId, page));
+    }
+  }
+
   return (
-    <MedicineInfoTemplate
-      onTabClick={onTabClick}
-      activeTab={activeTab}
-      onCalendarClick={onCalendarClick}
-      onModalOutsideClick={onModalOutsideClick}
-      isModalActive={isModalActive}
-      selectedDate={selectedDate}
-      setSelectedDate={setSelectedDate}
-      onSetStartDateClick={onSetStartDateClick}
-      onHeartClick={onHeartClick}
-      medicineInfo={medicineInfo}
-    />
+    <>
+      {medicineInfo ? (
+        <MedicineInfoTemplate
+          onTabClick={onTabClick}
+          activeTab={activeTab}
+          onCalendarClick={onCalendarClick}
+          onModalOutsideClick={onModalOutsideClick}
+          isModalActive={isModalActive}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          onSetStartDateClick={onSetStartDateClick}
+          onHeartClick={onHeartClick}
+          medicineInfo={medicineInfo}
+          similarMedicines={similarMedicines}
+          handleInfiniteScroll={handleInfiniteScroll}
+        />
+      ) : (
+        ""
+      )}
+    </>
   );
 }
 

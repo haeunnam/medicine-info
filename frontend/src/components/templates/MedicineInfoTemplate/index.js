@@ -8,11 +8,13 @@ import {
   ReviewsContainer,
   MedicinesContainer,
   MedDetailContainer,
+  Wrapper,
 } from "./styles";
 import MedicineItem from "../../molecules/MedicineItem";
 
 function MedicineInfoTemplate({
   medicineInfo,
+  similarMedicines,
   onTabClick,
   activeTab,
   onCalendarClick,
@@ -22,7 +24,9 @@ function MedicineInfoTemplate({
   selectedDate,
   onSetStartDateClick,
   onHeartClick,
+  handleInfiniteScroll,
 }) {
+  const listHeight = window.innerHeight - 350;
   let tabContent;
   if (activeTab === 0) {
     tabContent = (
@@ -69,32 +73,36 @@ function MedicineInfoTemplate({
     );
   } else {
     tabContent = (
-      <MedicinesContainer>
-        <MedicineItem />
+      <MedicinesContainer height={listHeight} onScroll={handleInfiniteScroll}>
+        {similarMedicines.map((medicine, idx) => (
+          <MedicineItem medicine={medicine} key={idx} />
+        ))}
       </MedicinesContainer>
     );
   }
   return (
     <>
       <Header isBack title="상세 정보" />
-      <MedicineCard
-        onCalendarClick={onCalendarClick}
-        onHeartClick={onHeartClick}
-        medicineInfo={medicineInfo}
-      />
-      <TabMenu
-        tabNames={["약 정보", "리뷰", "유사약"]}
-        onTabClick={onTabClick}
-        activeTab={activeTab}
-      />
-      <CalenderModal
-        isModalActive={isModalActive}
-        onModalOutsideClick={onModalOutsideClick}
-        setSelectedDate={setSelectedDate}
-        selectedDate={selectedDate}
-        onSetStartDateClick={onSetStartDateClick}
-      />
-      {tabContent}
+      <Wrapper>
+        <MedicineCard
+          onCalendarClick={onCalendarClick}
+          onHeartClick={onHeartClick}
+          medicineInfo={medicineInfo}
+        />
+        <TabMenu
+          tabNames={["약 정보", "리뷰", "유사약"]}
+          onTabClick={onTabClick}
+          activeTab={activeTab}
+        />
+        <CalenderModal
+          isModalActive={isModalActive}
+          onModalOutsideClick={onModalOutsideClick}
+          setSelectedDate={setSelectedDate}
+          selectedDate={selectedDate}
+          onSetStartDateClick={onSetStartDateClick}
+        />
+        {tabContent}
+      </Wrapper>
     </>
   );
 }

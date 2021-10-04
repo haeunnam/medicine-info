@@ -8,7 +8,6 @@ export const Wrapper = styled.div`
     justify-content: center;
     overflow: hidden;
     width: 100%;
-    height: 230px;
     object-fit: cover;
   }
 `;
