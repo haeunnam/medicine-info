@@ -18,7 +18,10 @@ const MedicineItem = ({ medicine }) => {
         <h1 className="medicine-name">{medicine.name}</h1>
         <div className="medicine-rating">
           <Icon icon="bx:bxs-star" className="rating-star" />
-          <strong className="rating-score">{medicine.score}</strong>
+          <strong className="rating-score">
+            {medicine.avgScore}
+            {medicine.score}
+          </strong>
         </div>
         <h2 className="medicine-kind">{medicine.category}</h2>
       </div>

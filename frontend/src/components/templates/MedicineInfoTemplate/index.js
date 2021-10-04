@@ -11,10 +11,12 @@ import {
   Wrapper,
 } from "./styles";
 import MedicineItem from "../../molecules/MedicineItem";
+import { useHistory } from "react-router";
 
 function MedicineInfoTemplate({
   medicineInfo,
   similarMedicines,
+  medicineReviews,
   onTabClick,
   activeTab,
   onCalendarClick,
@@ -25,8 +27,11 @@ function MedicineInfoTemplate({
   onSetStartDateClick,
   onHeartClick,
   handleInfiniteScroll,
+  reviewDelete,
+  reviewUpdate,
 }) {
   const listHeight = window.innerHeight - 350;
+  const history = useHistory();
   let tabContent;
   if (activeTab === 0) {
     tabContent = (
@@ -59,22 +64,38 @@ function MedicineInfoTemplate({
     );
   } else if (activeTab === 1) {
     tabContent = (
-      <ReviewsContainer>
+      <ReviewsContainer height={listHeight} onScroll={handleInfiniteScroll}>
         <div className="total-rating">총 평점</div>
         <div className="header">
           <div className="rating-score">
             <Icon className="icon-star" icon="el:star-alt" />
-            <span className="rating-num">4.0 </span>/ 5
+            <span className="rating-num">{medicineInfo.avgScore}</span>/ 5
           </div>
-          <Icon className="icon-write" icon="ion:create" />
+          <Icon
+            className="icon-write"
+            icon="ion:create"
+            onClick={() =>
+              history.push({
+                pathname: `${medicineInfo.id}/review`,
+                state: { medicineInfo, operation: "create" },
+              })
+            }
+          />
         </div>
-        <ReviewItem />
+        {medicineReviews?.map((review, idx) => (
+          <ReviewItem
+            review={review}
+            key={idx}
+            reviewDelete={reviewDelete}
+            reviewUpdate={reviewUpdate}
+          />
+        ))}
       </ReviewsContainer>
     );
   } else {
     tabContent = (
       <MedicinesContainer height={listHeight} onScroll={handleInfiniteScroll}>
-        {similarMedicines.map((medicine, idx) => (
+        {similarMedicines?.map((medicine, idx) => (
           <MedicineItem medicine={medicine} key={idx} />
         ))}
       </MedicinesContainer>

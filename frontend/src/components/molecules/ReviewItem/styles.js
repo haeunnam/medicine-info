@@ -3,7 +3,7 @@ import theme from "../../../styles/theme";
 
 export const Wrapper = styled.div`
   & + & {
-    margin-top: 14px;
+    margin-top: 20px;
   }
   .review-header {
     padding: 0 4px;

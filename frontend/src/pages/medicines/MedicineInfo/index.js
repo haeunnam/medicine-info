@@ -1,19 +1,28 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import { requestDelete } from "../../../api";
 import MedicineInfoTemplate from "../../../components/templates/MedicineInfoTemplate";
 import {
   getMedicineInfo,
   getSimliarMedicines,
+  getMedicineReviews,
+  setActiveTab,
 } from "../../../modules/medicine";
 
 function MedicineInfo({ match }) {
-  const [activeTab, setActiveTab] = useState(0);
   const [isModalActive, setIsModalActive] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const medicineId = match.params.id;
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const activeTab = useSelector((state) => state.medicineReducer.activeTab);
   const medicineInfo = useSelector(
     (state) => state.medicineReducer.medicineObj
+  );
+  const medicineReviews = useSelector(
+    (state) => state.medicineReducer.medicineReviewsObj
   );
   const similarMedicines = useSelector(
     (state) => state.medicineReducer.similarMedicinesObj
@@ -21,11 +30,12 @@ function MedicineInfo({ match }) {
 
   useEffect(() => {
     dispatch(getMedicineInfo(medicineId));
+    dispatch(getMedicineReviews(medicineId));
     dispatch(getSimliarMedicines(medicineId));
   }, [match.params.id]);
 
   function onTabClick(key) {
-    setActiveTab(key);
+    dispatch(setActiveTab(key));
   }
 
   function modalToggle() {
@@ -65,7 +75,23 @@ function MedicineInfo({ match }) {
       if (similarMedicines && similarMedicines.length % 5 !== 0) return;
       const page = parseInt(similarMedicines.length / 5);
       await dispatch(getSimliarMedicines(medicineId, page));
+    } else if (activeTab === 1) {
+      if (medicineReviews && medicineReviews.length % 5 !== 0) return;
+      const page = parseInt(medicineReviews.length / 5);
+      await dispatch(getMedicineReviews(medicineId, page));
     }
+  }
+
+  async function reviewDelete(reviewId) {
+    await requestDelete(`/reviews/${reviewId}`);
+    dispatch(getMedicineReviews(medicineId));
+  }
+
+  async function reviewUpdate(review) {
+    history.push({
+      pathname: `${medicineInfo.id}/review`,
+      state: { medicineInfo, review, operation: "update" },
+    });
   }
 
   return (
@@ -84,6 +110,9 @@ function MedicineInfo({ match }) {
           medicineInfo={medicineInfo}
           similarMedicines={similarMedicines}
           handleInfiniteScroll={handleInfiniteScroll}
+          medicineReviews={medicineReviews}
+          reviewDelete={reviewDelete}
+          reviewUpdate={reviewUpdate}
         />
       ) : (
         ""
