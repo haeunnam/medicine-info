@@ -176,4 +176,21 @@ public class UserServiceImpl implements UserService {
 		
         return new Response<>(null, SUCCESS_UPDATE_PROFILE);
 	}
+
+    @Override
+    public Response<Object> deactivate() {
+        try{
+            // 1. 유저 삭제
+            int loginUserId = jwtService.getUserId();
+            if (loginUserId <= 0) {
+                log.error("[users/delete] NOT FOUND LOGIN USER error");
+                return new Response<>(NOT_FOUND_USER);
+            }
+            userRepository.deleteById(loginUserId);
+        } catch (Exception e){
+            log.error("[users/deactivate/delete] database error" , e);
+            return new Response<>(DATABASE_ERROR);
+        }
+        return new Response<>(null,SUCCESS_DELETE_USER);
+    }
 }

@@ -13,4 +13,5 @@ public interface UserService {
     Response<SignUpOutput> signUp(SignUpInput signUpInput);
 	Response<ProfileOutput> getProfile();
 	Response<Object> updateProfile(ProfileUpdate profileUpdate);
+    Response<Object> deactivate();
 }

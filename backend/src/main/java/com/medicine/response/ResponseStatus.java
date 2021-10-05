@@ -42,6 +42,7 @@ public enum  ResponseStatus {
     SUCCESS_UPDATE_REVIEW(204, 210, "리뷰 수정에 성공하였습니다."),
     SUCCESS_DELETE_REVIEW(204, 215, "리뷰 삭제에 성공하였습니다."),
     SUCCESS_DELETE_LIKE_MEDICINE(204, 220, "관심 있는 약 삭제에 성공하였습니다."),
+    SUCCESS_DELETE_USER(204,225,"회원 탈퇴에 성공하였습니다."),
     /*
      4XX Client errors
      */
