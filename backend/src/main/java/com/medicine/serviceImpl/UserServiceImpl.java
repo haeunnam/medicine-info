@@ -157,7 +157,7 @@ public class UserServiceImpl implements UserService {
             UserDB user = userRepository.findById(loginUserId).get();
             
             String email = user.getEmail();
-            String password = profileUpdate.getPassword() == null ? user.getPassword() : profileUpdate.getPassword();
+            String password = user.getPassword();
             String nickname = profileUpdate.getNickname() == null ? user.getNickname() : profileUpdate.getNickname();
             String gender = profileUpdate.getGender() == null ? user.getGender() : profileUpdate.getGender();
             Date birth = profileUpdate.getBirth() == null ? user.getBirth() : profileUpdate.getBirth();
@@ -176,4 +176,21 @@ public class UserServiceImpl implements UserService {
 		
         return new Response<>(null, SUCCESS_UPDATE_PROFILE);
 	}
+
+    @Override
+    public Response<Object> deactivate() {
+        try{
+            // 1. 유저 삭제
+            int loginUserId = jwtService.getUserId();
+            if (loginUserId <= 0) {
+                log.error("[users/delete] NOT FOUND LOGIN USER error");
+                return new Response<>(NOT_FOUND_USER);
+            }
+            userRepository.deleteById(loginUserId);
+        } catch (Exception e){
+            log.error("[users/deactivate/delete] database error" , e);
+            return new Response<>(DATABASE_ERROR);
+        }
+        return new Response<>(null,SUCCESS_DELETE_USER);
+    }
 }

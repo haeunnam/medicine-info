@@ -73,20 +73,32 @@ public class UserController {
     @GetMapping("/profile")
     @ApiOperation(value = "profile 조회", notes = "로그인된 회원 정보를 확인한다.")
     public Response<ProfileOutput> getProfile() {
-        log.info("[POST] /users/signin");
+        log.info("[POST] /users/profile");
         return userService.getProfile();
     }
     
     /**
-     * profile 조회 API
-     * [POST] /users/profile
-     * @return Response<ProfileOutput>
+     * profile 수정 API
+     * [PATCH] /users/
+     * @return Response<Object>
      */
     // Body
     @PatchMapping("/")
     @ApiOperation(value = "회원정보 수정", notes = "로그인된 회원 정보를 수정한다.")
-    public Response<Object> updateProfile(ProfileUpdate profileUpdate) {
+    public Response<Object> updateProfile(@RequestBody ProfileUpdate profileUpdate) {
         log.info("[PATCH] /users/");
         return userService.updateProfile(profileUpdate);
+    }
+
+    /**
+     * 회원탈퇴 API
+     * [DELETE] /users/deactivate
+     * @return Response<Object>
+     */
+    @DeleteMapping("/deactivate")
+    @ApiOperation(value="회원 탈퇴", notes="탈퇴를 원하는 유저를 데이터베이스에서 삭제한다.")
+    public Response<Object> deactivate(){
+        log.info("[DELETE] /users/deactivate");
+        return userService.deactivate();
     }
 }
