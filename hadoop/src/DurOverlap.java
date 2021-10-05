@@ -90,7 +90,7 @@ public class DurOverlap {
 		 * if (hdfs.exists(output)) hdfs.delete(output, true);
 		 */
 
-		MongoConfigUtil.setOutputURI(conf, "mongodb://j5b205.p.ssafy.io:27017/" + otherArgs[1]);
+		MongoConfigUtil.setOutputURI(conf, "mongodb://j5b205.p.ssafy.io:7777/" + otherArgs[1]);
 		DBCollection collection = MongoConfigUtil.getOutputCollection(conf);
 		collection.drop();
 

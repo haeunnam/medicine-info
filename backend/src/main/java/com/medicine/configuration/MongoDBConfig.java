@@ -30,6 +30,10 @@ public class MongoDBConfig {
     private String port;
     @Value("${spring.data.mongodb.database}")
     private String database;
+    @Value("${spring.data.mongodb.username}")
+    private String username;
+    @Value("${spring.data.mongodb.password}")
+    private String password;
 
     @Bean(name = "mongoDB_entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -40,6 +44,8 @@ public class MongoDBConfig {
         map.put("hibernate.ogm.datastore.host", host);
         map.put("hibernate.ogm.datastore.port", port);
         map.put("hibernate.ogm.datastore.database", database);
+        map.put("hibernate.ogm.datastore.username", username);
+        map.put("hibernate.ogm.datastore.password", password);
 
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setPackagesToScan("com.medicine.entity.mongo");
