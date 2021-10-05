@@ -10,21 +10,13 @@ export const Wrapper = styled.div`
     margin-right: 15px;
   }
   .content {
-    .medicine-company {
-      font-size: ${theme.fontSizes.xs};
-      color: ${theme.colors.gray};
-      font-weight: 400;
-    }
     .medicine-name {
       font-size: ${theme.fontSizes.md};
       color: ${theme.colors.black};
     }
-    .medicine-rating {
-      .rating-star {
-        color: ${theme.colors.yellow};
-        margin-right: 4px;
-      }
-      font-size: ${theme.fontSizes.xs};
+    .medicine-taking {
+      font-size: ${theme.fontSizes.sm};
+      color : ${theme.colors.green};
     }
     .medicine-kind {
       font-weight: 400;

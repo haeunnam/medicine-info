@@ -2,11 +2,16 @@ import { Wrapper } from "./styles";
 import { Icon } from "@iconify/react";
 import { useHistory } from "react-router";
 import {AiOutlineClose} from 'react-icons/ai';
-const MyMediItem = ({ medicine, DeleteMine }) => {
+const MyMediItem = ({ medicine, DeleteTaking }) => {
   const history = useHistory();
   const DEFAULT_IMG =
     "https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif";
-  return (
+  //D-day 계산
+  const now_Year = new Date().getTime();
+  const taken_Year = new Date(medicine.dateTime).getTime();
+
+  const Dday = Math.ceil((now_Year - taken_Year) / (1000*60*60*24));
+    return (
     <Wrapper>
       <img
         className="medicine-img"
@@ -14,15 +19,12 @@ const MyMediItem = ({ medicine, DeleteMine }) => {
         alt="medicine"
       />
       <div className="content">
-        <h2 className="medicine-company">{medicine.company}</h2>
         <h1 className="medicine-name">{medicine.name}</h1>
-        <div className="medicine-rating">
-          <Icon icon="bx:bxs-star" className="rating-star" />
-          <strong className="rating-score">{medicine.score}</strong>
-        </div>
-        <h2 className="medicine-kind">{medicine.category}</h2>
+        <h2 className="medicine-taking">
+          D + {Dday}
+        </h2>
       </div>
-      <AiOutlineClose className="icon-box" onClick={() => DeleteMine(medicine.id)} />
+      <AiOutlineClose className="icon-box" onClick={() => DeleteTaking(medicine.id)} />
     </Wrapper>
   );
 };

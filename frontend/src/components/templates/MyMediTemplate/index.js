@@ -1,12 +1,12 @@
 import React from "react";
 import Header from "../../molecules/Header";
-import SearchBar from "../../molecules/SearchBar";
 import FooterNav from '../../molecules/FooterNav';
 import {
   MyPillContainer,
   LikeContainer,
 } from './styles';
 import MyMediItem from '../../molecules/MyMediItem';
+import TakingItem from '../../molecules/TakingItem';
 import TabMenu from '../../molecules/TabMenu';
 function MyMediTemplate({
   isActive,
@@ -16,15 +16,18 @@ function MyMediTemplate({
   takingpills,
   activeTab,
   onTabClick,
-  DeletePill,
+  DeleteMine,
+  DeleteTaking,
+  handleInfiniteScroll,
 }) {
+  const listHeight = window.innerHeight - 350;
   let tabContent;
   //약바구니에 담긴 약
   if (activeTab === 0){
     tabContent=(
-      <LikeContainer>
+      <LikeContainer height={listHeight} onScroll={handleInfiniteScroll}>
         {likepills.map((likepill) => (     
-          <MyMediItem medicine={likepill} DeletePill={DeletePill}/>
+          <MyMediItem medicine={likepill} DeleteMine={DeleteMine} key={likepill.id}/>
         ))}
       </LikeContainer>
     )
@@ -33,7 +36,7 @@ function MyMediTemplate({
     tabContent = (
       <LikeContainer>
         {takingpills.map((takingpill) => (     
-          <MyMediItem medicine={takingpill} DeletePill={DeletePill} />
+          <TakingItem medicine={takingpill} DeleteTaking={DeleteTaking} key={takingpill.id} />
         ))}
       </LikeContainer>
     )
@@ -42,7 +45,6 @@ function MyMediTemplate({
     <>
       <Header title="나의 약" />
       <MyPillContainer>
-        <SearchBar placeholder="약이름 검색" labelId="mymedi" onChange={onChange} value={value} />
         <TabMenu tabNames={["나의 약", "복용중인 약"]} onTabClick={onTabClick} activeTab={activeTab} />
         {tabContent }
       </MyPillContainer>

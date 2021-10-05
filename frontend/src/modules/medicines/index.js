@@ -2,6 +2,7 @@
 const SET_LIKE_MEDI = "SET_LIKE_MEDI";
 const SET_TAKING_MEDI = "SET_TAKING_MEDI";
 const DELETE_LIKE_MEDI = "DELETE_LIKE_MEDI";
+const DELETE_TAKING_MEDI = "DELETE_TAKING_MEDI";
 
 //액션 생성함수 만들기
 export const setLikeMedi = (likeObj) => {
@@ -23,6 +24,13 @@ export const deletelike = (mediid) => {
   return{
     type: DELETE_LIKE_MEDI,
     mediid: mediid,
+  }
+}
+
+export const deletetaking = (tid) => {
+  return{
+    type: DELETE_TAKING_MEDI,
+    tid: tid,
   }
 }
 /* 초기 상태 선언 */
@@ -47,7 +55,10 @@ export const mediReducer = (state = initialState, action) => {
       };
 
     case DELETE_LIKE_MEDI:
-      return state.filter((likeObj) => likeObj.id !== action.mediid);
+      return state.map((likeObj) => likeObj.id !== action.mediid);
+
+    case DELETE_TAKING_MEDI:
+      return state.map((takingObj) => takingObj.id !== action.tid);
 
     default:
       return state;

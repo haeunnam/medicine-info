@@ -1,5 +1,5 @@
 import DurPageTemplate from "../../components/templates/DurPageTemplate";
-import { request } from "../../api";
+import { requestGet } from "../../api";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -7,10 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 function DurPage(){
   const dispatch = useDispatch();
   const isActive = 1;
-  const isDurtype = 0;
   const cols = {'id':'번호','name':'약이름','delete':'삭제'};
-  const [medicines, setMedicine ] = useState([{'id':1,'name':'타이레놀'},{'id':2,'name':'hewy'}]);
-  const nextId = useRef(0);
+  const [medicines, setMedicine ] = useState([]);
+  const nextId = useRef(1);
   const sample = {
     'durs':[{'medicine_id':'1234','content':'1234는 먹지마!'}],
     'preg':[{'medicine_id':'1234','content':'임부주의'}],
@@ -26,21 +25,19 @@ function DurPage(){
     console.log(id);
   }
 
-  // 결과들 보여주기
-  const onShow = () => {
-
-  }
-
   //dur 조회 요청 보내기
   async function requestDur() {
     if (medicines.length === 0) {
       alert("약을 선택해주세요!");
       return;
     }
-    const data = medicines;
-    const response = await request("GET", "/medicines/dur", data);
+    const params = {}
+    for (const medicine of medicines) {
+      params.id = medicine.id;
+    }
+    const response = await requestGet( "/medicines/dur", params);
     if (response.isSuccess) {
-      setDurs(response.data);
+      setDurs(response.result);
     } else {
       console.log("요청 안강");
     }

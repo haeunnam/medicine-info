@@ -24,13 +24,7 @@ function MyPage(){
         dispatch(setUserInfo(userInfo));
       }
       else {
-        const falseInfo = {
-          nickname : 'test',
-          birth : new Date('2009-03-11'),
-          gender : "F",
-          email : "test1234@gmail.com",
-        };
-        dispatch(setUserInfo(falseInfo));
+        history.push('/signin');
       }
     }
     bringUserInfo();
