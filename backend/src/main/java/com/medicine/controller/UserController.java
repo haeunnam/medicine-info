@@ -89,4 +89,16 @@ public class UserController {
         log.info("[PATCH] /users/");
         return userService.updateProfile(profileUpdate);
     }
+
+    /**
+     * 회원탈퇴 API
+     * [DELETE] /users/deactivate
+     * @return Response<Object>
+     */
+    @DeleteMapping("/deactivate")
+    @ApiOperation(value="회원 탈퇴", notes="탈퇴를 원하는 유저를 데이터베이스에서 삭제한다.")
+    public Response<Object> deactivate(){
+        log.info("[DELETE] /users/deactivate");
+        return userService.deactivate();
+    }
 }
