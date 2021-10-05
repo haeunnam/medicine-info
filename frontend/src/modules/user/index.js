@@ -10,19 +10,18 @@ export const setUserId = (userId) => {
   };
 };
 
-
 export const setUserInfo = (userInfo) => {
   return {
     type: SET_USER_INFO,
     userInfo: userInfo,
-  }
-}
+  };
+};
 
 /* 초기 상태 선언 */
 const initialState = {
   userId: "",
-  userInfo:null,
-}
+  userInfo: null,
+};
 
 // 리듀서
 export const userReducer = (state = initialState, action) => {
@@ -36,11 +35,11 @@ export const userReducer = (state = initialState, action) => {
     case SET_USER_INFO:
       return {
         ...state,
-        userInfo:{
-          nickname:action.userInfo.nickname,
+        userInfo: {
+          nickname: action.userInfo.nickname,
           birth: action.userInfo.birth,
-          gender : action.userInfo.gender,
-          email : action.userInfo.email,
+          gender: action.userInfo.gender,
+          email: action.userInfo.email,
         },
       };
     default:

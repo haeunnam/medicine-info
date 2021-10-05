@@ -5,10 +5,13 @@ import Home from "./pages/Home";
 import PageNotFound from "./pages/PageNotFound";
 import Signup from "./pages/user/Signup";
 import SignIn from "./pages/user/SignIn";
+import MedicineInfo from "./pages/medicines/MedicineInfo";
 import UserEdit from "./pages/user/UserEdit";
 import MyPage from "./pages/user/MyPage";
 import DurPage from './pages/DurPage';
 import MyMedi from "./pages/user/MyMedi";
+import Review from "./pages/medicines/Review";
+
 function AppRouter() {
   return (
     <ThemeProvider theme={theme}>
@@ -17,6 +20,8 @@ function AppRouter() {
           <Route exact path="/" component={Home} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/signin" component={SignIn} />
+          <Route exact path="/medicines/:id" component={MedicineInfo} />
+          <Route exact path="/medicines/:id/review" component={Review} />
           <Route exact path="/mypage" component={MyPage} />
           <Route exact path="/mypage/edit" component={UserEdit} />
           <Route exact path="/dur" component={DurPage} />

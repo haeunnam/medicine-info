@@ -11,4 +11,5 @@ import com.medicine.entity.mysql.MyMedicineDB;
 public interface MyMedicineRepository extends JpaRepository<MyMedicineDB, Integer> {
 	Page<MyMedicineDB> findByUserId(int userid, Pageable paging);
     boolean existsByMedicineIdAndUserId(String medicineId, int userId);
+    MyMedicineDB findByMedicineIdAndUserId(String medicineId, int userId);
 }
