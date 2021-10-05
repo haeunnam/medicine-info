@@ -164,7 +164,7 @@ public class UserServiceImpl implements UserService {
             UserDB user = userRepository.findById(loginUserId).get();
             
             String email = user.getEmail();
-            String password = profileUpdate.getPassword() == null ? user.getPassword() : profileUpdate.getPassword();
+            String password = user.getPassword();
             String nickname = profileUpdate.getNickname() == null ? user.getNickname() : profileUpdate.getNickname();
             String gender = profileUpdate.getGender() == null ? user.getGender() : profileUpdate.getGender();
             Date birth = profileUpdate.getBirth() == null ? user.getBirth() : profileUpdate.getBirth();
