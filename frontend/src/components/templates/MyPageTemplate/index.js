@@ -5,8 +5,7 @@ import { AiOutlineSetting } from 'react-icons/ai'
 import MenuButton from "../../atoms/MenuButton";
 import FooterNav from "../../molecules/FooterNav";
 function MyPageTemplate({ 
-  nickname, 
-  email,
+  userObj,
   moveReview,
   handleLogout,
   DeleteUser,
@@ -24,16 +23,18 @@ function MyPageTemplate({
           />
         </div>
         <div className="nickname-box">
-          <h1>{nickname}</h1>
-          <p>{email}</p>
+          <h1>{userObj.nickname}</h1>
+          <p>{userObj.email}</p>
         </div>
         <Link to="/mypage/edit" className="icon">
           < AiOutlineSetting />
         </Link>
       </div>
-      <MenuButton children="내가쓴리뷰" onClick={moveReview}/>
-      <MenuButton children="로그아웃" onClick={handleLogout}/>
-      <MenuButton children="회원탈퇴" onClick={DeleteUser}/>
+      <div className="button-box">
+        <MenuButton children="내가쓴리뷰" onClick={moveReview}/>
+        <MenuButton children="로그아웃" onClick={handleLogout}/>
+        <MenuButton children="회원탈퇴" onClick={DeleteUser}/>
+      </div>
     </InfoContainer>
     <FooterNav isActive={isActive}/>
   </>

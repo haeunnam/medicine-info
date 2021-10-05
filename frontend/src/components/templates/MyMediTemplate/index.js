@@ -10,8 +10,6 @@ import TakingItem from '../../molecules/TakingItem';
 import TabMenu from '../../molecules/TabMenu';
 function MyMediTemplate({
   isActive,
-  onChange,
-  value,
   likepills,
   takingpills,
   activeTab,

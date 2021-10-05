@@ -1,7 +1,7 @@
 import useInput from "../../../hooks/useInput";
 import UserEditTemplate from "../../../components/templates/UserEditTemplate";
-import { request } from "../../../api";
-// import { useHistory } from "react-router-dom";
+import { request, requestPatch } from "../../../api";
+import { useHistory } from "react-router-dom";
 import { useSelector } from 'react-redux'
 import {
   nicknameValidator,
@@ -9,17 +9,17 @@ import {
 import { useState } from "react";
 
 function UserEdit() {
-  // const history = useHistory();
+  const history = useHistory();
   const userObj =  useSelector(state => state.userReducer.userInfo);
   const nickname = useInput(userObj.nickname, nicknameValidator);
-  const [birthDate, setBirthDate] = useState(userObj.birth);
+  const [birth, setBirthDate] = useState(new Date(userObj.birth));
   const [gender, setGender] = useState(userObj.gender);
 
   //api 요청
   async function handleUserEdit() {
     if (
       !nickname.isValid ||
-      !birthDate ||
+      !birth ||
       !gender
     ) {
       alert("모든 항목을 입력하세요.");
@@ -28,13 +28,14 @@ function UserEdit() {
 
     const data = {
       nickname: nickname.value,
-      birth: new Date(birthDate).toISOString().substring(0, 10),
+      birth: new Date(birth).toISOString().substring(0, 10),
       gender,
     };
-    const response = await request("PATCH", "/users", data);
+    const response = await requestPatch("/users", data);
     if (response.isSuccess) {
       alert("회원정보 수정이 완료되었습니다.");
-      // history.replace({ pathname: "/signin" });
+      console.log(response);
+      history.replace({ pathname: "/mypage" });
     } 
     else {
       if (response.code === 405) {
@@ -47,7 +48,7 @@ function UserEdit() {
     <>
       <UserEditTemplate
         nickname={nickname}
-        birthDate={birthDate}
+        birth={birth}
         setBirthDate={setBirthDate}
         gender={gender}
         setGender={setGender}

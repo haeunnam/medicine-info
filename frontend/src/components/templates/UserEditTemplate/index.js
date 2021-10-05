@@ -9,11 +9,11 @@ import GenderSelector from "../../molecules/GenderSelector";
 
 function UserEditTemplate({
   nickname,
-  birthDate,
-  setBirthDate,
-  handleUserEdit,
-  setGender,
+  birth,
   gender,
+  setBirthDate,
+  setGender,
+  handleUserEdit,
 }) {
   return (
     <>
@@ -33,7 +33,7 @@ function UserEditTemplate({
           <div className="birth-input">
             <InputDate
               className="birth-date"
-              selectedDate={birthDate}
+              selectedDate={birth}
               setSelectedDate={setBirthDate}
             />
           </div>

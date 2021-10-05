@@ -33,7 +33,7 @@ function FooterNav({ isActive = 0 }) {
             <span>나의 약</span>
           </IconBox>
         </Link>
-        <Link to="/mypage">
+        <Link to="/mypage/">
           <IconBox>
             <Icon
               icon="healthicons:ui-user-profile-outline"

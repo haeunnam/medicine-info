@@ -12,9 +12,9 @@ function SelectedList({
     <>
       <StyledTable>
         <SelectHead cols={cols} />
-        {medicines.map((medicine) => (     
-          <SelectItem key={medicine.id} medicine={medicine} onDelete={onDelete} />
-        ))}
+        {/* {medicines.map((medicine) => (     
+          <SelectItem key={medicine} medicine={medicine} onDelete={onDelete} />
+        ))} */}
       </StyledTable>
     </>
   );

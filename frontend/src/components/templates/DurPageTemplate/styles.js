@@ -6,8 +6,7 @@ export const DurContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 45px;
-
-
+  overflow:scroll;
 
   .search-box{
     margin:10px 0;
@@ -15,8 +14,10 @@ export const DurContainer = styled.div`
 
   .bucket{
     display:flex;
+    margin:0 0 10px 0;
     .bucket-button{
       margin:0 0 5px auto;
+      font-size: ${theme.fontSizes.md};
     }
   }
 
@@ -25,8 +26,9 @@ export const DurContainer = styled.div`
   }
 
   .result-box{
-    margin:0 0 60px 0;
+    margin:0 0 30px 0;
     padding: 0 0 30px 0;
   }
+
 `;
 

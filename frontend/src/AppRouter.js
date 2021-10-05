@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
+import PrivateRoute from "./PrivateRoute";
 import theme from "./styles/theme";
 import Home from "./pages/Home";
 import PageNotFound from "./pages/PageNotFound";
@@ -22,10 +23,10 @@ function AppRouter() {
           <Route exact path="/signin" component={SignIn} />
           <Route exact path="/medicines/:id" component={MedicineInfo} />
           <Route exact path="/medicines/:id/review" component={Review} />
-          <Route exact path="/mypage" component={MyPage} />
-          <Route exact path="/mypage/edit" component={UserEdit} />
-          <Route exact path="/dur" component={DurPage} />
-          <Route exact path="/mymedi" component={MyMedi} />
+          <PrivateRoute exact path="/mypage/" component={MyPage} />
+          <PrivateRoute exact path="/mypage/edit" component={UserEdit} />
+          <PrivateRoute exact path="/dur" component={DurPage} />
+          <PrivateRoute exact path="/mymedi" component={MyMedi} />
           <Route path="*" component={PageNotFound} />
         </Switch>
       </BrowserRouter>

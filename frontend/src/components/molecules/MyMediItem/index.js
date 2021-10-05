@@ -1,4 +1,4 @@
-import { Wrapper } from "./styles";
+import { Wrapper, DeleteButton } from "./styles";
 import { Icon } from "@iconify/react";
 import { useHistory } from "react-router";
 import {AiOutlineClose} from 'react-icons/ai';
@@ -22,7 +22,9 @@ const MyMediItem = ({ medicine, DeleteMine }) => {
         </div>
         <h2 className="medicine-kind">{medicine.category}</h2>
       </div>
-      <AiOutlineClose className="icon-box" onClick={() => DeleteMine(medicine.id)} />
+      <DeleteButton>
+        <AiOutlineClose className="icon-box" onClick={() => DeleteMine(medicine.id)} />
+      </DeleteButton>
     </Wrapper>
   );
 };
