@@ -1,8 +1,9 @@
 import MyPageTemplate from "../../../components/templates/MyPageTemplate";
 import { request, requestGet } from "../../../api";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useSelector } from 'react-redux'
+import { useDispatch , useSelector} from "react-redux";
+import { getUserInfo } from "../../../modules/user";
+import { useEffect } from "react";
 
 function MyPage(){
   const dispatch = useDispatch();
@@ -10,10 +11,11 @@ function MyPage(){
   const userObj = useSelector(state => state.userReducer.userInfo);
   const isActive = 3;
 
-  
+  useEffect(() => {
+    dispatch(getUserInfo());
+  },[])
   function moveReview(){
-    alert("리뷰로 이동");
-    // history.replace({ pathname: "/MyReviews" });
+    history.push({ pathname: "/myreview" });
   }
 
   function handleLogout(){
@@ -22,8 +24,7 @@ function MyPage(){
   }
 
   function DeleteUser(){
-    // history.replace({ pathname: "/signout"});
-    alert("회원탈퇴 성공");
+    history.push({ pathname: "/signout"});
   }
  
   return (
