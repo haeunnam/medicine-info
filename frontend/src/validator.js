@@ -9,8 +9,8 @@ export function emailValidator(value) {
 }
 
 export function passwordValidator(value) {
-  if (value.length < 6 || value.length > 18) {
-    return { isValid: false, errorMessage: "6~18글자를 입력해주세요." };
+  if (value.length < 8 || value.length > 18) {
+    return { isValid: false, errorMessage: "8~18글자를 입력해주세요." };
   } else {
     return { isValid: true, errorMessage: "" };
   }
@@ -24,11 +24,13 @@ export function nicknameValidator(value) {
   }
 }
 
-export function searchValidator(value){
-  if (value.length < 2){
-    return {isValid:false, errorMessage:"약 이름을 2글자 이상 입력해주세요."};
-  }
-  else {
-    return {isValid:true, errorMessage:""};
+export function searchValidator(value) {
+  if (value.length < 2) {
+    return {
+      isValid: false,
+      errorMessage: "약 이름을 2글자 이상 입력해주세요.",
+    };
+  } else {
+    return { isValid: true, errorMessage: "" };
   }
 }
