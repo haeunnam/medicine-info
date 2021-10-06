@@ -24,8 +24,7 @@ function MyPage(){
   }
 
   function DeleteUser(){
-    // history.replace({ pathname: "/signout"});
-    alert("회원탈퇴 성공");
+    history.push({ pathname: "/signout"});
   }
  
   return (

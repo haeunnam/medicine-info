@@ -1,8 +1,9 @@
-import { requestGet } from "../../api";
+import { requestGet, requestDelete } from "../../api";
 //액션 타입 만들기
 const SET_LIKE_MEDI = "SET_LIKE_MEDI";
 const SET_TAKING_MEDI = "SET_TAKING_MEDI";
 const SET_DUR_MEDI = "SET_DUR_MEDI";
+const SET_MY_REVIEWS = "SET_MY_REVIEWS";
 
 //액션 생성함수 만들기
 export const setLikeMedi = (likeObj) => {
@@ -27,18 +28,30 @@ export const setDurMedi = (durObj) => {
   }
 }
 
+export const setMyReviews = (myReviews) => {
+  return {
+    type: SET_MY_REVIEWS,
+    myReviews : myReviews,
+  }
+}
+
+
+
+const initialState = {
+  likeObj: [],
+  takingObj:[],
+  durObj:[],
+  myReviews : [],
+}
 export const addDurMedicines = (data) =>
   async (dispatch, getState) => {
   const newDurMedicine = getState().mediReducer.durObj.concat(data);
   dispatch(setDurMedi(newDurMedicine));
 }
 
+
+
 /* 초기 상태 선언 */
-const initialState = {
-  likeObj: [],
-  takingObj:[],
-  durObj:[],
-}
 
 export const getTakingMedicines = (page = 0) =>
   async (dispatch) => {
@@ -64,6 +77,38 @@ export const getLikeMedicines = (page = 0) =>
     }
   };
 
+export const getMyReviews = (page = 0) =>
+  async (dispatch) => {
+    const params = {
+      page: page,
+      size: 5,
+    }
+    const response = await requestGet("/reviews/users",params);
+    if (response.isSuccess) {
+      dispatch(setMyReviews(response.result));
+    }
+  };
+
+export const deleteMine = (id) =>
+  async (dispatch) => {
+
+    const response = await requestDelete(`/reviews/${id}`);
+    if (response.isSuccess) {
+      dispatch(getMyReviews());
+    }
+    else{
+      console.log(response);
+    }
+  };
+
+export const deleteAll = () =>
+  async (dispatch) => {
+    const response = await requestDelete("/reviews/all");
+    if (response.isSuccess) {
+      dispatch(setMyReviews([]));
+    }
+  };
+
 // 리듀서
 export const mediReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -84,6 +129,14 @@ export const mediReducer = (state = initialState, action) => {
         ...state,
         durObj: action.durObj,
       }
+    
+    case SET_MY_REVIEWS :
+      return{
+        ...state,
+        myReviews: action.myReviews,
+      }
+
+
     default:
       return state;    
     

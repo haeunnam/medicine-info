@@ -3,18 +3,24 @@ import { Icon } from "@iconify/react";
 import MedicineItem from "../MedicineItem";
 
 const MyReviewItem = ({ review, reviewUpdate, reviewDelete }) => {
-  const 
+  const medicines = {
+    image: review.image,
+    name: review.name,
+    score: review.score,
+    medicineId: review.medicineId,
+  };
+
   return (
     <Wrapper>
       <header className="review-header">
-          <MedicineItem />
+          <MedicineItem medicine={medicines} />
           <div className="btn">
             <button className="update-btn" onClick={() => reviewUpdate(review)}>
               수정
             </button>
             <button
               className="delete-btn"
-              onClick={() => reviewDelete(review.reviewId)}
+              onClick={() => reviewDelete(review)}
             >
               삭제
             </button>

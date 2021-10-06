@@ -27,13 +27,9 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const StyledTextarea = styled.textarea`
-  outline: none;
-  border: none;
-  background-color: ${theme.colors.brightGray};
-  border-radius: 6px;
-  font-size: ${theme.fontSizes.md};
-  height: 160px;
-  padding: 10px;
-  resize: none;
-`;
+export const Button = styled.div`
+  .delete-all-button{
+    font-size:${theme.fontSizes.xs};
+  }
+  margin:10px 0 0 auto;
+`

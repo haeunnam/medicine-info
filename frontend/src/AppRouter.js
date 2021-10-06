@@ -14,6 +14,7 @@ import Review from "./pages/medicines/Review";
 import SearchMedicine from "./pages/medicines/SearchMedicine";
 import CategoryMedicine from "./pages/medicines/CategoryMedicine";
 import MyReview from "./pages/user/MyReview";
+import Deactivate from './pages/user/Deactivate';
 function AppRouter() {
   return (
     <ThemeProvider theme={theme}>
@@ -34,6 +35,7 @@ function AppRouter() {
           <PrivateRoute exact path="/dur" component={DurPage} />
           <PrivateRoute exact path="/mymedi" component={MyMedi} />
           <PrivateRoute exact path="/myreview" component={MyReview} />
+          <PrivateRoute exact path="/signout" component={Deactivate} />
           <Route path="*" component={PageNotFound} />
         </Switch>
       </BrowserRouter>

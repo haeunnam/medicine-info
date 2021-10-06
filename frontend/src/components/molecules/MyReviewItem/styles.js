@@ -11,8 +11,8 @@ export const Wrapper = styled.div`
     display: flex;
     justify-content: space-between;
     font-size: ${theme.fontSizes.sm};
-    .username {
-      margin-right: 5px;
+    .btn {
+      margin:3px 3px 0 0;
     }
     .rating {
       display: inline-flex;
