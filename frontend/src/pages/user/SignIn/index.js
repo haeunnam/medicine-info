@@ -2,7 +2,7 @@ import { useHistory } from "react-router-dom";
 import { emailValidator, passwordValidator } from "../../../validator";
 import useInput from "../../../hooks/useInput";
 import SignInTemplate from "../../../components/templates/SignInTemplate";
-import { request,requestGet } from "../../../api";
+import { request, requestGet } from "../../../api";
 import { useDispatch } from "react-redux";
 import { setUserId, setUserInfo } from "../../../modules/user";
 
@@ -14,18 +14,13 @@ function SignIn() {
   const email = useInput("", emailValidator);
   const password = useInput("", passwordValidator);
 
-  // async function bringUserInfo() {
-  //   const response = await requestGet("/users/profile");
-  //   if (response.isSuccess) {
-  //     const userInfo = {
-  //       nickname : response.result.nickname,
-  //       birth : response.result.birth,
-  //       gender : response.result.gender,
-  //       email : response.result.email,
-  //     };
-  //     dispatch(setUserInfo(userInfo));
-  //   }
-  // }
+  useEffect(() => {
+    const isLogined = localStorage.getItem("loginUser");
+    if (isLogined) {
+      history.push("/");
+    }
+  }, []);
+
   async function handleLogin() {
     if (!email.isValid || !password.isValid) {
       alert("이메일과 패스워드를 확인해주세요.");

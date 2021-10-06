@@ -62,7 +62,6 @@ function ReviewCreate({ location }) {
         alert("이미 리뷰를 작성하셨습니다.");
       }
     } else if (operation === "update") {
-      console.log("g");
       const response = await request(
         "patch",
         `/reviews/${review.reviewId}`,

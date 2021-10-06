@@ -54,7 +54,6 @@ function SearchMedicine() {
   }
 
   async function handleInfiniteScroll(e) {
-    console.log(e);
     const { scrollTop, clientHeight, scrollHeight } = e.target;
     if (parseInt(scrollTop) + parseInt(clientHeight) !== parseInt(scrollHeight))
       return;

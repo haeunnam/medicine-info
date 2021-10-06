@@ -104,7 +104,7 @@ export const getMedicineReviews =
   async (dispatch, getState) => {
     const params = {
       page: page,
-      size: 5,
+      size: 10,
     };
     const { result } = await requestGet(
       `/reviews/medicines/${medicineId}`,
@@ -146,7 +146,6 @@ export const getCategoryMedicines =
       category: categoryName,
     };
     const { result } = await requestGet(`/medicines`, params);
-    console.log(result);
     if (page === 0) {
       dispatch(setCategoryMedicines(result));
     } else {

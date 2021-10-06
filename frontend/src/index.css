@@ -8,7 +8,7 @@
 }
 
 body {
-  color: #2d3436;
+  color: hsl(193, 9%, 19%);
   margin: 0;
   font-family: "Noto Sans KR", sans-serif;
   -webkit-font-smoothing: antialiased;
