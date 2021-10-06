@@ -5,7 +5,24 @@ export const ReviewsContainer = styled.div`
   font-size: ${theme.fontSizes.lg};
   height: ${(props) => props.height}px;
   overflow: scroll;
+  overflow-x: hidden;
   padding: 12px 18px 36px;
+  overflow: scroll;
+  overflow-x: hidden;
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${theme.colors.gray};
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${theme.colors.green};
+  }
   .total-rating {
     font-size: ${theme.fontSizes.md};
     margin-bottom: 12px;
@@ -40,6 +57,21 @@ export const MedicinesContainer = styled.div`
   padding: 16px 24px 42px;
   height: ${(props) => props.height}px;
   overflow: scroll;
+  overflow-x: hidden;
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${theme.colors.gray};
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${theme.colors.green};
+  }
 `;
 
 export const MedDetailContainer = styled.div`

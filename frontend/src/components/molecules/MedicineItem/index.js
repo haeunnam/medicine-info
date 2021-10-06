@@ -18,7 +18,7 @@ const MedicineItem = ({ medicine, onMedicineClick }) => {
           <div className="content">
             <h2 className="medicine-company">{medicine.company}</h2>
             <h1 className="medicine-name">
-              {medicine?.name.length > 15
+              {medicine?.name.length > 18
                 ? medicine.name.substring(0, 14) + "..."
                 : medicine.name}
             </h1>

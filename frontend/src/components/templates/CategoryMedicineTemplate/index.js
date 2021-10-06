@@ -11,10 +11,11 @@ function CategoryMedicineTemplate({ onMedicineClick, handleInfiniteScroll }) {
   );
   const location = useLocation();
   const categoryName = location.state.categoryName;
+  const listHeight = window.innerHeight - 105;
   return (
     <>
       <Header isBack title={categoryName} />
-      <Wrapper onScroll={(e) => handleInfiniteScroll(e, categoryName)}>
+      <Wrapper height={listHeight} onScroll={(e) => handleInfiniteScroll(e)}>
         {categoryMedicines &&
           categoryMedicines.map((medicine, idx) => (
             <MedicineItem

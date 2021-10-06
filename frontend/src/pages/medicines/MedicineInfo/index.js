@@ -17,7 +17,9 @@ function MedicineInfo({ match }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const activeTab = useSelector((state) => state.medicineReducer.activeTab);
+  const activeTab = useSelector((state) =>
+    state.medicineReducer.activeTab ? state.medicineReducer.activeTab : 0
+  );
   const medicineInfo = useSelector(
     (state) => state.medicineReducer.medicineObj
   );
@@ -53,21 +55,16 @@ function MedicineInfo({ match }) {
 
   async function handleMyMedicine() {
     if (!medicineInfo.myMedicine) {
-      const res = await request("post", "/my-medicines", {
+      await request("post", "/my-medicines", {
         dateTime: selectedDate,
         medicineId,
       });
       dispatch(getMedicineInfo(medicineId));
-      console.log(res);
     } else {
-      const res = await requestDelete(
-        `/my-medicines/${medicineInfo.myMedicine}`
-      );
+      await requestDelete(`/my-medicines/${medicineInfo.myMedicine}`);
       dispatch(getMedicineInfo(medicineId));
-      console.log(res);
       alert("약바구니에서 삭제되었습니다..");
     }
-
     modalToggle();
   }
 
@@ -93,8 +90,8 @@ function MedicineInfo({ match }) {
       const page = parseInt(similarMedicines.length / 5);
       await dispatch(getSimliarMedicines(medicineId, page));
     } else if (activeTab === 1) {
-      if (medicineReviews && medicineReviews.length % 5 !== 0) return;
-      const page = parseInt(medicineReviews.length / 5);
+      if (medicineReviews && medicineReviews.length % 10 !== 0) return;
+      const page = parseInt(medicineReviews.length / 10);
       await dispatch(getMedicineReviews(medicineId, page));
     }
   }

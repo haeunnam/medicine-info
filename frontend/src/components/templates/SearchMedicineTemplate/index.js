@@ -23,11 +23,13 @@ function SearchMedicineTemplate({
     "피임약",
     "영양제",
     "외용제",
-    " 기타",
+    "기타",
   ];
   const searchMedicines = useSelector(
     (state) => state.medicineReducer.searchMedicines
   );
+  const listHeight = window.innerHeight - 205;
+
   return (
     <>
       <Header isLogo />
@@ -41,7 +43,10 @@ function SearchMedicineTemplate({
           />
         </div>
         {searchMedicines ? (
-          <MedicineContainer onScroll={handleInfiniteScroll}>
+          <MedicineContainer
+            height={listHeight}
+            onScroll={handleInfiniteScroll}
+          >
             {searchMedicines.map((medicine, idx) => (
               <MedicineItem
                 medicine={medicine}
