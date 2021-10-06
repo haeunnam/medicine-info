@@ -45,11 +45,14 @@ public class UserServiceImpl implements UserService {
             String password = signInInput.getPassword();
             userDB = userRepository.findByEmail(email);
             if (userDB == null) {
+                log.error("[users/signin/post] NOT FOUND LOGIN USER error");
                 return new Response<>(ResponseStatus.NOT_FOUND_USER);
             } else if (!userDB.getPassword().equals(password)) {
+                log.error("[users/signin/post] FAIL TO SIGN UP error");
                 return new Response<>(ResponseStatus.FAILED_TO_SIGN_IN);
             }
         } catch (Exception e) {
+            log.error("[users/signin/post] database error");
             return new Response<>(ResponseStatus.DATABASE_ERROR);
         }
 
@@ -58,9 +61,11 @@ public class UserServiceImpl implements UserService {
         try {
             accessToken = jwtService.createAccessToken(userDB.getId());
             if (accessToken.isEmpty()) {
+                log.error("[users/signin/post] FAIL TO CREATE TOKEN error");
                 return new Response<>(ResponseStatus.FAILED_TO_CREATE_TOKEN);
             }
         } catch (Exception e) {
+            log.error("[users/signin/post] FAIL TO CREATE TOKEN error");
             return new Response<>(ResponseStatus.FAILED_TO_CREATE_TOKEN);
         }
 
@@ -83,9 +88,11 @@ public class UserServiceImpl implements UserService {
             UserDB existEmailUser = userRepository.findByEmail(email);
             UserDB existNicknameUser = userRepository.findByNickname(nickname);
             if (existEmailUser != null) {
+                log.error("[users/signup/post] EXISTS EMAIL error");
                 return new Response<>(ResponseStatus.EXISTS_EMAIL);
             }
             else if(existNicknameUser != null) {
+                log.error("[users/signup/post] EXISTS NICKNAME error");
                 return new Response<>(ResponseStatus.EXISTS_NICKNAME);
             }
             else {
@@ -99,6 +106,7 @@ public class UserServiceImpl implements UserService {
                 userRepository.save(userDB);
             }
         } catch (Exception e) {
+            log.error("[users/signup/post] database error");
             return new Response<>(ResponseStatus.DATABASE_ERROR);
         }
 
@@ -107,9 +115,11 @@ public class UserServiceImpl implements UserService {
         try {
             accessToken = jwtService.createAccessToken(userDB.getId());
             if (accessToken.isEmpty()) {
+                log.error("[users/signup/post] FAIL TO CREATE TOKEN error");
                 return new Response<>(ResponseStatus.FAILED_TO_CREATE_TOKEN);
             }
         } catch (Exception exception) {
+            log.error("[users/signup/post] FAIL TO CREATE TOKEN error");
             return new Response<>(ResponseStatus.FAILED_TO_CREATE_TOKEN);
         }
 
@@ -120,17 +130,15 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Response<ProfileOutput> getProfile() {
-		// 2. 약 상세정보 가져오기
+		// 1. 회원정보 가져오기
 		ProfileOutput profileOutput;
         try {
-            int loginUserId = jwtService.getUserId();
-            if (loginUserId <= 0) {
-                log.error("[medicines/get] NOT FOUND LOGIN USER error");
+            UserDB userDB = jwtService.getUserDB();
+            if (userDB == null) {
+                log.error("[users/profile/get] NOT FOUND LOGIN USER error");
                 return new Response<>(NOT_FOUND_USER);
             }
 
-            UserDB userDB = userRepository.findById(loginUserId).get();
-            		
             profileOutput = ProfileOutput.builder()
             				.email(userDB.getEmail())
             				.nickname(userDB.getNickname())
@@ -139,7 +147,7 @@ public class UserServiceImpl implements UserService {
             				.build();
 
         } catch (Exception e){
-            log.error("[user/profile] database error",e);
+            log.error("[users/profile/get] database error",e);
             return new Response<>(DATABASE_ERROR);
         }
 
@@ -147,30 +155,30 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+    @Transactional
 	public Response<Object> updateProfile(ProfileUpdate profileUpdate) {
 		try {
-            int loginUserId = jwtService.getUserId();
-            if (loginUserId <= 0) {
-                log.error("[medicines/get] NOT FOUND LOGIN USER error");
+            UserDB userDB = jwtService.getUserDB();
+            if (userDB == null) {
+                log.error("[users/patch] NOT FOUND LOGIN USER error");
                 return new Response<>(NOT_FOUND_USER);
             }
-            UserDB user = userRepository.findById(loginUserId).get();
             
-            String email = user.getEmail();
-            String password = user.getPassword();
-            String nickname = profileUpdate.getNickname() == null ? user.getNickname() : profileUpdate.getNickname();
-            String gender = profileUpdate.getGender() == null ? user.getGender() : profileUpdate.getGender();
-            Date birth = profileUpdate.getBirth() == null ? user.getBirth() : profileUpdate.getBirth();
-           
-            user.setNickname(nickname);
-            user.setEmail(email);
-            user.setPassword(password);
-            user.setGender(gender);
-            user.setBirth(birth);
-            userRepository.save(user);
+            String email = userDB.getEmail();
+            String password = userDB.getPassword();
+            String nickname = profileUpdate.getNickname() == null ? userDB.getNickname() : profileUpdate.getNickname();
+            String gender = profileUpdate.getGender() == null ? userDB.getGender() : profileUpdate.getGender();
+            Date birth = profileUpdate.getBirth() == null ? userDB.getBirth() : profileUpdate.getBirth();
+
+            userDB.setNickname(nickname);
+            userDB.setEmail(email);
+            userDB.setPassword(password);
+            userDB.setGender(gender);
+            userDB.setBirth(birth);
+            userRepository.save(userDB);
             
         } catch (Exception e){
-            log.error("[user/profile] database error",e);
+            log.error("[users/patch] database error",e);
             return new Response<>(DATABASE_ERROR);
         }
 		
@@ -178,12 +186,13 @@ public class UserServiceImpl implements UserService {
 	}
 
     @Override
+    @Transactional
     public Response<Object> deactivate() {
         try{
             // 1. 유저 삭제
             int loginUserId = jwtService.getUserId();
             if (loginUserId <= 0) {
-                log.error("[users/delete] NOT FOUND LOGIN USER error");
+                log.error("[users/deactivate/delete] NOT FOUND LOGIN USER error");
                 return new Response<>(NOT_FOUND_USER);
             }
             userRepository.deleteById(loginUserId);

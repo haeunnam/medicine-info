@@ -65,28 +65,27 @@ public class UserController {
     }
     
     /**
-     * profile 조회 API
-     * [POST] /users/profile
+     * 회원정보 조회 API
+     * [GET] /users/profile
      * @return Response<ProfileOutput>
      */
-    // Body
     @GetMapping("/profile")
-    @ApiOperation(value = "profile 조회", notes = "로그인된 회원 정보를 확인한다.")
+    @ApiOperation(value = "회원정보 조회", notes = "로그인된 회원 정보를 확인한다.")
     public Response<ProfileOutput> getProfile() {
-        log.info("[POST] /users/profile");
+        log.info("[GET] /users/profile");
         return userService.getProfile();
     }
     
     /**
-     * profile 수정 API
-     * [PATCH] /users/
+     * 회원정보 수정 API
+     * [PATCH] /users
      * @return Response<Object>
      */
     // Body
-    @PatchMapping("/")
+    @PatchMapping
     @ApiOperation(value = "회원정보 수정", notes = "로그인된 회원 정보를 수정한다.")
-    public Response<Object> updateProfile(@RequestBody ProfileUpdate profileUpdate) {
-        log.info("[PATCH] /users/");
+    public Response<Object> updateProfile(@RequestBody @Valid ProfileUpdate profileUpdate) {
+        log.info("[PATCH] /users");
         return userService.updateProfile(profileUpdate);
     }
 

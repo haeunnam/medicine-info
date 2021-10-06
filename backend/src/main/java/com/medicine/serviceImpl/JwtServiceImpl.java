@@ -1,19 +1,17 @@
 package com.medicine.serviceImpl;
 
-import com.medicine.configuration.ConstantConfig;
 import com.medicine.dao.mysql.UserRepository;
 import com.medicine.entity.mysql.UserDB;
 import com.medicine.service.JwtService;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
-
-import static com.medicine.configuration.ConstantConfig.*;
 
 @Service("JwtService")
 @RequiredArgsConstructor
@@ -22,12 +20,17 @@ public class JwtServiceImpl implements JwtService {
 
     private final UserRepository userRepository;
 
+    @Value("${custom.constant.access.token.secret.key}")
+    private String ACCESS_TOKEN_SECRET_KEY;
+    @Value("${custom.constant.valid.time}")
+    private long VALID_TIME;
+
     public String createAccessToken(int userId) {
         Date now = new Date();
         return Jwts.builder()
                 .claim("userId", userId)
                 .setIssuedAt(now)
-//                .setExpiration(new Date(now.getTime() + ConstantConfig.VALID_TIME))
+                .setExpiration(new Date(now.getTime() + VALID_TIME))
                 .signWith(SignatureAlgorithm.HS256, ACCESS_TOKEN_SECRET_KEY)
                 .compact();
     }
