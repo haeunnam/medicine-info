@@ -11,7 +11,7 @@
 - Jenkins Server (build server)
 - AWS EC2 (deploy, DB server) using docker
 
-<br>
+<br><br>
 
 ## ✔ How to start project in local environment
 ### 1. Clone this repository
@@ -62,6 +62,8 @@ server:
 
 > Right-click on the project folder - [Run As] - [Spring Boot App] 
 
+<br><br>
+
 ## ✔ Tech Stack
 | Usage               | Stack                    |
 | ------------------- | ------------------------ |
@@ -71,6 +73,8 @@ server:
 | `MongoDB`           | Database(hadoop)         |
 | `JWT`               | JSON Web Token           |
 | `Swagger`           | For document RESTful API |
+
+<br><br>
 
 ## ✔ Project Structure
 - `src/` 하위 폴더들은 다음과 같은 역할을 한다.
@@ -82,6 +86,8 @@ server:
 - `response/` : 처리에 대한 응답 구조와 응답 리스트가 정의되어 있다.
 - `service/` : 실질적으로 클라이언트의 요청을 처리하는 business logic이 정의되어 있다.
 - `serviceImpl/` :  service interface로부터 받은 business logic이 구현되어 있다.
+
+<br><br>
 
 ## ✔ cf) ERD , API Document
 1. ERD Document
