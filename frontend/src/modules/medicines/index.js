@@ -26,11 +26,17 @@ export const setDurMedi = (durObj) => {
   }
 }
 
+export const addDurMedicines = (data) =>
+  async (dispatch, getState) => {
+  const newDurMedicine = getState().mediReducer.durObj.concat(data);
+  dispatch(setDurMedi(newDurMedicine));
+}
+
 /* 초기 상태 선언 */
 const initialState = {
   likeObj: [],
   takingObj:[],
-  selectDur:[],
+  durObj:[],
 }
 
 // 리듀서
@@ -48,14 +54,16 @@ export const mediReducer = (state = initialState, action) => {
         takingObj : action.takingObj,
       };
     
-    case SET_DUR_MEDI:
-      return {
+    case SET_DUR_MEDI :
+      return{
         ...state,
-        selectDur : state.selectDur.push([action.durObj]),
-      };
+        durObj: action.durObj,
+      }
     default:
-      return state;
+      return state;    
+    
   }
 
 
 };
+

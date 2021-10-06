@@ -7,14 +7,17 @@ function SelectedList({
   medicines,
   cols,
   onDelete,
+
 }) {
   return (
     <>
       <StyledTable>
         <SelectHead cols={cols} />
-        {/* {medicines.map((medicine) => (     
-          <SelectItem key={medicine} medicine={medicine} onDelete={onDelete} />
-        ))} */}
+        { medicines ?
+          (medicines.map((medicine,idx) => (     
+            <SelectItem key={idx} medicine={medicine} onDelete={onDelete} idx={idx}/>
+          )))
+        : ("")}
       </StyledTable>
     </>
   );

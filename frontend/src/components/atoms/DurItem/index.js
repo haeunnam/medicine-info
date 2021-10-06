@@ -5,7 +5,7 @@ function DurItem({
 }) {
   return (
     <DurContainer>
-      <div className="content-box">{ Dur.medicine_id } : {Dur.content} </div>
+      <div className="content-box"><p className="font-box">{ Dur.medicine.name } </p>: {Dur.content} </div>
     </DurContainer>
   );
 }

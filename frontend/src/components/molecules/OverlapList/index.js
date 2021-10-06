@@ -1,10 +1,11 @@
 import {StyledLabel} from './styles';
-import TogetherItem from '../../atoms/TogetherItem';
+import OverlapItem from '../../atoms/OverlapItem';
 import {IoIosArrowForward} from 'react-icons/io';
-import {useState} from 'react';
-function TogetherList({
+import {useState } from 'react';
+function OverlapList({
   Durtype,
   Durs,
+  medicines,
   ...rest
 }) {
   const [isShow, setShow] = useState(false);
@@ -15,14 +16,13 @@ function TogetherList({
     <>
       <StyledLabel {...rest} onClick={onClick}><IoIosArrowForward className="icon" />{Durtype}({Durs.length})</StyledLabel>
       { Durs && isShow ? 
-          (Durs.map((Dur) => (     
-            <TogetherItem key={Dur} Dur={Dur} />
+          (Durs.map((Dur,idx) => (     
+              <OverlapItem key={idx} Dur={Dur} medicines={Dur.medicines} />
           )))
-            : (""
-            )
-        }
+        :("")
+      }
     </>
   );
 }
 
-export default TogetherList;
+export default OverlapList;
