@@ -34,7 +34,7 @@ export const BackButton = styled.div`
 `;
 
 export const LogoAndTitle = styled.div`
-  width: 110px;
+  width: 150px;
   text-align: center;
   display: flex;
   justify-content: center;

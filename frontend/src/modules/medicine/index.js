@@ -5,6 +5,11 @@ const SET_ACTIVE_TAB = "SET_ACTIVE_TAB";
 const SET_MEDICINE_INFO = "SET_MEDICINE_INFO";
 const SET_SIMILAR_MEDICINES = "SET_SIMILAR_MEDICINES";
 const SET_MEDICINE_REVIEWS = "SET_MEDICINE_REVIEWS";
+const SET_SEARCH_MEDICINES = "SET_SEARCH_MEDICINES";
+const SET_CATEGORY_MEDICINES = "SET_CATEGORY_MEDICINES";
+const DO_NOT_REFRESH = "DO_NOT_REFRESH";
+const DO_REFRESH = "DO_REFRESH";
+const SET_SEARCH_KEYWORD = "SET_SEARCH_KEYWORD";
 
 //액션 생성함수 만들기
 export const setActiveTab = (activeTab) => {
@@ -21,17 +26,50 @@ export const setMedicineInfo = (medicineObj) => {
   };
 };
 
-export const setSimilarMedicines = (similarMedicinesObj) => {
+export const setSimilarMedicines = (similarMedicines) => {
   return {
     type: SET_SIMILAR_MEDICINES,
-    similarMedicinesObj: similarMedicinesObj,
+    similarMedicines: similarMedicines,
   };
 };
 
-export const setMedicineReviews = (medicineReviewsObj) => {
+export const setMedicineReviews = (medicineReviews) => {
   return {
     type: SET_MEDICINE_REVIEWS,
-    medicineReviewsObj: medicineReviewsObj,
+    medicineReviews: medicineReviews,
+  };
+};
+
+export const setSearchMedicines = (searchMedicines) => {
+  return {
+    type: SET_SEARCH_MEDICINES,
+    searchMedicines: searchMedicines,
+  };
+};
+
+export const setCategoryMedicines = (categoryMedicines) => {
+  return {
+    type: SET_CATEGORY_MEDICINES,
+    categoryMedicines: categoryMedicines,
+  };
+};
+
+export const doNotRefresh = () => {
+  return {
+    type: DO_NOT_REFRESH,
+  };
+};
+
+export const doRefresh = () => {
+  return {
+    type: DO_REFRESH,
+  };
+};
+
+export const setSearchKeyword = (searchKeyword) => {
+  return {
+    type: SET_SEARCH_KEYWORD,
+    searchKeyword: searchKeyword,
   };
 };
 
@@ -56,7 +94,7 @@ export const getSimliarMedicines =
       dispatch(setSimilarMedicines(result));
     } else {
       const newSimilarMedicines =
-        getState().medicineReducer.similarMedicinesObj.concat(result);
+        getState().medicineReducer.similarMedicines.concat(result);
       dispatch(setSimilarMedicines(newSimilarMedicines));
     }
   };
@@ -76,17 +114,58 @@ export const getMedicineReviews =
       dispatch(setMedicineReviews(result));
     } else {
       const newMedicineReviews =
-        getState().medicineReducer.medicineReviewsObj.concat(result);
+        getState().medicineReducer.medicineReviews.concat(result);
       dispatch(setMedicineReviews(newMedicineReviews));
+    }
+  };
+
+export const getSearchMedicines =
+  (name, page = 0) =>
+  async (dispatch, getState) => {
+    const params = {
+      page: page,
+      size: 10,
+      name: name,
+    };
+    const { result } = await requestGet(`/medicines`, params);
+    if (page === 0) {
+      dispatch(setSearchMedicines(result));
+    } else {
+      const newSearchMedicines =
+        getState().medicineReducer.searchMedicines.concat(result);
+      dispatch(setSearchMedicines(newSearchMedicines));
+    }
+  };
+
+export const getCategoryMedicines =
+  (categoryName, page = 0) =>
+  async (dispatch, getState) => {
+    const params = {
+      page: page,
+      size: 10,
+      category: categoryName,
+    };
+    const { result } = await requestGet(`/medicines`, params);
+    console.log(result);
+    if (page === 0) {
+      dispatch(setCategoryMedicines(result));
+    } else {
+      const newCategoryMedicines =
+        getState().medicineReducer.categoryMedicines.concat(result);
+      dispatch(setCategoryMedicines(newCategoryMedicines));
     }
   };
 
 /* 초기 상태 선언 */
 const initialState = {
   activeTab: 0,
-  medicineObj: "",
-  similarMedicinesObj: "",
-  medicineReviewsObj: "",
+  medicineObj: {},
+  similarMedicines: [],
+  medicineReviews: [],
+  searchMedicines: [],
+  categoryMedicines: [],
+  needRefresh: true,
+  searchKeyword: "",
 };
 
 // 리듀서
@@ -105,12 +184,36 @@ export const medicineReducer = (state = initialState, action) => {
     case SET_SIMILAR_MEDICINES:
       return {
         ...state,
-        similarMedicinesObj: action.similarMedicinesObj,
+        similarMedicines: action.similarMedicines,
       };
     case SET_MEDICINE_REVIEWS:
       return {
         ...state,
-        medicineReviewsObj: action.medicineReviewsObj,
+        medicineReviews: action.medicineReviews,
+      };
+    case SET_SEARCH_MEDICINES:
+      return {
+        ...state,
+        searchMedicines: action.searchMedicines,
+      };
+    case SET_CATEGORY_MEDICINES:
+      return {
+        ...state,
+        categoryMedicines: action.categoryMedicines,
+      };
+    case DO_NOT_REFRESH:
+      return {
+        ...state,
+        needRefresh: false,
+      };
+    case DO_REFRESH:
+      return {
+        initialState,
+      };
+    case SET_SEARCH_KEYWORD:
+      return {
+        ...state,
+        searchKeyword: action.searchKeyword,
       };
     default:
       return state;
