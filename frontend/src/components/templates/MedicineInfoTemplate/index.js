@@ -29,6 +29,7 @@ function MedicineInfoTemplate({
   handleInfiniteScroll,
   reviewDelete,
   reviewUpdate,
+  onMedicineClick,
 }) {
   const listHeight = window.innerHeight - 350;
   const history = useHistory();
@@ -96,7 +97,11 @@ function MedicineInfoTemplate({
     tabContent = (
       <MedicinesContainer height={listHeight} onScroll={handleInfiniteScroll}>
         {similarMedicines?.map((medicine, idx) => (
-          <MedicineItem medicine={medicine} key={idx} />
+          <MedicineItem
+            medicine={medicine}
+            key={idx}
+            onMedicineClick={onMedicineClick}
+          />
         ))}
       </MedicinesContainer>
     );

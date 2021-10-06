@@ -22,10 +22,10 @@ function MedicineInfo({ match }) {
     (state) => state.medicineReducer.medicineObj
   );
   const medicineReviews = useSelector(
-    (state) => state.medicineReducer.medicineReviewsObj
+    (state) => state.medicineReducer.medicineReviews
   );
   const similarMedicines = useSelector(
-    (state) => state.medicineReducer.similarMedicinesObj
+    (state) => state.medicineReducer.similarMedicines
   );
   useEffect(() => {
     dispatch(getMedicineInfo(medicineId));
@@ -111,6 +111,10 @@ function MedicineInfo({ match }) {
     });
   }
 
+  function onMedicineClick(medicineId) {
+    history.push(`/medicines/${medicineId}`);
+  }
+
   return (
     <>
       {medicineInfo ? (
@@ -130,6 +134,7 @@ function MedicineInfo({ match }) {
           medicineReviews={medicineReviews}
           reviewDelete={reviewDelete}
           reviewUpdate={reviewUpdate}
+          onMedicineClick={onMedicineClick}
         />
       ) : (
         ""

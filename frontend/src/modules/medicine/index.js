@@ -6,6 +6,7 @@ const SET_MEDICINE_INFO = "SET_MEDICINE_INFO";
 const SET_SIMILAR_MEDICINES = "SET_SIMILAR_MEDICINES";
 const SET_MEDICINE_REVIEWS = "SET_MEDICINE_REVIEWS";
 const SET_SEARCH_MEDICINES = "SET_SEARCH_MEDICINES";
+const SET_CATEGORY_MEDICINES = "SET_CATEGORY_MEDICINES";
 const DO_NOT_REFRESH = "DO_NOT_REFRESH";
 const DO_REFRESH = "DO_REFRESH";
 const SET_SEARCH_KEYWORD = "SET_SEARCH_KEYWORD";
@@ -43,6 +44,13 @@ export const setSearchMedicines = (searchMedicines) => {
   return {
     type: SET_SEARCH_MEDICINES,
     searchMedicines: searchMedicines,
+  };
+};
+
+export const setCategoryMedicines = (categoryMedicines) => {
+  return {
+    type: SET_CATEGORY_MEDICINES,
+    categoryMedicines: categoryMedicines,
   };
 };
 
@@ -129,6 +137,25 @@ export const getSearchMedicines =
     }
   };
 
+export const getCategoryMedicines =
+  (categoryName, page = 0) =>
+  async (dispatch, getState) => {
+    const params = {
+      page: page,
+      size: 10,
+      category: categoryName,
+    };
+    const { result } = await requestGet(`/medicines`, params);
+    console.log(result);
+    if (page === 0) {
+      dispatch(setCategoryMedicines(result));
+    } else {
+      const newCategoryMedicines =
+        getState().medicineReducer.categoryMedicines.concat(result);
+      dispatch(setCategoryMedicines(newCategoryMedicines));
+    }
+  };
+
 /* 초기 상태 선언 */
 const initialState = {
   activeTab: 0,
@@ -136,6 +163,7 @@ const initialState = {
   similarMedicines: [],
   medicineReviews: [],
   searchMedicines: [],
+  categoryMedicines: [],
   needRefresh: true,
   searchKeyword: "",
 };
@@ -167,6 +195,11 @@ export const medicineReducer = (state = initialState, action) => {
       return {
         ...state,
         searchMedicines: action.searchMedicines,
+      };
+    case SET_CATEGORY_MEDICINES:
+      return {
+        ...state,
+        categoryMedicines: action.categoryMedicines,
       };
     case DO_NOT_REFRESH:
       return {
