@@ -202,6 +202,7 @@ public class ReviewServiceImpl implements ReviewService {
                     UserReviewOutput.builder()
                             .reviewId(reviewDB.getId())
                             .medicineId(reviewDB.getMedicine().getId())
+                            .image(reviewDB.getMedicine().getImage())
                             .name(reviewDB.getMedicine().getName())
                             .company(reviewDB.getMedicine().getCompany())
                             .category(reviewDB.getMedicine().getCategory())
