@@ -23,6 +23,7 @@ export const StyledInput = styled.input`
   height: 40px;
   width: ${(props) => props.width || "80%"};
   padding: 0 10px;
+  width: 100%;
   border-width: 0;
   ${lineInput};
 `;
