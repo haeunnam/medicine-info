@@ -14,6 +14,7 @@ import java.util.Date;
 public class UserReviewOutput {
     private int reviewId;
     private String medicineId;
+    private String image;
     private String name;
     private String company;
     private String category;

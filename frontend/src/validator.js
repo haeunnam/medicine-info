@@ -23,3 +23,12 @@ export function nicknameValidator(value) {
     return { isValid: true, errorMessage: "" };
   }
 }
+
+export function searchValidator(value){
+  if (value.length < 2){
+    return {isValid:false, errorMessage:"약 이름을 2글자 이상 입력해주세요."};
+  }
+  else {
+    return {isValid:true, errorMessage:""};
+  }
+}

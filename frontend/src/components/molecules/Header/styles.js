@@ -40,8 +40,6 @@ export const LogoAndTitle = styled.div`
   justify-content: center;
   .title {
     display: ${(props) => (props.isTitle ? "block" : "none")};
-    overflow: hidden;
-    text-overflow: ellipsis;
     white-space: nowrap;
   }
   .logo {

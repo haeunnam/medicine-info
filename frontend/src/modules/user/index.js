@@ -19,8 +19,8 @@ export const setUserInfo = (userInfo) => {
 
 /* 초기 상태 선언 */
 const initialState = {
-  userId: "",
-  userInfo: null,
+  id: "",
+  userInfo:{nickname:'',birth:'',gender:'',email:''},
 };
 
 // 리듀서

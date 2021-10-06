@@ -15,7 +15,7 @@ function FooterNav({ isActive = 0 }) {
             <span>의약품</span>
           </IconBox>
         </Link>
-        <Link to="/">
+        <Link to="/dur">
           <IconBox>
             <Icon
               icon="carbon:pills-subtract"
@@ -24,7 +24,7 @@ function FooterNav({ isActive = 0 }) {
             <span>복용주의</span>
           </IconBox>
         </Link>
-        <Link to="/">
+        <Link to="/mymedi">
           <IconBox>
             <Icon
               icon="healthicons:health-data-security"
@@ -33,7 +33,7 @@ function FooterNav({ isActive = 0 }) {
             <span>나의 약</span>
           </IconBox>
         </Link>
-        <Link to="/mypage">
+        <Link to="/mypage/">
           <IconBox>
             <Icon
               icon="healthicons:ui-user-profile-outline"
