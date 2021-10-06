@@ -4,7 +4,7 @@ import theme from "../../../styles/theme";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px 30px 40px;
+  padding: 20px 30px 50px;
   .input-box {
     margin-bottom: 30px;
   }
@@ -19,7 +19,7 @@ export const CategoryContainer = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  height: 75vh;
+  padding-bottom: 30px;
   overflow-x: hidden;
   ::-webkit-scrollbar {
     width: 8px;
@@ -29,7 +29,7 @@ export const CategoryContainer = styled.div`
     border-radius: 10px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: ${theme.colors.gray};
+    background-color: ${theme.colors.lightGray};
     border-radius: 10px;
   }
   ::-webkit-scrollbar-thumb:hover {
@@ -39,7 +39,7 @@ export const CategoryContainer = styled.div`
 
 export const MedicineContainer = styled.div`
   padding-bottom: 40px;
-  height: 75vh;
+  height: ${(props) => props.height}px;
   overflow: scroll;
   overflow-x: hidden;
   ::-webkit-scrollbar {
@@ -50,7 +50,7 @@ export const MedicineContainer = styled.div`
     border-radius: 10px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: ${theme.colors.gray};
+    background-color: ${theme.colors.lightGray};
     border-radius: 10px;
   }
   ::-webkit-scrollbar-thumb:hover {
