@@ -13,7 +13,7 @@ import MyMedi from "./pages/user/MyMedi";
 import Review from "./pages/medicines/Review";
 import SearchMedicine from "./pages/medicines/SearchMedicine";
 import CategoryMedicine from "./pages/medicines/CategoryMedicine";
-
+import MyReview from "./pages/user/MyReview";
 function AppRouter() {
   return (
     <ThemeProvider theme={theme}>
@@ -33,6 +33,7 @@ function AppRouter() {
           <PrivateRoute exact path="/mypage/edit" component={UserEdit} />
           <PrivateRoute exact path="/dur" component={DurPage} />
           <PrivateRoute exact path="/mymedi" component={MyMedi} />
+          <PrivateRoute exact path="/myreview" component={MyReview} />
           <Route path="*" component={PageNotFound} />
         </Switch>
       </BrowserRouter>

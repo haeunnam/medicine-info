@@ -1,3 +1,5 @@
+import { requestGet } from "../../api";
+
 //액션 타입 만들기
 const SET_USER_ID = "SET_USER_ID";
 const SET_USER_INFO = "SET_USER_INFO";
@@ -20,8 +22,17 @@ export const setUserInfo = (userInfo) => {
 /* 초기 상태 선언 */
 const initialState = {
   id: "",
-  userInfo:{nickname:'',birth:'',gender:'',email:''},
+  userInfo:{},
 };
+
+export const getUserInfo = () =>
+  async (dispatch) => {
+    const response = await requestGet("/users/profile");
+    console.log(response);
+    dispatch(setUserInfo(response.result));
+  }
+
+
 
 // 리듀서
 export const userReducer = (state = initialState, action) => {
@@ -35,12 +46,7 @@ export const userReducer = (state = initialState, action) => {
     case SET_USER_INFO:
       return {
         ...state,
-        userInfo: {
-          nickname: action.userInfo.nickname,
-          birth: action.userInfo.birth,
-          gender: action.userInfo.gender,
-          email: action.userInfo.email,
-        },
+        userInfo: action.userInfo,
       };
     default:
       return state;

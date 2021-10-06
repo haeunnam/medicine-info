@@ -31,10 +31,9 @@ function UserEdit() {
       birth: new Date(birth).toISOString().substring(0, 10),
       gender,
     };
-    const response = await request("PATCH","/users", data);
+    const response = await request("PATCH","/users/", data);
     if (response.isSuccess) {
       alert("회원정보 수정이 완료되었습니다.");
-      console.log(response);
       history.replace({ pathname: "/mypage" });
     } 
     else {

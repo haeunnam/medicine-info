@@ -1,3 +1,4 @@
+import { requestGet } from "../../api";
 //액션 타입 만들기
 const SET_LIKE_MEDI = "SET_LIKE_MEDI";
 const SET_TAKING_MEDI = "SET_TAKING_MEDI";
@@ -38,6 +39,30 @@ const initialState = {
   takingObj:[],
   durObj:[],
 }
+
+export const getTakingMedicines = (page = 0) =>
+  async (dispatch) => {
+    const params = {
+      page: page,
+      size: 5,
+    }
+    const response = await requestGet("/my-medicines",params);
+    if (response.isSuccess) {
+      dispatch(setTakingMedi(response.result));
+    }
+  };
+
+export const getLikeMedicines = (page = 0) =>
+  async (dispatch) => {
+    const params = {
+      page: page,
+      size: 5,
+    }
+    const response = await requestGet("/like-medicines",params);
+    if (response.isSuccess) {
+      dispatch(setLikeMedi(response.result));
+    }
+  };
 
 // 리듀서
 export const mediReducer = (state = initialState, action) => {

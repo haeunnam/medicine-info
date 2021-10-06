@@ -3,7 +3,12 @@ import { requestGet, requestDelete} from "../../../api";
 import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setLikeMedi, setTakingMedi} from "../../../modules/medicines";
+import { 
+  setLikeMedi, 
+  setTakingMedi, 
+  getLikeMedicines,
+  getTakingMedicines,
+} from "../../../modules/medicines";
 
 
 function MyMedi(){
@@ -23,11 +28,11 @@ function MyMedi(){
     if (activeTab === 2) {
       if (likepills && likepills.length % 5 !== 0) return;
       const page = parseInt(likepills.length / 5);
-      await bringLikeMedi(page);
+      await getLikeMedicines(page);
     } else if (activeTab === 1) {
       if (takingpills && takingpills.length % 5 !== 0) return;
       const page = parseInt(takingpills.length / 5);
-      await bringTakingMedi(page);
+      await getTakingMedicines(page);
     }
   }
 
@@ -35,11 +40,7 @@ function MyMedi(){
 
     const d_response = await requestDelete(`/like-medicines/${id}`);
     if (d_response.isSuccess){
-      console.log("삭제성공");
-      bringLikeMedi();
-    }
-    else if (d_response.code === "204") {
-      alert('이미 삭제된 항목입니다');
+      dispatch(setLikeMedi(likepills.filter(m => m.medicineId !== id)));
     }
   }
 
@@ -47,47 +48,16 @@ function MyMedi(){
 
     const d_response = await requestDelete(`/my-medicines/${id}`);
     if (d_response.isSuccess){
-      alert("삭제성공");
-      bringTakingMedi();
-    }
-    else if (d_response.code === "204") {
-      alert('이미 삭제된 항목입니다');
+      dispatch(setTakingMedi(takingpills.filter(m=>m.medicineId !== id)));
     }
   }
 
-  async function bringLikeMedi(page = 0) {
-    const params = {
-      page: page,
-      size: 5,
-    }
-    const response = await requestGet("/like-medicines",params);
-    if (response.isSuccess) {
-      const likeMedis = response.result;
-      dispatch(setLikeMedi(likeMedis));
-    }
-    else {
-      dispatch(setLikeMedi([]));
-    }
-  }
-  async function bringTakingMedi(page=0) {
-    const params = {
-      page: page,
-      size: 5,
-    }
-    const response = await requestGet("/my-medicines",params);
-    if (response.isSuccess) {
-      const TakingMedis = response.result;
-      dispatch(setTakingMedi(TakingMedis));
-    }
-    else {
-      dispatch(setTakingMedi([]));
-    }
-  }
-  
   useEffect(() => {
-    bringLikeMedi();
-    bringTakingMedi();
-  },[])
+    dispatch(getLikeMedicines());
+  },[likepills])
+  useEffect(() => {
+    dispatch(getTakingMedicines());
+  },[takingpills])
 
   function onTabClick(key) {
     setActiveTab(key);
