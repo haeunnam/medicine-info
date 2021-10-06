@@ -7,6 +7,7 @@ import {
   doNotRefresh,
   doRefresh,
   setSearchKeyword,
+  getCategoryMedicines,
 } from "../../../modules/medicine";
 
 function SearchMedicine() {
@@ -47,12 +48,28 @@ function SearchMedicine() {
     history.push(`/medicines/${medicineId}`);
   }
 
+  function onCategoryClick(categoryName) {
+    dispatch(getCategoryMedicines(categoryName));
+    history.push({ pathname: `/medicines/category`, state: { categoryName } });
+  }
+
+  async function handleInfiniteScroll(e) {
+    console.log(e);
+    const { scrollTop, clientHeight, scrollHeight } = e.target;
+    if (parseInt(scrollTop) + parseInt(clientHeight) !== parseInt(scrollHeight))
+      return;
+    if (searchMedicines && searchMedicines.length % 10 !== 0) return;
+    const page = parseInt(searchMedicines.length / 10);
+    await dispatch(getSearchMedicines(keyword, page));
+  }
+
   return (
     <SearchMedicineTemplate
       handleTextChange={handleTextChange}
       keyword={keyword}
-      searchMedicines={searchMedicines}
       onMedicineClick={onMedicineClick}
+      onCategoryClick={onCategoryClick}
+      handleInfiniteScroll={handleInfiniteScroll}
     />
   );
 }

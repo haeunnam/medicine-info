@@ -9,6 +9,7 @@ import UserEdit from "./pages/user/UserEdit";
 import MyPage from "./pages/user/MyPage";
 import Review from "./pages/medicines/Review";
 import SearchMedicine from "./pages/medicines/SearchMedicine";
+import CategoryMedicine from "./pages/medicines/CategoryMedicine";
 
 function AppRouter() {
   return (
@@ -18,6 +19,11 @@ function AppRouter() {
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/signin" component={SignIn} />
           <Route exact path="/" component={SearchMedicine} />
+          <Route
+            exact
+            path="/medicines/category"
+            component={CategoryMedicine}
+          />
           <Route exact path="/medicines/:id" component={MedicineInfo} />
           <Route exact path="/medicines/:id/review" component={Review} />
           <Route exact path="/mypage" component={MyPage} />
