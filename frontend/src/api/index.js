@@ -25,7 +25,7 @@ export function requestGet(url, params) {
 
 export function requestDelete(url) {
   return axios({
-    method: "delete",
+    method: "DELETE",
     url: baseURL + url,
     headers: getHeader(),
   })

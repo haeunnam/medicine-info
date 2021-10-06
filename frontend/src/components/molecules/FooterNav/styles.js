@@ -8,6 +8,7 @@ export const Wrapper = styled.nav`
   height: 50px;
   display: flex;
   justify-content: space-around;
+  background-color: white;
   align-items: center;
   border-top: 1px solid ${theme.colors.lightGray};
 `;

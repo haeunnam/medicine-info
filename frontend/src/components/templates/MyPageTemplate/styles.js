@@ -15,11 +15,12 @@ export const InfoContainer = styled.div`
   .nickname-box{
     display : flex;
     flex-direction:column;
+    font-size:${theme.fontSizes.md};
   }
 
   .icon {
     color: ${theme.colors.green};
-    font-size:40px;
+    font-size:${theme.fontSizes.xxl};
     width:20px;
     margin:0 3% 0 auto;
   }
@@ -27,6 +28,12 @@ export const InfoContainer = styled.div`
   .image-box{
     width:90px;
     margin:1% 0 0 0;
+  }
+
+  .button-box{
+    display:flex;
+    flex-direction: column;
+    font-size:${theme.fontSizes.md};
   }
 
 `;
