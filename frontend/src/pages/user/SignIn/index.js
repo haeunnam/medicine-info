@@ -5,6 +5,7 @@ import SignInTemplate from "../../../components/templates/SignInTemplate";
 import { request, requestGet } from "../../../api";
 import { useDispatch } from "react-redux";
 import { setUserId, setUserInfo } from "../../../modules/user";
+import { useEffect } from "react";
 
 
 function SignIn() {
