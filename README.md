@@ -1,33 +1,54 @@
-## BigData - Hadoop Project
-
-### :hatching_chick: 이게 뭐약?! 
-
-#### 1. Project Description
-
-​	DUR ( Drug Utilization Review 의약품 적정사용)을 알기 쉽게 제공하는 서비스
-​	: 병용 금지 의약품 또는 어린이, 노인, 임부에게 투여 시 주의해야 하는 의약품 정보를 알기 쉽게 제공합니다.
-
-#### 2. Functions
-
-- 의약품 상세 정보 제공 서비스
-  1. 공공 의약 데이터를 활용해, 해당 의약품에 대한 상세 정보 제공
-  2. 성분 유사도를 따져 현재 선택한 약과 유사한 의약품 정보 제공
-- 병용금지 의약품 정보 제공
-  1. 선택한 의약품들 중에서 조합을 통해, 범용금지(동시 복용), 연령별 투약 주의 약물등 복용에 관련된 주의 사항 전달
-- 영양제 데이터 분석
-  1. 건강 기능 식품에 대한 상세 정보 제공
-  2. 섭취시 주의 사항 제공
-  3. 유사 성분 영양제 정보 제공 / 네이버 쇼핑 연동을 통한 가격 정보 제공
-
-### 3. Tech Stack
-
-- BE : SpringBoot / Spring Data JPA
-- FE: React.js
-- DB: MySQL
+# :hatching_chick: 이게 뭐약?! 
 
 <hr>
 
-### :rocket: Git convention
+## :bulb: Contributor
+### Frontend: 곽나현, 남하은
+### Backend: 심예은, 오웅식, 이지원, 진수연
+
+<br>
+
+## :heavy_check_mark: 개발 기간
+### 2021.08.30 ~ 2021.10.08 (6주)
+<br>
+
+## :heavy_check_mark: 이게 뭐약?! 서비스 개요
+- DUR ( Drug Utilization Review 의약품 적정사용)을 알기 쉽게 제공하는 서비스.
+- `범용금기 의약품`, `효능 중복 주의` 또는 `임부`, `어린이`, `용량`, `투여시간` 별로 투여 시 주의해야 하는 의약품 정보를 알기 쉽게 제공합니다.
+
+<br>
+
+1. 의약품 상세 정보 제공 서비스
+     - 공공 데이터로 제공되는 의약품 데이터를 활용해, 해당 의약품에 대한 상세 정보 제공
+     - 해당 의약품 사용자 리뷰 정보 제공
+     - 성분 유사도를 따져 현재 선택한 약과 유사한 의약품 정보 제공
+2. 범용금기 의약품 정보 제공 서비스
+     - 선택한 의약품들의 조합을 통해, <br> 범용금기(동시 복용), 효능 중복 주의, 연령별(임부, 용량, 투여시간) 투약 주의 약물 복용에 관련된 주의 사항 전달
+
+<br><br>
+
+## :heavy_check_mark: 기술 스택
+- BE : SpringBoot / Spring Data JPA
+- FE: React.js
+- DB: MySQL, MongoDB
+
+<br><br>
+
+## :heavy_check_mark: 프로젝트 세팅 방법
+- [Frontend](./frontend/README.md)
+- [Backend](./backend/README.md)
+- [Hadoop](./hadoop/README.md)
+
+<br><br>
+
+## :heavy_check_mark: 이게뭐약?! 주요 기능
+### 1. 의약품 상세 정보 제공 서비스
+### 2. 범용금기 의약품 정보 제공 서비스
+
+<br><br>
+
+## :heavy_check_mark: 프로젝트 기여방법
+### :rocket: Custom git flow
 - 기존의 git flow 방식에서 우리의 프로젝트에 맞게 변경하였다.
 - release를 삭제하고, fix라는 브랜치를 추가하였다.
 1. **main**: 배포되었거나 배포될 소스가 저장되는 브랜치
@@ -44,6 +65,7 @@
 
 - ***main branch에는 직접적으로 접근할 수 없다.***
 
+### :rocket: Git convention
 #### 1. Commit Message Format
 - 모든 커밋 메시지는 다음과 같은 형식을 **반드시** 따르도록 한다.
 ```
