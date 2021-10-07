@@ -11,6 +11,7 @@ import {
 import {
   addDurMedicines,
   setDurMedi,
+  setDurSearchKeyword,
 } from "../../modules/medicines";
 
 function DurPage(){
@@ -27,26 +28,21 @@ function DurPage(){
   const searchMedicines = useSelector(
     (state) => state.medicineReducer.searchMedicines
   );
-  const needRefresh = useSelector((state) => state.medicineReducer.needRefresh);
-  const searchKeyword = useSelector(
-    (state) => state.medicineReducer.searchKeyword
+
+  const durSearchKeyword = useSelector(
+    (state) => state.mediReducer.durSearchKeyword
   );
 
-  useEffect(() => {
-    if (!needRefresh) {
-      setKeyword(searchKeyword);
-    }
-  }, []);
 
   useEffect(() => {
-    if (!searchKeyword) {
+    if (!durSearchKeyword) {
       dispatch(doRefresh());
     }
   }, [keyword]);
 
   const handleTextChange = (e) => {
     setKeyword(e.target.value);
-    dispatch(setSearchKeyword(e.target.value));
+    dispatch(setDurSearchKeyword(e.target.value));
     if (e.target.value.length) {
       dispatch(getSearchMedicines(e.target.value));
     }
@@ -109,7 +105,6 @@ function selectKeys() {
   console.log(keys);
 }
 useEffect(() => selectKeys(),[medicines]);
-useEffect(()=>console.log(medicines), [medicines]);
 
   
   return (

@@ -23,8 +23,8 @@ function MyPageTemplate({
           />
         </div>
         <div className="nickname-box">
-          <h1>{userObj.nickname}</h1>
-          <p>{userObj.email}</p>
+          <h1>{userObj?.nickname}</h1>
+          <p>{userObj?.email}</p>
         </div>
         <Link to="/mypage/edit" className="icon">
           < AiOutlineSetting />

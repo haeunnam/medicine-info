@@ -3,7 +3,7 @@ import theme from "../../../styles/theme";
 
 export const ItemContainer = styled.div`
   display:flex;
-  width: 100%
+  width: 100%;
   padding: 5px 0;
   text-align: center;
   .icon{

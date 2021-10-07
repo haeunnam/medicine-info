@@ -3,6 +3,7 @@ import { requestGet, requestDelete } from "../../api";
 const SET_LIKE_MEDI = "SET_LIKE_MEDI";
 const SET_TAKING_MEDI = "SET_TAKING_MEDI";
 const SET_DUR_MEDI = "SET_DUR_MEDI";
+const SET_DUR_SEARCH_KEYWORD = "SET_DUR_SEARCH_KEYWORD";
 const SET_MY_REVIEWS = "SET_MY_REVIEWS";
 
 //액션 생성함수 만들기
@@ -35,14 +36,21 @@ export const setMyReviews = (myReviews) => {
   }
 }
 
-
+export const setDurSearchKeyword = (durSearchKeyword) => {
+  return {
+    type: SET_DUR_SEARCH_KEYWORD,
+    durSearchKeyword: durSearchKeyword,
+  };
+};
 
 const initialState = {
   likeObj: [],
   takingObj:[],
   durObj:[],
   myReviews : [],
+  durSearchKeyword:"",
 }
+
 export const addDurMedicines = (data) =>
   async (dispatch, getState) => {
   const newDurMedicine = getState().mediReducer.durObj.concat(data);
@@ -135,8 +143,11 @@ export const mediReducer = (state = initialState, action) => {
         ...state,
         myReviews: action.myReviews,
       }
-
-
+    case SET_DUR_SEARCH_KEYWORD:
+      return{
+          ...state,
+          myReviews: action.myReviews,
+      }
     default:
       return state;    
     
