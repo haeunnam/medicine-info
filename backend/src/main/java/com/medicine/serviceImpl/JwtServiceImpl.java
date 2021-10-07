@@ -30,7 +30,7 @@ public class JwtServiceImpl implements JwtService {
         return Jwts.builder()
                 .claim("userId", userId)
                 .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + VALID_TIME))
+//                .setExpiration(new Date(now.getTime() + VALID_TIME))
                 .signWith(SignatureAlgorithm.HS256, ACCESS_TOKEN_SECRET_KEY)
                 .compact();
     }
