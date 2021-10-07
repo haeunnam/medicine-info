@@ -285,10 +285,15 @@ public class MedicineServiceImpl implements MedicineService, DurService {
                     result.add(medicine);
                 }
             }
+
+            if(result.size()!=0){
+                overlapList.add(DurOverlap.builder()
+                        .efficacy(category)
+                        .medicines(result)
+                        .build());
+            }else{
+                log.error("DURoverlap Object count ERR");
+            }
         }
-        overlapList.add(DurOverlap.builder()
-                .efficacy(category)
-                .medicines(result)
-                .build());
     }
 }
