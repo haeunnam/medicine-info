@@ -115,6 +115,7 @@ public class LikeMedicineServiceImpl implements LikeMedicineService {
                 return GetLikeMedicineOutput.builder()
                         .id(likeMedicineDB.getId())
                         .medicineId(detailInfoDB.getId())
+                        .image(detailInfoDB.getImage())
                         .name(detailInfoDB.getName())
                         .company(detailInfoDB.getCompany())
                         .category(detailInfoDB.getCategory())
