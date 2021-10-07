@@ -29,7 +29,6 @@ function Deactivate() {
       dispatch(showToast("정상적으로 탈퇴되었습니다. 그동안 이용해주셔서 감사합니다."));
       history.replace({ pathname: "/signin" });
     } else {
-      console.log(response);
     }
   }
   function handleClick(){

@@ -1,5 +1,4 @@
 import { Wrapper } from "./styles";
-import { Icon } from "@iconify/react";
 import MedicineItem from "../MedicineItem";
 
 const MyReviewItem = ({ review, reviewUpdate, reviewDelete }) => {

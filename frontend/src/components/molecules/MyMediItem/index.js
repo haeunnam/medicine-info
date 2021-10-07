@@ -1,9 +1,7 @@
 import { Wrapper, DeleteButton } from "./styles";
 import { Icon } from "@iconify/react";
-import { useHistory } from "react-router";
 import {AiOutlineClose} from 'react-icons/ai';
 const MyMediItem = ({ medicine, DeleteMine, onMedicineClick }) => {
-  const history = useHistory();
   const DEFAULT_IMAGE = "/img/no-image.png"
   return (
     <Wrapper

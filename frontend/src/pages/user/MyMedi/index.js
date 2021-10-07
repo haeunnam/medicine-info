@@ -1,5 +1,4 @@
 import MyMediTemplate from "../../../components/templates/MyMediTemplate";
-import { requestGet, requestDelete} from "../../../api";
 import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -52,7 +51,6 @@ function MyMedi(){
     dispatch(getLikeMedicines());
   },[]);
  
-  console.log(takingpills);
   function onTabClick(key) {
     setActiveTab(key);
   }

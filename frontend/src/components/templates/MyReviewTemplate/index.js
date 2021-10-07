@@ -29,7 +29,7 @@ function MyReviewTemplate({
           className="delete-all-btn"
           onClick={deleteAllReviews}
           >
-            리뷰전체삭제
+            리뷰 전체삭제
           </button>
         </Button>
 

@@ -4,13 +4,9 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getSearchMedicines,
-  doNotRefresh,
   doRefresh,
-  setSearchKeyword,
 } from "../../modules/medicine";
 import {
-  addDurMedicines,
-  setDurMedi,
   setDurSearchKeyword,
 } from "../../modules/medicines";
 import { showToast } from "../../modules/feedback";
@@ -90,7 +86,6 @@ async function requestDur(){
       setShow((prev) => !prev);
       setDurs(response.result);
     } else {
-      console.log("요청 안강");
       setShow((prev) => !prev);
     }
   }

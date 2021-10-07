@@ -2,9 +2,9 @@ import { useHistory } from "react-router-dom";
 import { emailValidator, passwordValidator } from "../../../validator";
 import useInput from "../../../hooks/useInput";
 import SignInTemplate from "../../../components/templates/SignInTemplate";
-import { request, requestGet } from "../../../api";
+import { request } from "../../../api";
 import { useDispatch } from "react-redux";
-import { setUserId, setUserInfo } from "../../../modules/user";
+import { setUserId } from "../../../modules/user";
 import { useEffect } from "react";
 import { showToast } from "../../../modules/feedback";
 

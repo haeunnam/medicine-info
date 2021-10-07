@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router";
-import { getMyReviews, setMyReviews, deleteMine, deleteAll} from "../../../modules/medicines";
-import { getMedicineInfo } from "../../../modules/medicine";
+import { getMyReviews, deleteMine, deleteAll} from "../../../modules/medicines";
 import MyReviewTemplate from "../../../components/templates/MyReviewTemplate";
 
 function MyReview() {
@@ -23,7 +22,6 @@ function MyReview() {
   }
 
   function reviewUpdate(data){
-    console.log(data);
     const medicineInfo = {
       category: data.category,
       company : data.company,

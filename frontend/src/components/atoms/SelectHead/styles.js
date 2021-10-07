@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import theme from "../../../styles/theme";
 
 export const HeadContainer = styled.div`
   display:flex;
@@ -14,6 +13,5 @@ export const HeadContainer = styled.div`
   }
   .delete-box{
     flex:1;
-  }
   }
 `

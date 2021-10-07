@@ -1,6 +1,5 @@
 import {StyledLabel, Wrapper} from './styles';
 import DurItem from '../../atoms/DurItem';
-import {IoIosArrowForward} from 'react-icons/io';
 import {useState} from 'react';
 function ResultList({
   Durtype,
