@@ -2,15 +2,16 @@ import { Icon } from "@iconify/react";
 import { CardDescription, Wrapper } from "./styles";
 
 function MedicineCard({ medicineInfo, onCalendarClick, onHeartClick }) {
+  const DEFAULT_IMAGE = "/img/no-image.png"
+
   return (
-    // src={require("../../../assets/images/no-image.jpg").default}
 
     <Wrapper>
       <img
         src={
           medicineInfo.image
             ? medicineInfo.image
-            : "https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif"
+            : DEFAULT_IMAGE
         }
         alt=""
         className="medicine-img"

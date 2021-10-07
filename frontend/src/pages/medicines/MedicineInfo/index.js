@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { request, requestDelete } from "../../../api";
 import MedicineInfoTemplate from "../../../components/templates/MedicineInfoTemplate";
+import { showToast } from "../../../modules/feedback";
 import {
   getMedicineInfo,
   getSimliarMedicines,
@@ -17,7 +18,9 @@ function MedicineInfo({ match }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const activeTab = useSelector((state) => state.medicineReducer.activeTab);
+  const activeTab = useSelector((state) =>
+    state.medicineReducer.activeTab ? state.medicineReducer.activeTab : 0
+  );
   const medicineInfo = useSelector(
     (state) => state.medicineReducer.medicineObj
   );
@@ -53,21 +56,18 @@ function MedicineInfo({ match }) {
 
   async function handleMyMedicine() {
     if (!medicineInfo.myMedicine) {
-      const res = await request("post", "/my-medicines", {
+      await request("post", "/my-medicines", {
         dateTime: selectedDate,
         medicineId,
       });
       dispatch(getMedicineInfo(medicineId));
-      console.log(res);
-    } else {
-      const res = await requestDelete(
-        `/my-medicines/${medicineInfo.myMedicine}`
-      );
-      dispatch(getMedicineInfo(medicineId));
-      console.log(res);
-      alert("약바구니에서 삭제되었습니다..");
-    }
+      dispatch(showToast("복용중인 약으로 등록되었습니다."));
 
+    } else {
+      await requestDelete(`/my-medicines/${medicineInfo.myMedicine}`);
+      dispatch(getMedicineInfo(medicineId));
+      dispatch(showToast("복용중인 약에서 삭제되었습니다."));
+    }
     modalToggle();
   }
 
@@ -75,11 +75,11 @@ function MedicineInfo({ match }) {
     if (!medicineInfo.likeMedicine) {
       await request("post", "/like-medicines", { medicineId });
       dispatch(getMedicineInfo(medicineId));
-      alert("약바구니에 추가되었습니다.");
+      dispatch(showToast("약바구니에 추가되었습니다."));
     } else {
       await requestDelete(`/like-medicines/${medicineInfo.likeMedicine}`);
       dispatch(getMedicineInfo(medicineId));
-      alert("약바구니에서 삭제되었습니다..");
+      dispatch(showToast("약바구니에 삭제되었습니다."));
     }
   }
 
@@ -93,8 +93,8 @@ function MedicineInfo({ match }) {
       const page = parseInt(similarMedicines.length / 5);
       await dispatch(getSimliarMedicines(medicineId, page));
     } else if (activeTab === 1) {
-      if (medicineReviews && medicineReviews.length % 5 !== 0) return;
-      const page = parseInt(medicineReviews.length / 5);
+      if (medicineReviews && medicineReviews.length % 10 !== 0) return;
+      const page = parseInt(medicineReviews.length / 10);
       await dispatch(getMedicineReviews(medicineId, page));
     }
   }

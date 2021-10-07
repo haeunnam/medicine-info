@@ -23,11 +23,14 @@ function SearchMedicineTemplate({
     "피임약",
     "영양제",
     "외용제",
-    " 기타",
+    "기타",
   ];
   const searchMedicines = useSelector(
     (state) => state.medicineReducer.searchMedicines
   );
+  const listHeight = window.innerHeight - 205;
+  const categoryListHeight = window.innerHeight - 240;
+
   return (
     <>
       <Header isLogo />
@@ -41,7 +44,10 @@ function SearchMedicineTemplate({
           />
         </div>
         {searchMedicines ? (
-          <MedicineContainer onScroll={handleInfiniteScroll}>
+          <MedicineContainer
+            height={listHeight}
+            onScroll={handleInfiniteScroll}
+          >
             {searchMedicines.map((medicine, idx) => (
               <MedicineItem
                 medicine={medicine}
@@ -53,7 +59,7 @@ function SearchMedicineTemplate({
         ) : (
           <>
             <h1 className="category">카테고리</h1>
-            <CategoryContainer>
+            <CategoryContainer height={categoryListHeight}>
               {category?.map((name, idx) => (
                 <CategoryBox
                   children={name}

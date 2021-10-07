@@ -14,6 +14,7 @@ public class MyMedicineOutput {
 	private int id;
     private String medicineId;
     private String name;
+    private String image;
     private String efficacy;
     private Date dateTime;
 }

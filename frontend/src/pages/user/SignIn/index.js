@@ -6,6 +6,8 @@ import { request } from "../../../api";
 import { useDispatch } from "react-redux";
 import { setUserId } from "../../../modules/user";
 import { useEffect } from "react";
+import { showToast } from "../../../modules/feedback";
+
 
 function SignIn() {
   const history = useHistory();
@@ -14,9 +16,16 @@ function SignIn() {
   const email = useInput("", emailValidator);
   const password = useInput("", passwordValidator);
 
+  useEffect(() => {
+    const isLogined = localStorage.getItem("loginUser");
+    if (isLogined) {
+      history.push("/");
+    }
+  }, []);
+
   async function handleLogin() {
     if (!email.isValid || !password.isValid) {
-      alert("이메일과 패스워드를 확인해주세요.");
+      dispatch(showToast("이메일과 패스워드를 확인해주세요."));
       return;
     }
     const data = {
@@ -31,9 +40,10 @@ function SignIn() {
       };
       localStorage.setItem("loginUser", JSON.stringify(loginUser));
       dispatch(setUserId(loginUser.id));
+      // bringUserInfo();
       history.push({ pathname: "/" });
     } else {
-      alert("가입하지 않은 이메일이거나, 잘못된 비밀번호입니다.");
+      dispatch(showToast("가입하지 않은 이메일이거나, 잘못된 비밀번호입니다."));
     }
   }
 

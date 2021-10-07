@@ -2,15 +2,14 @@ import styled from "styled-components";
 import theme from "../../../styles/theme";
 
 export const Wrapper = styled.div`
-  & {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
     .modal-overlay {
-      width: 100%;
-      height: 100%;
+      width: 500px;
+      height: 100vh;
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
       z-index: 1;
       display: flex;
       flex-direction: column;
@@ -24,8 +23,8 @@ export const Wrapper = styled.div`
         display: flex;
         flex-direction: column;
         align-items: center;
-        z-index: 2;
-        width: 80%;
+        z-index: 1;
+        width: 70%;
         background-color: ${theme.colors.lightGray};
         border-radius: 10px;
         box-shadow: 0 8px 32px 0 rgba(29, 29, 31, 0.37);
@@ -45,5 +44,4 @@ export const Wrapper = styled.div`
         }
       }
     }
-  }
 `;

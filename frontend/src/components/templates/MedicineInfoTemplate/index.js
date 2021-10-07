@@ -31,12 +31,12 @@ function MedicineInfoTemplate({
   reviewUpdate,
   onMedicineClick,
 }) {
-  const listHeight = window.innerHeight - 350;
+  const listHeight = window.innerHeight - 450;
   const history = useHistory();
   let tabContent;
   if (activeTab === 0) {
     tabContent = (
-      <MedDetailContainer>
+      <MedDetailContainer height={listHeight}>
         <dl>
           <div className="med-detail">
             <dt className="med-detail-title">효능효과</dt>
@@ -45,7 +45,7 @@ function MedicineInfoTemplate({
           <div className="med-detail">
             <dt className="med-detail-title">용법용량</dt>
             <dd className="med-detail-content">
-              {medicineInfo.usage ? medicineInfo.usage : ""}
+              {medicineInfo.usage ? medicineInfo.usage : "-"}
             </dd>
           </div>
           <div className="med-detail">

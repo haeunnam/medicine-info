@@ -4,10 +4,11 @@ import theme from "../../../styles/theme";
 export const Wrapper = styled.nav`
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 500px;
   height: 50px;
   display: flex;
   justify-content: space-around;
+  background-color: white;
   align-items: center;
   border-top: 1px solid ${theme.colors.lightGray};
 `;

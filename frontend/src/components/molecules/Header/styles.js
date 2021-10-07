@@ -8,10 +8,10 @@ export const Block = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  position: fixed relative;
+  position: fixed;
   z-index: 9999;
   top: 0;
-  width: 100%;
+  width: 500px;
   height: 55px;
   display: flex;
   justify-content: center;
@@ -40,8 +40,6 @@ export const LogoAndTitle = styled.div`
   justify-content: center;
   .title {
     display: ${(props) => (props.isTitle ? "block" : "none")};
-    overflow: hidden;
-    text-overflow: ellipsis;
     white-space: nowrap;
   }
   .logo {

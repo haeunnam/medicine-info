@@ -2,8 +2,7 @@ import { Wrapper } from "./styles";
 import { Icon } from "@iconify/react";
 
 const MedicineItem = ({ medicine, onMedicineClick }) => {
-  const DEFAULT_IMAGE =
-    "https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif";
+  const DEFAULT_IMAGE = "/img/no-image.png"
   return (
     <Wrapper
       onClick={() => onMedicineClick(medicine.medicineId || medicine.id)}
@@ -18,7 +17,7 @@ const MedicineItem = ({ medicine, onMedicineClick }) => {
           <div className="content">
             <h2 className="medicine-company">{medicine.company}</h2>
             <h1 className="medicine-name">
-              {medicine?.name.length > 15
+              {medicine?.name.length > 18
                 ? medicine.name.substring(0, 14) + "..."
                 : medicine.name}
             </h1>

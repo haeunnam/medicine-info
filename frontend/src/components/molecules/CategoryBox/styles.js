@@ -8,15 +8,17 @@ export const Wrapper = styled.div`
   align-items: center;
   border-radius: 16px;
   background-color: rgba(253, 203, 110, 0.4);
-  width: 135px;
-  height: 135px;
+  width: 145px;
+  height: 140px;
   .category-img {
     width: 80%;
     padding: 10%;
   }
   .category-name {
-    font-weight: 400;
+    font-weight: 500;
     font-size: ${theme.fontSizes.md};
+    padding-bottom: 20px;
+    
   }
-  margin: 10px;
+  margin: 15px;
 `;

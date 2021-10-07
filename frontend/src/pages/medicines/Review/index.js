@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { request } from "../../../api";
 import ReviewTemplate from "../../../components/templates/ReviewTemplate";
+import { showToast } from "../../../modules/feedback";
 
 function ReviewCreate({ location }) {
   const history = useHistory();
+  const dispatch = useDispatch();
   const medicine = location.state.medicineInfo;
   const review = location.state?.review;
   const operation = location.state.operation;
@@ -39,11 +42,11 @@ function ReviewCreate({ location }) {
 
   function validCheck() {
     if (!newReview.score) {
-      alert("별점을 선택하세요.");
+      dispatch(showToast("별점을 선택하세요."));
       return false;
     }
     if (!newReview.content) {
-      alert("리뷰를 입력하세요.");
+      dispatch(showToast("리뷰를 입력하세요."));
       return false;
     }
     return true;
@@ -56,20 +59,19 @@ function ReviewCreate({ location }) {
     if (operation === "create") {
       const response = await request("post", "/reviews", reviewData);
       if (response.isSuccess) {
-        alert("리뷰가 작성되었습니다.");
+        dispatch(showToast("리뷰가 작성되었습니다."));
         history.go(-1);
       } else if (response.code === 420) {
-        alert("이미 리뷰를 작성하셨습니다.");
+        dispatch(showToast("이미 리뷰를 작성하셨습니다."));
       }
     } else if (operation === "update") {
-      console.log("g");
       const response = await request(
         "patch",
         `/reviews/${review.reviewId}`,
         reviewData
       );
       if (response.isSuccess) {
-        alert("리뷰가 수정되었습니다.");
+        dispatch(showToast("리뷰가 수정되었습니다."));
         history.go(-1);
       }
     }
