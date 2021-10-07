@@ -7,8 +7,6 @@ export const ReviewsContainer = styled.div`
   overflow: scroll;
   overflow-x: hidden;
   padding: 12px 18px 36px;
-  overflow: scroll;
-  overflow-x: hidden;
   ::-webkit-scrollbar {
     width: 8px;
   }
@@ -77,6 +75,8 @@ export const MedicinesContainer = styled.div`
 export const MedDetailContainer = styled.div`
   padding: 12px 18px 24px;
   height: ${(props) => props.height}px;
+  overflow: scroll;
+  overflow-x: hidden;
   font-size: ${theme.fontSizes.md};
   .med-detail {
     margin-bottom: 20px;
