@@ -286,7 +286,7 @@ public class MedicineServiceImpl implements MedicineService, DurService {
                 }
             }
 
-            if(result.size()!=0){
+            if(result.size()>=2){
                 overlapList.add(DurOverlap.builder()
                         .efficacy(category)
                         .medicines(result)
