@@ -89,6 +89,20 @@ export const MedDetailContainer = styled.div`
       padding: 0 0 0 4px;
     }
   }
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${theme.colors.gray};
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${theme.colors.green};
+  }
 `;
 
 export const Wrapper = styled.div`

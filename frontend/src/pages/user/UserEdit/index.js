@@ -1,6 +1,6 @@
 import useInput from "../../../hooks/useInput";
 import UserEditTemplate from "../../../components/templates/UserEditTemplate";
-import { request, requestPatch } from "../../../api";
+import { request } from "../../../api";
 import { useHistory } from "react-router-dom";
 import { useSelector } from 'react-redux'
 import {

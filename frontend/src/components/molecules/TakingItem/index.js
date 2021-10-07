@@ -1,9 +1,7 @@
 import { Wrapper } from "./styles";
-import { Icon } from "@iconify/react";
-import { useHistory } from "react-router";
 import {AiOutlineClose} from 'react-icons/ai';
+
 const MyMediItem = ({ medicine, DeleteTaking, onMedicineClick }) => {
-  const history = useHistory();
   const DEFAULT_IMAGE = "/img/no-image.png"
   const now_Year = new Date().getTime();
   const taken_Year = new Date(medicine.dateTime).getTime();

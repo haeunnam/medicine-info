@@ -1,6 +1,5 @@
 import {StyledLabel, Wrapper} from './styles';
 import TogetherItem from '../../atoms/TogetherItem';
-import {IoIosArrowForward} from 'react-icons/io';
 import {useState} from 'react';
 function TogetherList({
   Durtype,

@@ -1,5 +1,4 @@
 import MyPageTemplate from "../../../components/templates/MyPageTemplate";
-import { request, requestGet } from "../../../api";
 import { useHistory } from "react-router-dom";
 import { useDispatch , useSelector} from "react-redux";
 import { getUserInfo } from "../../../modules/user";

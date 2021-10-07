@@ -45,7 +45,7 @@ function MedicineInfoTemplate({
           <div className="med-detail">
             <dt className="med-detail-title">용법용량</dt>
             <dd className="med-detail-content">
-              {medicineInfo.usage ? medicineInfo.usage : ""}
+              {medicineInfo.usage ? medicineInfo.usage : "-"}
             </dd>
           </div>
           <div className="med-detail">
