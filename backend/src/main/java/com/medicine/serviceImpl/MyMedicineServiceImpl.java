@@ -54,6 +54,7 @@ public class MyMedicineServiceImpl implements MyMedicineService{
 						.id((myMedicineDB.getId()))
 						.medicineId(detailInfoDB.getId())
 						.name(detailInfoDB.getName())
+                        .image(detailInfoDB.getImage())
 						.efficacy(detailInfoDB.getEfficacy())
 						.dateTime(myMedicineDB.getDatetime())
 						.build();
