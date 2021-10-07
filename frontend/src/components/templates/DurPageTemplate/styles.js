@@ -8,7 +8,6 @@ export const DurContainer = styled.div`
   flex-direction: column;
   padding: 40px 45px;
   margin-bottom: 50px;
-  overflow:auto;
   word-wrap: break-word;
 
   ::-webkit-scrollbar {
