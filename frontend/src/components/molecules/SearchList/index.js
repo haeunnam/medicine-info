@@ -7,7 +7,7 @@ function SearchList({
   options,
   onMedicineClick,
 }) {
-  const listHeight = window.innerHeight - 400;
+  const listHeight = window.innerHeight - 650;
  
 
   return (

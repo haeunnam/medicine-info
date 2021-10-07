@@ -49,7 +49,7 @@ function DurPage(){
   };
 
  function onMedicineClick(medicine) {
-    if (medicines.length > 5){
+    if (medicines.length >= 5){
       alert('복용주의 검사 최대 약품은 5개 입니다')
     }
     else{

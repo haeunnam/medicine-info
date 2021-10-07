@@ -42,15 +42,16 @@ function DurPageTemplate({
           </div>
           <SelectedList medicines={medicines} cols={cols} onDelete={onDelete} nextId = {nextId} />
         </div>
-        <Button children="확인하기" size="medium" onClick={requestDur} className="check-button" />
+        
+        <Button children={isShow? "확인하기":"검색하기"} deactivate={isShow? false: true} size="medium" onClick={requestDur} className="check-button" />
         <MenuLabel children="결과조회" />
         { !isShow ?
           (<div className="result-box">
-            <TogetherList Durs={Durs.together} Durtype="범용금기"/>
-            <ResultList Durs={Durs.pregnancy} Durtype="임부금기"/>
-            <ResultList Durs={Durs.child} Durtype="어린의 주의"/>
-            <ResultList Durs={Durs.time} Durtype="복용기간 주의"/>
-            <ResultList Durs={Durs.capacity} Durtype="용량주의"/>
+            <TogetherList Durs={Durs.together}  Durtype="범용금기"/>
+            <ResultList Durs={Durs.pregnancy} imgName="pregnant" Durtype="임부금기"/>
+            <ResultList Durs={Durs.child} imgName="childeren" Durtype="어린의 주의"/>
+            <ResultList Durs={Durs.time} imgName="calendar" Durtype="복용기간 주의"/>
+            <ResultList Durs={Durs.capacity} imgName="tube" Durtype="용량주의"/>
             <OverlapList Durs={Durs.overlap} Durtype="효능중복주의"/>
           </div>)
           : ("")

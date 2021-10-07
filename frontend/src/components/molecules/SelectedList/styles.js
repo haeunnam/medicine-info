@@ -7,4 +7,5 @@ export const StyledTable = styled.div`
   flex-direction:column;
   background-color: ${theme.colors.brightGray};
   padding: 0 0 10px 0;
+  border-radius: 12px;
 `
