@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { doNotRefresh } from "../../../modules/medicine";
 import { 
-  setLikeMedi, 
-  setTakingMedi, 
+  deleteTakingMedi,
+  deleteLikeMedi,
   getLikeMedicines,
   getTakingMedicines,
 } from "../../../modules/medicines";
@@ -38,27 +38,20 @@ function MyMedi(){
   }
 
   async function DeleteMine(id){
-
-    const d_response = await requestDelete(`/like-medicines/${id}`);
-    if (d_response.isSuccess){
-      dispatch(setLikeMedi(likepills.filter(m => m.medicineId !== id)));
-    }
+    dispatch(deleteLikeMedi(id));
   }
 
   async function DeleteTaking(id){
-
-    const d_response = await requestDelete(`/my-medicines/${id}`);
-    if (d_response.isSuccess){
-      dispatch(setTakingMedi(takingpills.filter(m=>m.medicineId !== id)));
-    }
+    dispatch(deleteTakingMedi(id));
   }
 
-  useEffect(() => {
-    dispatch(getLikeMedicines());
-  },[likepills])
-  useEffect(() => {
+  useEffect(()=>{
     dispatch(getTakingMedicines());
-  },[takingpills])
+  },[]);
+  useEffect(()=>{
+    dispatch(getLikeMedicines());
+  },[]);
+ 
 
   function onTabClick(key) {
     setActiveTab(key);
@@ -68,6 +61,9 @@ function MyMedi(){
     dispatch(doNotRefresh());
     history.push(`/medicines/${medicineId}`);
   }
+
+
+
   return (
     <>
       <MyMediTemplate
@@ -80,6 +76,8 @@ function MyMedi(){
         DeleteMine={DeleteMine}
         DeleteTaking={DeleteTaking}
         onMedicineClick={onMedicineClick}
+        DeleteMine={DeleteMine}
+        DeleteTaking={DeleteTaking}
       />
     </>
   );

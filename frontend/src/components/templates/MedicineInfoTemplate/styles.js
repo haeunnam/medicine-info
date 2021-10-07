@@ -7,7 +7,6 @@ export const ReviewsContainer = styled.div`
   overflow: scroll;
   overflow-x: hidden;
   padding: 12px 18px 36px;
-  overflow: scroll;
   overflow-x: hidden;
   ::-webkit-scrollbar {
     width: 8px;

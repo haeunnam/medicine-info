@@ -40,6 +40,7 @@ function DurPage(){
     }
   }, [keyword]);
 
+
   const handleTextChange = (e) => {
     setKeyword(e.target.value);
     dispatch(setDurSearchKeyword(e.target.value));

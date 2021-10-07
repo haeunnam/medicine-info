@@ -2,7 +2,7 @@ import { Wrapper } from "./styles";
 import { Icon } from "@iconify/react";
 import { useHistory } from "react-router";
 import {AiOutlineClose} from 'react-icons/ai';
-const MyMediItem = ({ medicine, DeleteTaking }) => {
+const MyMediItem = ({ medicine, DeleteTaking, onMedicineClick }) => {
   const history = useHistory();
   const DEFAULT_IMG =
     "https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif";
@@ -18,7 +18,7 @@ const MyMediItem = ({ medicine, DeleteTaking }) => {
         src={medicine.image ? medicine.image : DEFAULT_IMG}
         alt="medicine"
       />
-      <div className="content">
+      <div className="content" onClick={() => onMedicineClick(medicine.medicineId || medicine.id)}>
         <h1 className="medicine-name">{medicine.name}</h1>
         <h2 className="medicine-taking">
           D + {Dday}

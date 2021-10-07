@@ -8,7 +8,6 @@ const MyMediItem = ({ medicine, DeleteMine, onMedicineClick }) => {
     "https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif";
   return (
     <Wrapper
-      onClick={() => onMedicineClick(medicine.medicineId || medicine.id)}
     >
       
       <img
@@ -16,7 +15,7 @@ const MyMediItem = ({ medicine, DeleteMine, onMedicineClick }) => {
         src={medicine.image ? medicine.image : DEFAULT_IMG}
         alt="medicine"
       />
-      <div className="content">
+      <div className="content"  onClick={() => onMedicineClick(medicine.medicineId || medicine.id)}>
         <h2 className="medicine-company">{medicine.company}</h2>
         <h1 className="medicine-name">{medicine.name}</h1>
         <div className="medicine-rating">
