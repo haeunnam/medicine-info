@@ -3,6 +3,7 @@ import theme from "../../../styles/theme";
 
 export const DurContainer = styled.div`
   width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   padding: 40px 45px;

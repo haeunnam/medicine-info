@@ -5,7 +5,7 @@ export const Button = styled.button`
   display: block;
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 500px;
   height: 60px;
   color: ${theme.colors.white};
   background-color: ${(props) => props.bgColor || theme.colors.green};

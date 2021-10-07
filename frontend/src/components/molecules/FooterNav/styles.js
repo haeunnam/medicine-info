@@ -4,7 +4,7 @@ import theme from "../../../styles/theme";
 export const Wrapper = styled.nav`
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 500px;
   height: 50px;
   display: flex;
   justify-content: space-around;

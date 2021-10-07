@@ -4,10 +4,9 @@ import theme from "../../../styles/theme";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100vh;
   padding: 20px 30px 40px;
-  padding-bottom: 60px;
-  height: ${(props) => props.height}px;
-  overflow: scroll;
+  padding-bottom: 50px;
   overflow-x: hidden;
   ::-webkit-scrollbar {
     width: 8px;

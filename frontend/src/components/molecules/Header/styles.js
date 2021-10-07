@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   position: fixed;
   z-index: 9999;
   top: 0;
-  width: 100%;
+  width: 500px;
   height: 55px;
   display: flex;
   justify-content: center;

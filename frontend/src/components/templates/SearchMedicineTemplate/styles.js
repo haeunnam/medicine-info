@@ -4,6 +4,7 @@ import theme from "../../../styles/theme";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100vh;
   padding: 20px 30px 50px;
   .input-box {
     margin-bottom: 30px;
