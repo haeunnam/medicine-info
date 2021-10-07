@@ -15,10 +15,10 @@ function MyMediTemplate({
   takingpills,
   activeTab,
   onTabClick,
-  DeleteMine,
-  DeleteTaking,
   handleInfiniteScroll,
   onMedicineClick,
+  DeleteMine,
+  DeleteTaking
 }) {
   const listHeight = window.innerHeight - 350;
   let tabContent;

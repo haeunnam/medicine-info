@@ -40,5 +40,6 @@ export const Wrapper = styled.div`
     font-size: ${theme.fontSizes.sm};
     border-radius: 6px;
     padding: 8px 12px;
+    margin:15px 0;
   }
 `;

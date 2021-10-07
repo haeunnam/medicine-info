@@ -7,6 +7,22 @@ export const Wrapper = styled.div`
   margin-bottom: 60px;
   padding: 20px 30px 40px;
   height: 100vh;
+  overflow: auto;
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${theme.colors.gray};
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${theme.colors.green};
+  }
 
   .medicine {
     padding: 20px 0;

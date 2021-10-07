@@ -8,7 +8,23 @@ export const DurContainer = styled.div`
   flex-direction: column;
   padding: 40px 45px;
   margin-bottom: 50px;
+  overflow:auto;
+  word-wrap: break-word;
 
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${theme.colors.gray};
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${theme.colors.green};
+  }
   .bucket{
     margin: 20px 0 ;
   }
