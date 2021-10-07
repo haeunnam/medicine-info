@@ -31,7 +31,7 @@ function MyPageTemplate({
         </Link>
       </div>
       <div className="button-box">
-        <MenuButton children="내가쓴리뷰" onClick={moveReview}/>
+        <MenuButton children="나의 리뷰" onClick={moveReview}/>
         <MenuButton children="로그아웃" onClick={handleLogout}/>
         <MenuButton children="회원탈퇴" onClick={DeleteUser}/>
       </div>

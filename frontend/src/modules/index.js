@@ -4,8 +4,9 @@ import storage from "redux-persist/lib/storage";
 import { userReducer } from "./user";
 import { mediReducer } from "./medicines";
 import { medicineReducer } from "./medicine";
+import { feedbackReducer } from "./feedback";
 
-const rootReducer = combineReducers({ userReducer, mediReducer, medicineReducer });
+const rootReducer = combineReducers({ userReducer, mediReducer, medicineReducer, feedbackReducer });
 
 const persistConfig = {
   key: "root",

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { request, requestDelete } from "../../../api";
 import MedicineInfoTemplate from "../../../components/templates/MedicineInfoTemplate";
+import { showToast } from "../../../modules/feedback";
 import {
   getMedicineInfo,
   getSimliarMedicines,
@@ -60,10 +61,12 @@ function MedicineInfo({ match }) {
         medicineId,
       });
       dispatch(getMedicineInfo(medicineId));
+      dispatch(showToast("복용중인 약으로 등록되었습니다."));
+
     } else {
       await requestDelete(`/my-medicines/${medicineInfo.myMedicine}`);
       dispatch(getMedicineInfo(medicineId));
-      alert("약바구니에서 삭제되었습니다..");
+      dispatch(showToast("복용중인 약에서 삭제되었습니다."));
     }
     modalToggle();
   }
@@ -72,11 +75,11 @@ function MedicineInfo({ match }) {
     if (!medicineInfo.likeMedicine) {
       await request("post", "/like-medicines", { medicineId });
       dispatch(getMedicineInfo(medicineId));
-      alert("약바구니에 추가되었습니다.");
+      dispatch(showToast("약바구니에 추가되었습니다."));
     } else {
       await requestDelete(`/like-medicines/${medicineInfo.likeMedicine}`);
       dispatch(getMedicineInfo(medicineId));
-      alert("약바구니에서 삭제되었습니다..");
+      dispatch(showToast("약바구니에 삭제되었습니다."));
     }
   }
 

@@ -13,6 +13,7 @@ import {
   setDurMedi,
   setDurSearchKeyword,
 } from "../../modules/medicines";
+import { showToast } from "../../modules/feedback";
 
 function DurPage(){
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ function DurPage(){
 
  function onMedicineClick(medicine) {
     if (medicines.length >= 5){
-      alert('복용주의 검사 최대 약품은 5개 입니다')
+      dispatch(showToast('복용주의 검사 최대 약품은 5개 입니다'))
     }
     else{
       let isSame = false;
@@ -60,7 +61,7 @@ function DurPage(){
         }
       }
       if (isSame) {
-        alert('이미 추가한 항목입니다');
+        dispatch(showToast('이미 추가한 항목입니다'));
       }
       else {
         setMedis(prev => prev.concat(medicine));
@@ -74,7 +75,7 @@ function onDelete(medi){
   //dur 조회 요청 보내기
 async function requestDur(){
   if (keys.length <= 1){
-    alert("두 개이상의 약을 선택해주세요!");
+    dispatch(showToast("두 개이상의 약을 선택해주세요!"));
     setShow(true);
     return;
   }
