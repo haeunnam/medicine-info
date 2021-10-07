@@ -8,6 +8,7 @@ import {
 import MyMediItem from '../../molecules/MyMediItem';
 import TakingItem from '../../molecules/TakingItem';
 import TabMenu from '../../molecules/TabMenu';
+
 function MyMediTemplate({
   isActive,
   likepills,
@@ -17,6 +18,7 @@ function MyMediTemplate({
   DeleteMine,
   DeleteTaking,
   handleInfiniteScroll,
+  onMedicineClick,
 }) {
   const listHeight = window.innerHeight - 350;
   let tabContent;
@@ -25,7 +27,7 @@ function MyMediTemplate({
     tabContent=(
       <LikeContainer height={listHeight} onScroll={handleInfiniteScroll}>
         {likepills.map((likepill) => (     
-          <MyMediItem medicine={likepill} DeleteMine={DeleteMine} key={likepill.id}/>
+          <MyMediItem medicine={likepill} DeleteMine={DeleteMine} key={likepill.id} onMedicineClick={onMedicineClick}/>
         ))}
       </LikeContainer>
     )
@@ -34,7 +36,7 @@ function MyMediTemplate({
     tabContent = (
       <LikeContainer>
         {takingpills.map((takingpill) => (     
-          <TakingItem medicine={takingpill} DeleteTaking={DeleteTaking} key={takingpill.id} />
+          <TakingItem medicine={takingpill} DeleteTaking={DeleteTaking} key={takingpill.id} onMedicineClick={onMedicineClick}/>
         ))}
       </LikeContainer>
     )
@@ -45,6 +47,7 @@ function MyMediTemplate({
       <MyPillContainer>
         <TabMenu tabNames={["나의 약", "복용중인 약"]} onTabClick={onTabClick} activeTab={activeTab} />
         {tabContent }
+
       </MyPillContainer>
       <FooterNav isActive={isActive}/>
     </>
