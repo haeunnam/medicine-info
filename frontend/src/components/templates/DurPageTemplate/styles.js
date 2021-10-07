@@ -6,7 +6,6 @@ export const DurContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 45px;
-  overflow:scroll;
 
   .search-box{
     margin:10px 0;
@@ -23,3 +22,4 @@ export const DurContainer = styled.div`
 
 
 `;
+

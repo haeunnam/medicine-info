@@ -6,5 +6,6 @@ export const LikeContainer = styled.div`
   padding: 16px 24px 42px;
   height: ${(props) => props.height}px;
   overflow: scroll;
+  overflow-x: hidden;
   background-color: ${theme.colors.brightGray};
 `
