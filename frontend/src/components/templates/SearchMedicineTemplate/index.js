@@ -29,6 +29,7 @@ function SearchMedicineTemplate({
     (state) => state.medicineReducer.searchMedicines
   );
   const listHeight = window.innerHeight - 205;
+  const categoryListHeight = window.innerHeight - 240;
 
   return (
     <>
@@ -58,7 +59,7 @@ function SearchMedicineTemplate({
         ) : (
           <>
             <h1 className="category">카테고리</h1>
-            <CategoryContainer>
+            <CategoryContainer height={categoryListHeight}>
               {category?.map((name, idx) => (
                 <CategoryBox
                   children={name}

@@ -76,6 +76,7 @@ export const MedicinesContainer = styled.div`
 
 export const MedDetailContainer = styled.div`
   padding: 12px 18px 24px;
+  height: ${(props) => props.height}px;
   font-size: ${theme.fontSizes.md};
   .med-detail {
     margin-bottom: 20px;
@@ -90,4 +91,5 @@ export const MedDetailContainer = styled.div`
   }
 `;
 
-export const Wrapper = styled.div``;
+export const Wrapper = styled.div`
+`;

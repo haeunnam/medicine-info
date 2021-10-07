@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 60px;
+  height: 100vh;
   padding: 20px 30px 40px;
   .medicine {
     padding: 20px 0;

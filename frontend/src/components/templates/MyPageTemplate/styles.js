@@ -3,6 +3,8 @@ import theme from "../../../styles/theme";
 
 export const InfoContainer = styled.div`
   width: 100%;
+  height: 100vh;
+
   display: flex;
   padding: 10px 45px;
   flex-direction: column;

@@ -7,6 +7,8 @@ export const FormContainer = styled.div`
 
 export const Wrapper = styled.div`
   display: flex;
+  height: 100vh;
+
   flex-direction: column;
   padding: 0 45px;
   align-items: center;
