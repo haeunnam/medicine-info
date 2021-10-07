@@ -97,6 +97,31 @@ export const getMyReviews = (page = 0) =>
     }
   };
 
+export const deleteLikeMedi = (id) =>
+  async (dispatch) => {
+
+    const response = await requestDelete(`/like-medicines/${id}`);
+    if (response.data.isSuccess) {
+      dispatch(getLikeMedicines());
+    }
+    else{
+      console.log(response);
+    }
+  };
+
+export const deleteTakingMedi = (id) =>
+  async (dispatch) => {
+
+    const response = await requestDelete(`/my-medicines/${id}`);
+    if (response.data.isSuccess) {
+      dispatch(getTakingMedicines());
+    }
+    else{
+      console.log(response);
+    }
+  };
+
+
 export const deleteMine = (id) =>
   async (dispatch) => {
 

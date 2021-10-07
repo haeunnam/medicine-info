@@ -4,19 +4,17 @@ import { useHistory } from "react-router";
 import {AiOutlineClose} from 'react-icons/ai';
 const MyMediItem = ({ medicine, DeleteMine, onMedicineClick }) => {
   const history = useHistory();
-  const DEFAULT_IMG =
-    "https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif";
+  const DEFAULT_IMAGE = "/img/no-image.png"
   return (
     <Wrapper
-      onClick={() => onMedicineClick(medicine.medicineId || medicine.id)}
     >
       
       <img
         className="medicine-img"
-        src={medicine.image ? medicine.image : DEFAULT_IMG}
+        src={medicine.image ? medicine.image : DEFAULT_IMAGE}
         alt="medicine"
       />
-      <div className="content">
+      <div className="content"  onClick={() => onMedicineClick(medicine.medicineId || medicine.id)}>
         <h2 className="medicine-company">{medicine.company}</h2>
         <h1 className="medicine-name">{medicine.name}</h1>
         <div className="medicine-rating">
