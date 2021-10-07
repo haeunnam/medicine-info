@@ -28,7 +28,6 @@ const initialState = {
 export const getUserInfo = () =>
   async (dispatch) => {
     const response = await requestGet("/users/profile");
-    console.log(response);
     dispatch(setUserInfo(response.result));
   }
 

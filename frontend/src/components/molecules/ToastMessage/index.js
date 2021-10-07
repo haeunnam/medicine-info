@@ -12,7 +12,6 @@ export default function ToastMessage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("확인");
     if (toastShow) {
       setTimeout(function () {
         dispatch(hideToast());

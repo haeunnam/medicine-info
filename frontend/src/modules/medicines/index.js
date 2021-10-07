@@ -104,9 +104,6 @@ export const deleteLikeMedi = (id) =>
     if (response.data.isSuccess) {
       dispatch(getLikeMedicines());
     }
-    else{
-      console.log(response);
-    }
   };
 
 export const deleteTakingMedi = (id) =>
@@ -115,9 +112,6 @@ export const deleteTakingMedi = (id) =>
     const response = await requestDelete(`/my-medicines/${id}`);
     if (response.data.isSuccess) {
       dispatch(getTakingMedicines());
-    }
-    else{
-      console.log(response);
     }
   };
 
@@ -128,9 +122,6 @@ export const deleteMine = (id) =>
     const response = await requestDelete(`/reviews/${id}`);
     if (response.isSuccess) {
       dispatch(getMyReviews());
-    }
-    else{
-      console.log(response);
     }
   };
 
