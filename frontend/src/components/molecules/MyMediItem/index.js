@@ -2,12 +2,15 @@ import { Wrapper, DeleteButton } from "./styles";
 import { Icon } from "@iconify/react";
 import { useHistory } from "react-router";
 import {AiOutlineClose} from 'react-icons/ai';
-const MyMediItem = ({ medicine, DeleteMine }) => {
+const MyMediItem = ({ medicine, DeleteMine, onMedicineClick }) => {
   const history = useHistory();
   const DEFAULT_IMG =
     "https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif";
   return (
-    <Wrapper>
+    <Wrapper
+      onClick={() => onMedicineClick(medicine.medicineId || medicine.id)}
+    >
+      
       <img
         className="medicine-img"
         src={medicine.image ? medicine.image : DEFAULT_IMG}
