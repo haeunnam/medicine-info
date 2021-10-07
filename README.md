@@ -1,4 +1,4 @@
-# :hatching_chick: 이게 뭐약?! 
+<img src="./exec/assets/logo.png" width="500">
 
 <hr>
 
@@ -10,42 +10,70 @@
 
 ## :heavy_check_mark: 개발 기간
 ### 2021.08.30 ~ 2021.10.08 (6주)
-<br>
+<br><br>
 
 ## :heavy_check_mark: 이게 뭐약?! 서비스 개요
 - DUR ( Drug Utilization Review 의약품 적정사용)을 알기 쉽게 제공하는 서비스.
-- `범용금기 의약품`, `효능 중복 주의` 또는 `임부`, `어린이`, `용량`, `투여시간` 별로 투여 시 주의해야 하는 의약품 정보를 알기 쉽게 제공합니다.
+- `범용금기 의약품`, `효능 중복 주의` 또는 `임부`, `어린이`, `용량`, `투여시간` 별로 <br> 투여 시 주의해야 하는 의약품 정보를 알기 쉽게 제공합니다.
+
+### 주요기능
+### 1. 의약품 상세 정보 제공 서비스
+<table>
+    <tbody>
+        <tr>
+            <td rowspan=4>
+            <img src="./exec/assets/search_similar.png" width="200">
+            </td>
+        </tr>
+        <tr>
+            <td>1. 공공 데이터로 제공되는 의약품 데이터를 활용해, 해당 의약품에 대한 상세 정보 제공</td>
+        </tr>
+        <tr>
+            <td>2. 해당 의약품 사용자 리뷰 정보 제공</td>
+        </tr>
+        <tr>
+            <td>3. 성분 유사도를 따져 현재 선택한 약과 유사한 의약품 정보 제공</td>
+        </tr>
+    </tbody>
+</table>
+
+### 2. DUR(범용금기) 의약품 정보 제공 서비스
+<table>
+    <tbody>
+        <tr>
+            <td rowspan=4>
+            <img src="./exec/assets/search_dur.png" width="200">
+            </td>
+        </tr>
+        <tr>
+            <td>1. 선택한 의약품들을 조합한 결과 제공</td>
+        </tr>
+        <tr>
+            <td>2. 조건에 따른 (연령별, 임부, 용량, 투여시간) <br> 투약 주의 약물 복용에 관련된 주의 사항 전달</td>
+        </tr>
+        <tr>
+            <td>3. 범용금기(동시 복용), 효능 중복 주의 약물 복용에 관련된 주의 사항 전달</td>
+        </tr>
+    </tbody>
+</table>
 
 <br>
 
-1. 의약품 상세 정보 제공 서비스
-     - 공공 데이터로 제공되는 의약품 데이터를 활용해, 해당 의약품에 대한 상세 정보 제공
-     - 해당 의약품 사용자 리뷰 정보 제공
-     - 성분 유사도를 따져 현재 선택한 약과 유사한 의약품 정보 제공
-2. 범용금기 의약품 정보 제공 서비스
-     - 선택한 의약품들의 조합을 통해, <br> 범용금기(동시 복용), 효능 중복 주의, 연령별(임부, 용량, 투여시간) 투약 주의 약물 복용에 관련된 주의 사항 전달
+## :heavy_check_mark: 기술 스택 및 아키텍처
+![tech_stack](./exec/assets/wtm_tech_stack.png)
 
-<br><br>
+<br>
 
-## :heavy_check_mark: 기술 스택
-- BE : SpringBoot / Spring Data JPA
-- FE: React.js
-- DB: MySQL, MongoDB
+![architecture](./exec/assets/wtm_architecture.png)
 
-<br><br>
+<br>
 
 ## :heavy_check_mark: 프로젝트 세팅 방법
 - [Frontend](./frontend/README.md)
 - [Backend](./backend/README.md)
 - [Hadoop](./hadoop/README.md)
 
-<br><br>
-
-## :heavy_check_mark: 이게뭐약?! 주요 기능
-### 1. 의약품 상세 정보 제공 서비스
-### 2. 범용금기 의약품 정보 제공 서비스
-
-<br><br>
+<br>
 
 ## :heavy_check_mark: 프로젝트 기여방법
 ### :rocket: Custom git flow
@@ -59,11 +87,13 @@
 
 - feat와 fix는 기능별로 depth를 타고 내려간다.
 
-- 즉, feature와 fix branch를 만들 때는, <br> 1) **/** 뒤에 백엔드인지 프론트엔드 작업인지 정의한다. <br> 2) 그 다음 depth로 **/** 뒤에 처리하는 기능의 요약을 붙이도록 한다. <br>ex) feat/BE/signup , fix/FE/signup
+- 즉, feat와 fix branch를 만들 때는, <br> 1) **/** 뒤에 백엔드인지 프론트엔드 작업인지 정의한다. <br> 2) 그 다음 depth로 **/** 뒤에 처리하는 기능의 요약을 붙이도록 한다. <br>ex) feat/BE/signup , fix/FE/signup
 
-- feature 와 fix branch에서 개발이 완료되면 parent인 develop branch로 merge된다.
+- feat 와 fix branch에서 개발이 완료되면 parent인 develop branch로 merge된다.
 
 - ***main branch에는 직접적으로 접근할 수 없다.***
+
+<br>
 
 ### :rocket: Git convention
 #### 1. Commit Message Format
