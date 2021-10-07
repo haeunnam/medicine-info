@@ -16,6 +16,7 @@ import CategoryMedicine from "./pages/medicines/CategoryMedicine";
 import MyReview from "./pages/user/MyReview";
 import Deactivate from './pages/user/Deactivate';
 import PublicRoute from "./lib/PublicRoute";
+import ToastMessage from "./components/molecules/ToastMessage";
 
 function AppRouter() {
   return (
@@ -41,6 +42,7 @@ function AppRouter() {
           <Route path="*" component={PageNotFound} />
         </Switch>
       </BrowserRouter>
+      <ToastMessage/>
     </ThemeProvider>
   );
 }

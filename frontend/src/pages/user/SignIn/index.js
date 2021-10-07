@@ -6,6 +6,7 @@ import { request, requestGet } from "../../../api";
 import { useDispatch } from "react-redux";
 import { setUserId, setUserInfo } from "../../../modules/user";
 import { useEffect } from "react";
+import { showToast } from "../../../modules/feedback";
 
 
 function SignIn() {
@@ -24,7 +25,7 @@ function SignIn() {
 
   async function handleLogin() {
     if (!email.isValid || !password.isValid) {
-      alert("이메일과 패스워드를 확인해주세요.");
+      dispatch(showToast("이메일과 패스워드를 확인해주세요."));
       return;
     }
     const data = {
@@ -42,7 +43,7 @@ function SignIn() {
       // bringUserInfo();
       history.push({ pathname: "/" });
     } else {
-      alert("가입하지 않은 이메일이거나, 잘못된 비밀번호입니다.");
+      dispatch(showToast("가입하지 않은 이메일이거나, 잘못된 비밀번호입니다."));
     }
   }
 

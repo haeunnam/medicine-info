@@ -8,9 +8,11 @@ import {
   nicknameValidator,
 } from "../../../validator";
 import { useState } from "react";
+import { showToast } from "../../../modules/feedback";
 
 function Signup() {
   const history = useHistory();
+  const dispatch = useHistory();
 
   const email = useInput("", emailValidator);
   const password = useInput("", passwordValidator);
@@ -30,7 +32,7 @@ function Signup() {
   //api 요청
   async function handleSignUp() {
     if (password.value !== passwordConfirm.value) {
-      alert("비밀번호를 확인해주세요.");
+      dispatch(showToast("비밀번호를 확인해주세요."));
       return;
     }
     if (
@@ -41,7 +43,7 @@ function Signup() {
       !birthDate ||
       !gender
     ) {
-      alert("모든 항목을 입력하세요.");
+      dispatch(showToast("모든 항목을 입력하세요."));
       return;
     }
 
@@ -54,13 +56,13 @@ function Signup() {
     };
     const response = await request("POST", "/users/signup", data);
     if (response.isSuccess) {
-      alert("회원가입이 완료되었습니다.");
+      dispatch(showToast("회원가입이 완료되었습니다."));
       history.replace({ pathname: "/signin" });
     } else {
       if (response.code === 404) {
-        alert("이미 사용중인 이메일입니다.");
+        dispatch(showToast("이미 사용중인 이메일입니다."));
       } else if (response.code === 405) {
-        alert("이미 존재하는 닉네임입니다.");
+        dispatch(showToast("이미 존재하는 닉네임입니다."));
       }
     }
   }
