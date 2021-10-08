@@ -7,7 +7,7 @@ function MyReviewTemplate({
   reviewDelete,
   reviewUpdate,
   handleInfiniteScroll,
-  deleteAllReviews,
+  onMedicineClick,
 
 }) {
   return (
@@ -21,17 +21,10 @@ function MyReviewTemplate({
               key={idx}
               reviewDelete={reviewDelete}
               reviewUpdate={reviewUpdate}
+              onMedicineClick={onMedicineClick}
             />
           ))) :
           ("")}
-        <Button>
-          <button
-          className="delete-all-btn"
-          onClick={deleteAllReviews}
-          >
-            리뷰 전체삭제
-          </button>
-        </Button>
 
       </Wrapper>
     </>

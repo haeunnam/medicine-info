@@ -116,11 +116,10 @@ export const deleteTakingMedi = (id) =>
   };
 
 
-export const deleteMine = (id) =>
+export const deleteMine = (reviewId) =>
   async (dispatch) => {
-
-    const response = await requestDelete(`/reviews/${id}`);
-    if (response.isSuccess) {
+    const response = await requestDelete(`/reviews/${reviewId}`);
+    if (response.data.isSuccess) {
       dispatch(getMyReviews());
     }
   };
