@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router";
 import { getMyReviews, deleteMine, deleteAll} from "../../../modules/medicines";
+import { doNotRefresh } from "../../../modules/medicine";
 import MyReviewTemplate from "../../../components/templates/MyReviewTemplate";
 
 function MyReview() {
@@ -18,7 +19,12 @@ function MyReview() {
   }
 
   function reviewDelete(review){
-    dispatch(deleteMine(review));
+    dispatch(deleteMine(review.reviewId));
+  }
+
+  function onMedicineClick(medicineId) {
+    dispatch(doNotRefresh());
+    history.push(`/medicines/${medicineId}`);
   }
 
   function reviewUpdate(data){
@@ -40,13 +46,10 @@ function MyReview() {
     });
   }
 
-  function deleteAllReviews(){
-    dispatch(deleteAll());
-  }
 
   useEffect(()=>{
     dispatch(getMyReviews());
-  },[myReviews])
+  },[])
 
   return (
     <MyReviewTemplate
@@ -54,7 +57,7 @@ function MyReview() {
       handleInfiniteScroll={handleInfiniteScroll}
       reviewDelete={reviewDelete}
       reviewUpdate={reviewUpdate}
-      deleteAllReviews={deleteAllReviews}
+      onMedicineClick={onMedicineClick}
     />
   );
 }
