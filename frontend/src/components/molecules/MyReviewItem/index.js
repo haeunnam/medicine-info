@@ -1,7 +1,7 @@
 import { Wrapper } from "./styles";
 import MedicineItem from "../MedicineItem";
 
-const MyReviewItem = ({ review, reviewUpdate, reviewDelete }) => {
+const MyReviewItem = ({ review, reviewUpdate, reviewDelete, onMedicineClick}) => {
   const medicines = {
     image: review.image,
     name: review.name,
@@ -12,7 +12,7 @@ const MyReviewItem = ({ review, reviewUpdate, reviewDelete }) => {
   return (
     <Wrapper>
       <header className="review-header">
-          <MedicineItem medicine={medicines} />
+          <MedicineItem medicine={medicines} onMedicineClick={onMedicineClick}  />
           <div className="btn">
             <button className="update-btn" onClick={() => reviewUpdate(review)}>
               수정
