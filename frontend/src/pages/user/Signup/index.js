@@ -9,10 +9,11 @@ import {
 } from "../../../validator";
 import { useState } from "react";
 import { showToast } from "../../../modules/feedback";
+import { useDispatch } from "react-redux";
 
 function Signup() {
   const history = useHistory();
-  const dispatch = useHistory();
+  const dispatch = useDispatch();
 
   const email = useInput("", emailValidator);
   const password = useInput("", passwordValidator);
@@ -54,6 +55,7 @@ function Signup() {
       birth: new Date(birthDate).toISOString().substring(0, 10),
       gender,
     };
+
     const response = await request("POST", "/users/signup", data);
     if (response.isSuccess) {
       dispatch(showToast("회원가입이 완료되었습니다."));
