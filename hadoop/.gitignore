@@ -1,6 +1,7 @@
 ### Hadoop ### 
 build/
 medicine-hadoop.jar
+data/
 
 ### Mac Os ###
 .DS_Store
