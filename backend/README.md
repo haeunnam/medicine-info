@@ -17,15 +17,15 @@
 ### 1. Clone this repository
 ```
 // 레포지토리 클론
-$ git clone <https://lab.ssafy.com/s05-bigdata-dist/S05P21B205.git>
+$ git clone <https://github.com/jjuyeon/What-The-Medicine.git>
 
 // 경로 변경
-$ cd S05P21B205/backend
+$ cd What-The-Medicine/backend
 ```
 
 ### 2. Setup application.yml
 ```
-# S05P21B205/backend/src/main/resources/application.yml
+# What-The-Medicine/backend/src/main/resources/application.yml
 
 spring:
   datasource:

@@ -71,7 +71,7 @@ $ sudo apt-get install nginx
 
 - Move build file to Nginx root directory(/usr/share/nginx/html)
 ```
-$ cd S05P21B205/frontend
+$ cd What-The-Medicine/frontend
 
 // npm package install
 $ npm install
@@ -148,7 +148,7 @@ $ sudo service nginx start
 ## 4. Setup application.yml
 - Set environment variables according to your project. 
 ```
-# S05P21B205/backend/src/main/resources/application.yml
+# What-The-Medicine/backend/src/main/resources/application.yml
 
 spring:
   datasource:
@@ -185,7 +185,7 @@ server:
 ## 5. Setup Web Application Server
 - Before deploying, you have to set application.yml in your project
 ```
-$ cd S05P21B205/backend
+$ cd What-The-Medicine/backend
 
 $ chmod +x gradlew
 

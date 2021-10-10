@@ -30,7 +30,7 @@
     <fileset dir="${lib.dir}">
       <include name="**/*.jar" />
     </fileset>
-    <fileset dir="/home/j5b205/S05P21B205/hadoop/dependencies/">
+    <fileset dir="/home/j5b205/What-The-Medicine/hadoop/dependencies/">
       <include name="**/*.jar" />
     </fileset>
   </path>

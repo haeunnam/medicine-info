@@ -99,11 +99,11 @@
 #### 1. Commit Message Format
 - 모든 커밋 메시지는 다음과 같은 형식을 **반드시** 따르도록 한다.
 ```
-<[BE] or [FE]> <type>: <message> (<issue number>)
+<[BE] or [FE]> <type>: <message> <issue number>
 ```
-- ex) <br> `[BE] feat: Add user login api (S05P21B205-0)`
-<br> `[FE] fix: Fix bug to can't login using google login (S05P21B205-0)`
-<br> `docs: Update README.md`
+- ex) <br> `[BE] feat: Add user login api #1`
+<br> `[FE] fix: Fix bug to can't login using google login #2`
+<br> `docs: Update README.md #3`
 
 #### 2. BE / FE
 |         type          |                 description                 |
