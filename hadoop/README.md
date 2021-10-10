@@ -4,10 +4,10 @@
 ### 1. Clone this repository
 ```
 // 레포지토리 클론
-$ git clone <https://lab.ssafy.com/s05-bigdata-dist/S05P21B205.git>
+$ git clone <https://github.com/jjuyeon/What-The-Medicine.git>
 
 // 경로 변경
-$ cd S05P21B205/hadoop
+$ cd What-The-Medicine/hadoop
 ```
 
 ### 2. Set environment variable for hadoop classpath
@@ -15,20 +15,20 @@ $ cd S05P21B205/hadoop
 # environment variable for hadoop classpath
 # need to use external jar
 
-export HADOOP_CLASSPATH=:/home/j5b205/S05P21B205/hadoop/dependencies/*
+export HADOOP_CLASSPATH=:/home/j5b205/What-The-Medicine/hadoop/dependencies/*
 ```
 
 ### 3. How to run hadoop mapReduce code
 - Compile mapReduce code
 ```
-$ cd /home/j5b205/S05P21B205/hadoop
+$ cd /home/j5b205/What-The-Medicine/hadoop
 
 $ ant
 ```
 
 - Put dataset into HDFS
 ```
-$ cd /home/j5b205/S05P21B205/hadoop
+$ cd /home/j5b205/What-The-Medicine/hadoop
 
 $ hdfs dfs -mkdir {YOUR_INPUT_DIRECTORY}
 
@@ -38,7 +38,7 @@ $ hdfs dfs -put data/{YOUR_INPUT_DATASET} {YOUR_INPUT_DIRECTORY}
 - Run mapReduce algorithm code 
     - After finishing mapReduce code, this result saves in your mongoDB
 ```
-$ cd /home/j5b205/S05P21B205/hadoop
+$ cd /home/j5b205/What-The-Medicine/hadoop
 
 $ hadoop jar medicine-hadoop.jar {HADOOP_COMMAND} {YOUR_INPUT_DIRECTORY} {YOUR_MONGODB_DATABASE}.{YOUR_MONGODB_COLLECTION}
 ```

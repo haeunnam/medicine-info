@@ -4,10 +4,10 @@
 
 ```plaintext
 // 레포지토리 클론
-$ git clone <https://lab.ssafy.com/s05-bigdata-dist/S05P21B205.git>
+$ git clone <https://github.com/jjuyeon/What-The-Medicine.git>
 
 // 경로 변경
-$ cd S05P13B307/front
+$ cd What-The-Medicine/frontend
 
 // npm package install
 $ npm install
