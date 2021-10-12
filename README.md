@@ -3,8 +3,8 @@
 <hr>
 
 ## :bulb: Contributor
-### Frontend: 곽나현, 남하은
-### Backend: 심예은, 오웅식, 이지원, 진수연
+### Frontend: [곽나현](https://github.com/moongchi98), [남하은](https://github.com/haeunnam)
+### Backend: [심예은](https://github.com/Shimyeeun), [오웅식](https://github.com/woongsikOH), [이지원](https://github.com/Lee-Ji-won), [진수연](https://github.com/jjuyeon)
 
 <br>
 
